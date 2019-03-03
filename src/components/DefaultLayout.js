@@ -35,7 +35,7 @@ class DefaultLayout extends Component {
             	<Route path="/login" name="Login" exact component={Login} />
             	<Route path="/cart" name="Cart" component={Cart} />
             	<Route path="/contact" name="Contact" component={Contact} />
-            	<Route path="/shop" name="Contact" component={Shop} />
+            	<Route path="/:mitra" name="ProductsMitra" component={Shop} />
             </Switch>
             </main>
 	      </div>

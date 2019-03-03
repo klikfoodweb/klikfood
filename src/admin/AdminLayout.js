@@ -16,9 +16,18 @@ import CategoryList from './category/CategoryList';
 import CategoryCreate from './category/CategoryCreate';
 import CategoryUpdate from './category/CategoryUpdate';
 
+import SubCategoryList from './category/SubCategoryList';
+import SubCategoryCreate from './category/SubCategoryCreate';
+import SubCategoryUpdate from './category/SubCategoryUpdate';
+
 import UserList from './user/UserList';
 import UserCreate from './user/UserCreate';
 import UserUpdate from './user/UserUpdate';
+
+import ProductList from './product/ProductList';
+import ProductCreate from './product/ProductCreate';
+import ProductUpdate from './product/ProductUpdate';
+import ProductShow from './product/ProductShow';
 
 class AdminLayout extends Component {
 	componentWillMount() {
@@ -76,11 +85,19 @@ class AdminLayout extends Component {
 	            	
 	            	<Route path="/admin/categories/:id/update" component={CategoryUpdate} />
 	            	<Route path="/admin/categories/create" component={CategoryCreate} />
+	            	<Route path="/admin/categories/:id/create" component={SubCategoryCreate} />
+	            	<Route path="/admin/categories/:id/:sub/update" component={SubCategoryUpdate} />
+	            	<Route path="/admin/categories/:id" component={SubCategoryList} />
 	            	<Route path="/admin/categories" component={CategoryList} />
 
 	            	<Route path="/admin/users/:id/update" component={UserUpdate} />
 	            	<Route path="/admin/users/create" component={UserCreate} />
 	            	<Route path="/admin/users" component={UserList} />
+
+	            	<Route path="/admin/products/:id/update" component={ProductUpdate} />
+	            	<Route path="/admin/products/create" component={ProductCreate} />
+	            	<Route path="/admin/products/:id" component={ProductShow} />
+	            	<Route path="/admin/products" component={ProductList} />	            	
 	            </Switch>
 	            </main>
 	          

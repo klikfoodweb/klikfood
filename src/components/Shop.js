@@ -5,15 +5,28 @@ import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import Pagination from './Pagination';
 
 class Shop extends Component {
-	constructor(props) {
-		super(props);
+	constructor() {
+	    super();
 
-		this.state = {
-			value: 250000,
-			categories: []
-		};
+	    // an example array of items to be paged
+	    var exampleItems = [...Array(150).keys()].map(i => ({ id: (i+1), name: 'Item ' + (i+1) }));
+
+	    this.state = {
+	        exampleItems: exampleItems,
+	        pageOfItems: [],
+	 		categories: []
+	    };
+
+	    // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+	    this.onChangePage = this.onChangePage.bind(this);
+	}
+
+	onChangePage(pageOfItems) {
+	    // update state with new page of items
+	    this.setState({ pageOfItems: pageOfItems });
 	}
 
 	componentDidMount() {
@@ -107,254 +120,12 @@ class Shop extends Component {
 		                      </div>
 		                    </div>
 		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/shop/product10.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/shop/product9.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                        <img src="images/home/new.png" className="new" alt />
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/shop/product8.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                        <img src="images/home/sale.png" className="new" alt />
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/shop/product7.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product6.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product5.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product4.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product3.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product2.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product1.jpg" alt />
-		                          <h2>$56</h2>
-		                          <p>Easy Polo Black Edition</p>
-		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                        </div>
-		                        <div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>$56</h2>
-		                            <p>Easy Polo Black Edition</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          
-		                        </ul>
-		                      </div>
-		                    </div>
-		                  </div>
-		                  <ul className="pagination">
-		                    <li className="active"><a href>1</a></li>
-		                    <li><a href>2</a></li>
-		                    <li><a href>3</a></li>
-		                    <li><a href>»</a></li>
-		                  </ul>
+
+		                  {this.state.pageOfItems.map(item =>
+		                      <div key={item.id}>{item.name}</div>
+		                  )}
+		                  <Pagination items={this.state.exampleItems} onChangePage={this.onChangePage} />
+		                  
 		                </div>{/*features_items*/}
 		              </div>
 		            </div>

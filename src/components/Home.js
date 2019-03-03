@@ -18,6 +18,7 @@ class Home extends Component {
 	componentDidMount() {
 		axios.get(`https://apiklikfood.herokuapp.com/kategori`)
 		  .then((response) => {
+		  		console.log(response.data.data);
 		  	this.setState({
 		  		categories: response.data.data
 		  	})
@@ -37,13 +38,29 @@ class Home extends Component {
 	                <div className="left-sidebar">
 	                  <h2>Kategori</h2>
 	                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
-                    	{ this.state.categories.map((category,i) =>   
-                       <div className="panel panel-default" key={category.id}>
-                         <div className="panel-heading">
-                           <h4 className="panel-title"><a href="#">{category.name}</a></h4>
-                         </div>
-                       </div>
+                    	
+                    	{ this.state.categories.map((category,i) =>
+                    	<div class="panel panel-default" key={category.kategori.id}>
+                    		<div class="panel-heading">
+                    			<h4 class="panel-title">
+                    				<a data-toggle="collapse" data-parent="#accordian" href={"#"+category.kategori._id}>
+                    					<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+                    					{category.kategori.name}
+                    				</a>
+                    			</h4>
+                    		</div>
+                    		<div id={category.kategori._id} class="panel-collapse collapse">
+                    			<div class="panel-body">
+                    				<ul>
+                    				{ category.subkategori.map((subcategory,i) =>
+                    					<li key={ subcategory._id }><a href="#">{ subcategory.name } </a></li>
+                    				) }
+                    				</ul>
+                    			</div>
+                    		</div>
+                    	</div>
                     	) }
+
 	                  </div>{/*/category-products*/}
 	                  <div className="price-range">{/*New-Product*/}
 	                    <h2>Produk Baru</h2>

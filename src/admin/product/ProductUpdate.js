@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-class Testing extends Component {
+class ProductUpdate extends Component {
 	render() {
 		return (
 			<div></div>
 		);
 	}
 }
-export default Testing;
+export default ProductUpdate;

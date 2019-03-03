@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import AdminLayout from './admin/AdminLayout.js';
+import AdminLayout from './admin/AdminLayout';
+import PaginationControl from './components/PaginationControl';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -23,7 +24,7 @@ class App extends Component {
       <div>
 		  <BrowserRouter>
 		      <Switch>
-		        {/*<Route exact path="/register" name="Register Page" component={Register} />*/}
+		        <Route exact path="/testing" name="Testing Page" component={PaginationControl} />
 		        <Route path="/admin" name="Home" component={AdminLayout} />
 		        <Route path="/" name="Home" component={DefaultLayout} />
 		      </Switch>

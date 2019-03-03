@@ -139,7 +139,7 @@ class Header extends Component {
 	                      <li className="dropdown"><a href="#">Kategori<i className="fa fa-angle-down" /></a>
 	                        <ul role="menu" className="sub-menu">
 	                        { this.state.categories.map((category,i) => 
-	                          <li><Link to="/shop">{ category.name }</Link></li>	
+	                          <li><Link to="/shop">{ category.kategori.name }</Link></li>	
 	                        ) }
 	                        </ul>								
 	                      </li> 								

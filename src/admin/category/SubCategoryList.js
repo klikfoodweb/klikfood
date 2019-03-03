@@ -10,16 +10,19 @@ class CategoryList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: []
+			subCategories: []
 		}
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+
+		axios.get(`http://apiklikfood.herokuapp.com/kategori/show/`+this.props.match.params.id)
 		  .then((response) => {
-		  	console.log(response.data.data)
 		  	this.setState({
-		  		categories: response.data.data
+		  		subCategories: response.data.data.subkategori
 		  	})
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
@@ -35,30 +38,23 @@ class CategoryList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://apiklikfood.herokuapp.com/kategori/destroy/`+e.target.value)
+  			axios.delete(`http://apiklikfood.herokuapp.com/subkategori/destroy/`+e.target.value)
   		      .then(res => {
-  		      	toast.success("Kategori Terhapus !");
+  		      	toast.success("Sub Kategori Terhapus !");
   		      	setTimeout(() => {
   		      		window.location.href='/admin/categories';
   		      	}, 3000)
   		      }).catch(err => {
   		      	toast.error("Something Went Wrong :( ");
   		      });	  		
-	  	} } value={row.kategori._id} className="btn btn-danger"> Delete </button>;
+	  	} } value={row._id} className="btn btn-danger"> Delete </button>;
 	}
 
 	updateLayout(cell, row){
-		const id = row.kategori._id;
-	  	return <Link className="btn btn-warning" to={`/admin/categories/${id}/update`}> Update </Link>;
-	}
-
-	subCategoryLayout(cell, row){
-		const id = row.kategori._id;
-	  	return <Link className="btn btn-success" to={`/admin/categories/${id}`}> Lihat </Link>;
-	}
-
-	nameFormatter(value, row, index) {
-		return `<p>${value.name}</p>`;
+		const idCat = row.kategori_id;
+		const id = row._id;
+		
+	  	return <Link className="btn btn-warning" to={`/admin/categories/${idCat}/${id}/update`}> Update </Link>;
 	}
 
 	render() {
@@ -71,20 +67,19 @@ class CategoryList extends Component {
 	              <div className="card">
 	                <div className="header">
 	                  <h2>
-	                    Category List
+	                    Sub Category List
 	                  </h2>
 	                  
 	                </div>
 	                <div className="body">
 	                  <div className="table-responsive">
-	                  	<Link to="/admin/categories/create" className="btn btn-primary"> Buat Kategori </Link>
-	                  	<BootstrapTable data={this.state.categories} striped search pagination hover>
+	                  	<Link to={"/admin/categories/"+this.props.match.params.id+"/create"} className="btn btn-primary"> Buat Sub Kategori </Link>
+	                  	<BootstrapTable data={this.state.subCategories} striped search pagination hover>
 	                  		<TableHeaderColumn dataField='id' isKey={ true } hidden>Category ID</TableHeaderColumn>
 	                  	  	<TableHeaderColumn dataField="any" dataFormat={this.indexN} width="70">No</TableHeaderColumn>
-		                  	<TableHeaderColumn dataField='kategori' dataFormat={ this.nameFormatter } dataSort={true}>Name</TableHeaderColumn>
-		                  	<TableHeaderColumn dataField='any' dataFormat={ this.subCategoryLayout } width="150"> </TableHeaderColumn>
-		                  	<TableHeaderColumn dataField='any' dataFormat={ this.updateLayout } width="150"> </TableHeaderColumn>
-		                  	<TableHeaderColumn dataField='any' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>
+		                  	<TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
+		                  	<TableHeaderColumn dataField='update' dataFormat={ this.updateLayout } width="150"> </TableHeaderColumn>
+		                  	<TableHeaderColumn dataField='delete' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>
 	                  	</BootstrapTable>,  
 	                  </div>
 	                </div>
