@@ -2,7 +2,7 @@
   "name": "tutorialreact",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://heriher76.github.io/klikfood",
+  "homepage": "https://klikfoodweb.github.io",
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^3.4.1",

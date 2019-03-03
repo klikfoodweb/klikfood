@@ -16,7 +16,7 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`https://apiklikfood.herokuapp.com/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
