@@ -7,18 +7,30 @@ import PaginationControl from './components/PaginationControl';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
+
 // Containers
 const DefaultLayout = Loadable({
   loader: () => import('./components/DefaultLayout'),
   loading
 });
 
-// const Register = Loadable({
-//   loader: () => import('./components/Register'),
-//   loading
-// });
-
 class App extends Component {
+
+constructor(props) {
+	super(props);
+	this.state = {
+		
+	}
+	this.connecToServer = this.connecToServer.bind(this);
+}
+connecToServer() {
+	fetch('/');
+}
+
+componentDidMount() {
+	this.connecToServer();
+}
+
   render() {
     return (
       <div>

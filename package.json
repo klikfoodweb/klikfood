@@ -2,10 +2,12 @@
   "name": "tutorialreact",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "homepage": "https://klikfoodweb.github.io",
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^3.4.1",
+    "concurrently": "^4.1.0",
     "gh-pages": "^2.0.1",
     "qs": "^6.6.0",
     "react": "^16.4.0",
@@ -20,11 +22,10 @@
     "reactstrap": "^7.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
+    "client-install": "npm install --prefix client",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   }
 }
