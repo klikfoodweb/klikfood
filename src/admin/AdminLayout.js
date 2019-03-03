@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import '../assets/css/node-waves/waves.css';
 import '../assets/css/animate-css/animate.css';
 import '../assets/css/morrisjs/morris.css';
@@ -27,7 +27,10 @@ import UserUpdate from './user/UserUpdate';
 import ProductList from './product/ProductList';
 import ProductCreate from './product/ProductCreate';
 import ProductUpdate from './product/ProductUpdate';
-import ProductShow from './product/ProductShow';
+import ProductVerification from './product/ProductVerification';
+
+import Permissions from './Permissions';
+import Roles from './Roles';
 
 class AdminLayout extends Component {
 	componentWillMount() {
@@ -35,8 +38,14 @@ class AdminLayout extends Component {
 	}
 
 	render() {
+		if (sessionStorage.length === 0) {
+			return (
+				<Redirect to={'/login'}/>
+			)
+	    }
+	    
 		return (
-	      <div>
+	      <div>	
 	        {/* Page Loader */}
 	        <div className="page-loader-wrapper">
 	          <div className="loader">
@@ -96,8 +105,12 @@ class AdminLayout extends Component {
 
 	            	<Route path="/admin/products/:id/update" component={ProductUpdate} />
 	            	<Route path="/admin/products/create" component={ProductCreate} />
-	            	<Route path="/admin/products/:id" component={ProductShow} />
+	            	<Route path="/admin/products/verification" component={ProductVerification} />
 	            	<Route path="/admin/products" component={ProductList} />	            	
+	            	
+	            	<Route path="/admin/permissions" component={Permissions} />	            	
+	            	<Route path="/admin/roles" component={Roles} />	            	
+	            
 	            </Switch>
 	            </main>
 	          

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class ProductList extends Component {
+class ProductVerification extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -72,13 +72,12 @@ class ProductList extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Product List
+				          Verifikasi Pengajuan Produk
 				        </h2>
 				        
 				      </div>
 				      <div className="body">
 				        <div className="table-responsive">
-	                  		<Link to="/admin/products/create" className="btn btn-primary"> Tambah Produk </Link>
 	                  		<h3> Belum Terverifikasi </h3>
 				        	<BootstrapTable data={this.state.products} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
@@ -112,4 +111,4 @@ class ProductList extends Component {
 		);
 	}
 }
-export default ProductList;
+export default ProductVerification;

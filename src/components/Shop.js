@@ -17,7 +17,8 @@ class Shop extends Component {
 	    this.state = {
 	        exampleItems: exampleItems,
 	        pageOfItems: [],
-	 		categories: []
+	 		categories: [],
+	 		verifiedproducts: []
 	    };
 
 	    // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
@@ -38,6 +39,16 @@ class Shop extends Component {
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
 		  })		
+
+	  axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	    .then((response) => {
+	    	console.log(response.data.data);
+	    	this.setState({
+	    		verifiedproducts: response.data.data
+	    	})
+	    }).catch((error) => {
+	    	toast.error("Something Went Wrong :(");
+	    })
 	}
 
 	render() {
@@ -53,14 +64,28 @@ class Shop extends Component {
 		            <div className="row">
 		              <div className="col-sm-3">
 		                <div className="left-sidebar">
-		                  <h2>Category</h2>
+		                  <h2>KATEGORI</h2>
 		                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
-		                 	{ this.state.categories.map((category,i) =>   
-		                    <div className="panel panel-default" key={category.id}>
-		                      <div className="panel-heading">
-		                        <h4 className="panel-title"><a href="#">{category.name}</a></h4>
-		                      </div>
-		                    </div>
+		                 	{ this.state.categories.map((category,i) =>
+		                 	<div class="panel panel-default" key={category.kategori.id}>
+		                 		<div class="panel-heading">
+		                 			<h4 class="panel-title">
+		                 				<a data-toggle="collapse" data-parent="#accordian" href={"#"+category.kategori._id}>
+		                 					<span class="badge pull-right"><i class="fa fa-plus"></i></span>
+		                 					{category.kategori.name}
+		                 				</a>
+		                 			</h4>
+		                 		</div>
+		                 		<div id={category.kategori._id} class="panel-collapse collapse">
+		                 			<div class="panel-body">
+		                 				<ul>
+		                 				{ category.subkategori.map((subcategory,i) =>
+		                 					<li key={ subcategory._id }><a href="#">{ subcategory.name } </a></li>
+		                 				) }
+		                 				</ul>
+		                 			</div>
+		                 		</div>
+		                 	</div>
 		                 	) }
 		                  </div>{/*/category-productsr*/}
 		                  
@@ -125,7 +150,7 @@ class Shop extends Component {
 		                      <div key={item.id}>{item.name}</div>
 		                  )}
 		                  <Pagination items={this.state.exampleItems} onChangePage={this.onChangePage} />
-		                  
+
 		                </div>{/*features_items*/}
 		              </div>
 		            </div>

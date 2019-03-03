@@ -22,6 +22,12 @@ class LeftBarAdmin extends Component {
 				          <span>Dashboard</span>
 				        </Link>
 				      </li>
+		      	      <li>
+		      	        <Link to="/admin/products/verification">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>Produk</span>
+		      	        </Link>
+		      	      </li>
 				      <li>
 				        <Link to="/admin/categories">
 				          <i className="material-icons">text_fields</i>

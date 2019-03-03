@@ -16,7 +16,7 @@ class ProductCreate extends Component {
 			harga_supplyer: '',
 			expire: '',
 			deskripsi: '',
-			type: '',
+			type: 'distributor',
 			kategori_id: '',
 			foto_1: null,
 			foto_2: null,
@@ -73,13 +73,12 @@ class ProductCreate extends Component {
 			'Content-Type': 'multipart/form-data',  
 			'Authorization': sessionStorage.api_token 
 		}
-		console.log(bodyFormData);
+		
 		axios.post(`http://apiklikfood.herokuapp.com/produksupplyer/store`, bodyFormData)
 	      .then(response => {
-	      	console.log(response)
 	      	toast.success("Menambah Produk Sukses !");
 	      	setTimeout(() => {
-	      		// window.location.href='/admin/users';
+	      		window.location.href='/admin/products';
 	      	}, 3000)
 	      }).catch(err => {
 	      	toast.error("Something Went Wrong :( ");

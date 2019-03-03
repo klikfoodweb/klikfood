@@ -1,6 +1,27 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Dashboard extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			verifiedproducts: []
+		}
+	}
+
+	componentDidMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		  .then((response) => {
+		  	this.setState({
+		  		verifiedproducts: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+	}
+
 	render() {
 		return (
 			<div>
@@ -15,8 +36,8 @@ class Dashboard extends Component {
 				        <i className="material-icons">playlist_add_check</i>
 				      </div>
 				      <div className="content">
-				        <div className="text">NEW TASKS</div>
-				        <div className="number count-to" data-from={0} data-to={125} data-speed={15} data-fresh-interval={20} />
+				        <div className="text">Jumlah Produk</div>
+				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={15} data-fresh-interval={20} />
 				      </div>
 				    </div>
 				  </div>
@@ -26,8 +47,8 @@ class Dashboard extends Component {
 				        <i className="material-icons">help</i>
 				      </div>
 				      <div className="content">
-				        <div className="text">NEW TICKETS</div>
-				        <div className="number count-to" data-from={0} data-to={257} data-speed={1000} data-fresh-interval={20} />
+				        <div className="text">Jumlah Konsumen</div>
+				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={1000} data-fresh-interval={20} />
 				      </div>
 				    </div>
 				  </div>
@@ -37,8 +58,8 @@ class Dashboard extends Component {
 				        <i className="material-icons">forum</i>
 				      </div>
 				      <div className="content">
-				        <div className="text">NEW COMMENTS</div>
-				        <div className="number count-to" data-from={0} data-to={243} data-speed={1000} data-fresh-interval={20} />
+				        <div className="text">Jumlah Mitra</div>
+				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={1000} data-fresh-interval={20} />
 				      </div>
 				    </div>
 				  </div>
@@ -48,21 +69,14 @@ class Dashboard extends Component {
 				        <i className="material-icons">person_add</i>
 				      </div>
 				      <div className="content">
-				        <div className="text">NEW VISITORS</div>
-				        <div className="number count-to" data-from={0} data-to={1225} data-speed={1000} data-fresh-interval={20} />
+				        <div className="text">Jumlah Pemasok</div>
+				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={1000} data-fresh-interval={20} />
 				      </div>
 				    </div>
 				  </div>
 				</div>
 				{/* #END# Widgets */}
 				
-				<div className="row clearfix">
-				  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				    <div className="card">
-				      
-				    </div>
-				  </div>
-				</div>
 			</div>
 		);
 	}

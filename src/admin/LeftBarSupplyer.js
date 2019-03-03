@@ -32,6 +32,18 @@ class LeftBarSupplyer extends Component {
 				          <i className="material-icons">widgets</i>
 				          <span>Transaksi</span>
 				        </a>
+				        <ul className="ml-menu">
+			                <li>
+			                  <a>
+			                    <span>Penjualan</span>
+			                  </a>
+			                </li>
+			                <li>
+			                  <a>
+			                    <span>Pembelian</span>
+			                  </a>
+			                </li>
+			              </ul>
 				      </li>
 				    </ul>
 				  </div>

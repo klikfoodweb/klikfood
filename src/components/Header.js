@@ -146,7 +146,7 @@ class Header extends Component {
 	                      <li><Link to="/contact">Layanan Pelanggan</Link></li>								
 	                      <li><Link to="/contact">Layanan Mitra</Link></li>
 	                      <li><Link to="/contact">Kontak</Link></li>
-	                      <li><a href="http://blog-klikfood.com" target="_blank">Blog</a></li>
+	                      <li><a href="http://klikfood.id" target="_blank">Blog</a></li>
 	                    </ul>
 	                  </div>
 	                </div>
