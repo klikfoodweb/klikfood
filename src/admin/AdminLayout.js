@@ -33,6 +33,9 @@ import ProductSubmitHargaJual from './product/ProductSubmitHargaJual';
 import MyProducts from './product/MyProducts';
 import OrderProduct from './distribution/OrderProduct';
 import MyOrder from './distribution/MyOrder';
+import DetailProduct from './distribution/DetailProduct';
+
+import TransactionVerif from './transaction/TransactionVerif';
 
 import Permissions from './Permissions';
 import Roles from './Roles';
@@ -116,12 +119,15 @@ class AdminLayout extends Component {
 	            	<Route path="/admin/products" component={ProductList} />	            	
 	            	<Route path="/admin/myproducts" component={MyProducts} />
 
-	            	<Route path="/admin/distribution/order" component={OrderProduct} />	            	
+	            	<Route path="/admin/distribution/order/:id" component={DetailProduct} />	            	
+	            	<Route path="/admin/distribution/order" component={OrderProduct} />
 	            	<Route path="/admin/distribution/myorder" component={MyOrder} />
 
 	            	<Route path="/admin/permissions" component={Permissions} />	            	
-	            	<Route path="/admin/roles" component={Roles} />	            	
-	            
+	            	<Route path="/admin/roles" component={Roles} />	    
+
+	            	<Route path="/admin/transactions/verification" component={TransactionVerif} />        	
+	            	
 	            </Switch>
 	            </main>
 	          

@@ -95,14 +95,15 @@ class ProductList extends Component {
     			        <div className="table-responsive">
     			        	<h3> Sudah Terverifikasi </h3>
     			        	<BootstrapTable data={this.state.verifiedproducts} striped search pagination hover>
-                      		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
-    			        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
-    			        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
-    			        	  <TableHeaderColumn dataField='email' dataSort={true}>Email</TableHeaderColumn>
-    			        	  <TableHeaderColumn dataField='no_tlp' dataSort={true}>Telepon</TableHeaderColumn>
-    	                  	  <TableHeaderColumn dataField='update' dataFormat={ this.showteLayout } width="150"> </TableHeaderColumn>
-    	                  	  <TableHeaderColumn dataField='delete' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>
-    			        	</BootstrapTable>  
+	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='stok' dataSort={true}>Stok</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width="150"> </TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>
+				        	</BootstrapTable>    
     			        </div>
 				      </div>
 				    </div>

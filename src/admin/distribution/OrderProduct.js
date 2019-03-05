@@ -11,9 +11,12 @@ class OrderProduct extends Component {
 		super(props);
 		this.state = {
 			products: [],
-			produk: []
+			produk: {}
 		}
 		this.handleChange = this.handleChange.bind(this);
+		// console.log(localStorage.getItem('dataObject'));
+		
+		// console.log(this.state);
 	}
 
 	handleChange(event) {
@@ -22,6 +25,49 @@ class OrderProduct extends Component {
 		})
 	}
 	
+	handleSubmit = (e) => {
+		e.preventDefault();
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+		
+		const bodyFormData = {
+			produk: this.state.produk
+		}
+		// localStorage.clear();
+		// localStorage.setItem('dataObject',  JSON.stringify({
+		//     0 : {produk_id: 'user9110252produk_id', jumlah: 'user9110252genre'},
+		//     1 : {produk_id: 'Jon', jumlah: 'rock'},
+		//     lucy : {produk_id: 'Lucy', jumlah: 'pop'},
+		//     mike : {produk_id: 'Mike', jumlah: 'rock'},
+		//     luke : {produk_id: 'Luke', jumlah: 'house'},
+		//     james : {produk_id: 'James', jumlah: 'house'},
+		//     dave : {produk_id: 'Dave', jumlah: 'bass'},
+		//     sarah : {produk_id: 'Sarah', jumlah: 'country'},
+		//     natalie : {produk_id: 'Natalie', jumlah: 'bass'}
+		// }) );
+		// console.log(JSON.parse(localStorage.getItem('dataObject')));
+
+		// let products = [];
+
+		// for(var key in produk) {
+		//     products.push(produk[key]);
+		// }
+		// console.log(bodyFormData);
+		// ( 'produk', [0,'produk_id':'5c7bc5b32cb8710e24004f2d'] );
+		axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, JSON.stringify(localStorage.getItem('dataObject')))
+	      .then(res => {
+	      	console.log(res);
+	      	toast.success("Berhasil Dipesan !");
+	      	setTimeout(() => {
+	      		// window.location.href='/admin/myproducts';
+	      	}, 3000)
+	      }).catch(err => {
+	      	console.log(err);
+	      	toast.error("Something Went Wrong :( ");
+	      });
+	}
+
 	componentDidMount() {
 		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
@@ -41,26 +87,8 @@ class OrderProduct extends Component {
 	showLayout(cell, row){
 		const id = row._id;
 	  	return (
-	  		<form onSubmit={ (e) => {
-  				axios.defaults.headers = {  
-  					'Authorization': sessionStorage.api_token 
-  				}
-  				const bodyFormData = new FormData();
-				
-				bodyFormData.set('name', this.state.name);
-  				axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, bodyFormData)
-  			      .then(res => {
-  			      	toast.success("Berhasil Dipesan !");
-  			      	setTimeout(() => {
-  			      		window.location.href='/admin/myproducts';
-  			      	}, 3000)
-  			      }).catch(err => {
-  			      	toast.error("Something Went Wrong :( ");
-  			      });
-	  		} }>
 	  		<Link to={"/admin/distribution/order/" + id} className="btn btn-success">Pesan</Link>
-	  		</form>
-		)
+	  	)
 	}
 
 	render() {
@@ -87,7 +115,7 @@ class OrderProduct extends Component {
 				        	  <TableHeaderColumn dataField='harga_jual' dataSort={true}>Harga Jual</TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout }> </TableHeaderColumn>
 		                  	</BootstrapTable>  
-				        	<Link to="/admin/distribution/order/summary" className="btn btn-primary"> Pesan Sekarang ! </Link>
+				        	{/*<button className="btn btn-primary" onClick={this.handleSubmit}> Pesan Sekarang ! </button>*/}
 				        </div>
 				      </div>
 				    </div>

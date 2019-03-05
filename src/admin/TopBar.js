@@ -9,7 +9,16 @@ class TopBar extends Component {
 				    <div className="navbar-header">
 				      <a href="javascript:void(0);" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" />
 				      <a href="javascript:void(0);" className="bars" />
-				      <a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>ADMIN - ClickFood</a>
+				      {
+			          	(sessionStorage.role === 'Administrator') ?
+			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>ADMIN - ClickFood</a>
+			          		: (sessionStorage.role === 'Supplyer') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Supplyer - ClickFood</a>
+							: (sessionStorage.role === 'Mitra') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Mitra - ClickFood</a>
+			          		: 
+			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Konsumen - ClickFood</a>
+			          }
 				    </div>
 				    <div className="collapse navbar-collapse" id="navbar-collapse">
 				

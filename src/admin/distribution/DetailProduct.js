@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import qs from 'qs';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
@@ -18,9 +19,12 @@ class DetailProduct extends Component {
 			deskripsi: '',
 			type: '',
 			kategori_id: '',
+			harga_jual: '',
 			foto_1: null,
 			foto_2: null,
-			foto_3: null
+			foto_3: null,
+			jumlah: '',
+			produk_id: ''
 		}
 	}
 
@@ -50,6 +54,7 @@ class DetailProduct extends Component {
 		  		deskripsi: response.data.data.deskripsi,
 		  		type: response.data.data.type,
 		  		kategori_id: response.data.data.kategori_id,
+		  		harga_jual: response.data.data.harga_jual,
 		  		foto_1: response.data.data.foto_1,
 		  		foto_2: response.data.data.foto_2,
 		  		foto_3: response.data.data.foto_3
@@ -57,6 +62,41 @@ class DetailProduct extends Component {
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
 		  })
+	}
+
+	handleChange = (event) => {
+		this.setState({ 
+			[event.target.name]: event.target.value
+		})
+	}
+
+	handleCart = (e) => {
+		e.preventDefault();
+		// const dataObject ={produk_id:this.props.match.params.id, jumlah:this.state.jumlah};
+		// localStorage.setItem('dataObject', JSON.stringify(dataObject));
+		// const retrievedObject = localStorage.getItem('dataObject');
+		// console.log(JSON.parse(retrievedObject));
+		// window.location.href='/admin/distribution/order';
+		
+		const bodyFormData = new FormData();
+		
+		bodyFormData.set('produk_id', this.props.match.params.id);
+		bodyFormData.set('jumlah', this.state.jumlah);
+
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+		axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, bodyFormData)
+	      .then(res => {
+	      	console.log(res);
+	      	toast.success("Berhasil Dipesan !");
+	      	setTimeout(() => {
+	      		// window.location.href='/admin/myproducts';
+	      	}, 3000)
+	      }).catch(err => {
+	      	console.log(err);
+	      	toast.error("Something Went Wrong :( ");
+	      });
 	}
 
 	render() {
@@ -72,6 +112,12 @@ class DetailProduct extends Component {
 				              </h2>
 				            </div>
 				            <div classname="body">
+				            	<form onSubmit={this.handleCart}>
+				              		<center><label>Jumlah Pesanan : </label>
+				              		<input type="number" name="jumlah" onChange={this.handleChange} />
+				              		<button type="submit" value={this.props.match.params.id} className="btn btn-warning">Add to Cart</button></center>
+				            	</form>
+				            	<br />
 				        		<Form onSubmit={this.handleSubmit} >
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
@@ -99,10 +145,10 @@ class DetailProduct extends Component {
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      Harga Supplyer
+				        		      Harga Jual
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Harga Supplyer" name="harga_supplyer" value={this.state.harga_supplyer} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Harga Jual" name="harga_jual" value={this.state.harga_jual} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">

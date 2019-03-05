@@ -24,7 +24,13 @@ class LeftBarAdmin extends Component {
 		      	      <li>
 		      	        <Link to="/admin/products/verification">
 		      	          <i className="material-icons">widgets</i>
-		      	          <span>Produk</span>
+		      	          <span>Pengajuan Produk</span>
+		      	        </Link>
+		      	      </li>
+		      	      <li>
+		      	        <Link to="/admin/transactions/verification">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>Transaksi Pemesanan</span>
 		      	        </Link>
 		      	      </li>
 				      <li>

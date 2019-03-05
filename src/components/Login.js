@@ -51,7 +51,7 @@ class Login extends Component {
 	      	if(responseJSON.data.success) {
 	      		sessionStorage.setItem('api_token', responseJSON.data.data.api_token);
 	      		sessionStorage.setItem('username', responseJSON.data.data.user.name);
-	      		sessionStorage.setItem('id', responseJSON.data.data.user.id);
+	      		sessionStorage.setItem('id', responseJSON.data.data.user._id);
 	      		sessionStorage.setItem('role', responseJSON.data.data.role);
 	      	}  
 	      	toast.success("You Are Logged In !");
