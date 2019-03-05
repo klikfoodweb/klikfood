@@ -22,19 +22,37 @@ class LeftBarMitra extends Component {
 				        </Link>
 				      </li>
 				      <li>
-				        <Link to="/admin/categories">
+				        <Link to="/admin/myproducts">
 				          <i className="material-icons">text_fields</i>
-				          <span>Produk</span>
+				          <span>Produk Saya</span>
 				        </Link>
 				      </li>
 				      <li>
-				        <a href="javascript:void(0);" className="menu-toggle">
+				        <a href="#" className="menu-toggle">
+				          <i className="material-icons">widgets</i>
+				          <span>Distribusi</span>
+				        </a>
+				        <ul className="ml-menu">
+				          <li>
+				            <Link to="/admin/distribution/order">
+				              <span>Pesan Barang</span>
+				            </Link>
+				          </li>
+				          <li>
+				            <Link to="/admin/distribution/myorder">
+				              <span>Pesanan Saya</span>
+				            </Link>
+				          </li>
+				        </ul>
+				      </li>
+				      <li>
+				        <a href="#" className="menu-toggle">
 				          <i className="material-icons">widgets</i>
 				          <span>Transaksi</span>
 				        </a>
 				        <ul className="ml-menu">
 				          <li>
-				            <a href="javascript:void(0);" className="menu-toggle">
+				            <a href="#" className="menu-toggle">
 				              <span>Cards</span>
 				            </a>
 				            <ul className="ml-menu">
@@ -50,7 +68,7 @@ class LeftBarMitra extends Component {
 				            </ul>
 				          </li>
 				          <li>
-				            <a href="javascript:void(0);" className="menu-toggle">
+				            <a href="#" className="menu-toggle">
 				              <span>Infobox</span>
 				            </a>
 				            <ul className="ml-menu">
@@ -80,7 +98,7 @@ class LeftBarMitra extends Component {
 				  {/* Footer */}
 				  <div className="legal">
 				    <div className="copyright">
-				      © 2019 <a href="javascript:void(0);">Admin - ClickFood</a>.
+				      © 2019 <a href="#">Admin - ClickFood</a>.
 				    </div>
 				    <div className="version">
 				      <b>Version: </b> 2.0.0

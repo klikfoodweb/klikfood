@@ -10,7 +10,7 @@ class FooterTop extends Component {
 				      {/*Footer--Start--Company-Info*/}				
 				      <div className="col-sm-2">
 				        <div className="companyinfo">
-				          <a href="#"><img src alt /></a><br />
+				          <a href="#"><img src="" /></a><br />
 				          <h2>Klikfood.id</h2>
 				          <p>Merupakan portal layanan Pemesanan Makanan dan Bahan Pangan secara online (Order Food &amp; Meals Online), setiap saat melayani kebutuhan pokok pangan Anda dan Keluarga.</p>
 				        </div>

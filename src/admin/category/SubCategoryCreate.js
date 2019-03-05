@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import qs from 'qs';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 

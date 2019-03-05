@@ -6,19 +6,18 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class ProductVerification extends Component {
+class MyProducts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: [],
-			harga_jual: '1'
+			products: []
 		}
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
-		  	console.log(response.data);
+		  	console.log(response.data.data);
 		  	this.setState({
 		  		products: response.data.data
 		  	})
@@ -30,14 +29,10 @@ class ProductVerification extends Component {
 	indexN(cell, row, enumObject, index) {
 	    return (<div>{index+1}</div>) 
 	}
-	
-	verifLayout(cell, row){
-		return <Link to={"/admin/products/verification/"+row._id} className="btn btn-success"> Verifikasi </Link>
-	}
 
 	showLayout(cell, row){
 		const id = row._id;
-	  	return <Link className="btn btn-success" to={`/admin/products/${id}/show`}> Lihat </Link>;
+	  	return <Link className="btn btn-success" to={`/admin/products/${id}/update`}> Lihat </Link>;
 	}
 
 	render() {
@@ -49,13 +44,14 @@ class ProductVerification extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Verifikasi Pengajuan Produk
+				          Product List
 				        </h2>
 				        
 				      </div>
 				      <div className="body">
 				        <div className="table-responsive">
-	                  		{/*<h3> Belum Terverifikasi </h3>*/}
+	                  		<Link to="/admin/products/create" className="btn btn-primary"> Tambah Produk </Link>
+	                  		<h3> Belum Terverifikasi </h3>
 				        	<BootstrapTable data={this.state.products} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
@@ -64,9 +60,22 @@ class ProductVerification extends Component {
 				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width="150"> </TableHeaderColumn>
-		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.verifLayout } width="250"> </TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>
 				        	</BootstrapTable>  
 				        </div>
+				        <br />
+    			        <div className="table-responsive">
+    			        	<h3> Sudah Terverifikasi </h3>
+    			        	<BootstrapTable data={this.state.verifiedproducts} striped search pagination hover>
+                      		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
+    			        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
+    			        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
+    			        	  <TableHeaderColumn dataField='email' dataSort={true}>Email</TableHeaderColumn>
+    			        	  <TableHeaderColumn dataField='no_tlp' dataSort={true}>Telepon</TableHeaderColumn>
+    	                  	  <TableHeaderColumn dataField='update' dataFormat={ this.showteLayout } width="150"> </TableHeaderColumn>
+    	                  	  <TableHeaderColumn dataField='delete' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>
+    			        	</BootstrapTable>  
+    			        </div>
 				      </div>
 				    </div>
 				  </div>
@@ -75,4 +84,4 @@ class ProductVerification extends Component {
 		);
 	}
 }
-export default ProductVerification;
+export default MyProducts;

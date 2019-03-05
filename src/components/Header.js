@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -81,7 +81,7 @@ class Header extends Component {
 	              <div className="row">
 	                <div className="col-sm-4">
 	                  <div className="logo pull-left">
-	                    <Link to="/"><img src="images/home/logo.png" alt /></Link>
+	                    <Link to="/"><img src="images/home/logo.png" alt="logo" /></Link>
 	                  </div>
 	                </div>
 	                <div className="col-sm-8">
@@ -90,7 +90,7 @@ class Header extends Component {
 	                      <li><a href="#"><i className="fa fa-star" /> Daftar</a></li>
 	                      <li><a href="checkout.html"><i className="fa fa-crosshairs" /> Support</a></li>
 	                      <li><Link to="/cart"><i className="fa fa-shopping-cart" /> Keranjang Belanja</Link></li>
-	                    {(sessionStorage.length == 0) ?
+	                    {(sessionStorage.length === 0) ?
 	                      <li><Link to="/login"><i className="fa fa-lock" /> Login</Link></li>
 	                    	: null
 	                    }
@@ -146,7 +146,7 @@ class Header extends Component {
 	                      <li><Link to="/contact">Layanan Pelanggan</Link></li>								
 	                      <li><Link to="/contact">Layanan Mitra</Link></li>
 	                      <li><Link to="/contact">Kontak</Link></li>
-	                      <li><a href="http://klikfood.id" target="_blank">Blog</a></li>
+	                      <li><a href="http://klikfood.id" target="_blank" rel="noopener noreferrer">Blog</a></li>
 	                    </ul>
 	                  </div>
 	                </div>

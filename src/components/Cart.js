@@ -29,7 +29,7 @@ class Cart extends Component {
 		                <tbody>
 		                  <tr>
 		                    <td className="cart_product">
-		                      <a href><img src="images/cart/one.png" alt /></a>
+		                      <a href><img src="images/cart/one.png" alt="one" /></a>
 		                    </td>
 		                    <td className="cart_description">
 		                      <h4><a href>Colorblock Scuba</a></h4>
@@ -54,7 +54,7 @@ class Cart extends Component {
 		                  </tr>
 		                  <tr>
 		                    <td className="cart_product">
-		                      <a href><img src="images/cart/two.png" alt /></a>
+		                      <a href><img src="images/cart/two.png" alt="two" /></a>
 		                    </td>
 		                    <td className="cart_description">
 		                      <h4><a href>Colorblock Scuba</a></h4>
@@ -79,7 +79,7 @@ class Cart extends Component {
 		                  </tr>
 		                  <tr>
 		                    <td className="cart_product">
-		                      <a href><img src="images/cart/three.png" alt /></a>
+		                      <a href><img src="images/cart/three.png" alt="three" /></a>
 		                    </td>
 		                    <td className="cart_description">
 		                      <h4><a href>Colorblock Scuba</a></h4>

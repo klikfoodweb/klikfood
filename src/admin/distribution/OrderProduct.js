@@ -6,19 +6,26 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class ProductVerification extends Component {
+class OrderProduct extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			products: [],
-			harga_jual: '1'
+			produk: []
 		}
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	handleChange(event) {
+		this.setState({ 
+			[event.target.name]: event.target.value
+		})
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
-		  	console.log(response.data);
+		  	console.log(response.data.data);
 		  	this.setState({
 		  		products: response.data.data
 		  	})
@@ -30,14 +37,30 @@ class ProductVerification extends Component {
 	indexN(cell, row, enumObject, index) {
 	    return (<div>{index+1}</div>) 
 	}
-	
-	verifLayout(cell, row){
-		return <Link to={"/admin/products/verification/"+row._id} className="btn btn-success"> Verifikasi </Link>
-	}
 
 	showLayout(cell, row){
 		const id = row._id;
-	  	return <Link className="btn btn-success" to={`/admin/products/${id}/show`}> Lihat </Link>;
+	  	return (
+	  		<form onSubmit={ (e) => {
+  				axios.defaults.headers = {  
+  					'Authorization': sessionStorage.api_token 
+  				}
+  				const bodyFormData = new FormData();
+				
+				bodyFormData.set('name', this.state.name);
+  				axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, bodyFormData)
+  			      .then(res => {
+  			      	toast.success("Berhasil Dipesan !");
+  			      	setTimeout(() => {
+  			      		window.location.href='/admin/myproducts';
+  			      	}, 3000)
+  			      }).catch(err => {
+  			      	toast.error("Something Went Wrong :( ");
+  			      });
+	  		} }>
+	  		<Link to={"/admin/distribution/order/" + id} className="btn btn-success">Pesan</Link>
+	  		</form>
+		)
 	}
 
 	render() {
@@ -49,13 +72,11 @@ class ProductVerification extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Verifikasi Pengajuan Produk
+				          Product List
 				        </h2>
-				        
 				      </div>
 				      <div className="body">
 				        <div className="table-responsive">
-	                  		{/*<h3> Belum Terverifikasi </h3>*/}
 				        	<BootstrapTable data={this.state.products} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
@@ -63,9 +84,10 @@ class ProductVerification extends Component {
 				        	  <TableHeaderColumn dataField='stok' dataSort={true}>Stok</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
-		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width="150"> </TableHeaderColumn>
-		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.verifLayout } width="250"> </TableHeaderColumn>
-				        	</BootstrapTable>  
+				        	  <TableHeaderColumn dataField='harga_jual' dataSort={true}>Harga Jual</TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout }> </TableHeaderColumn>
+		                  	</BootstrapTable>  
+				        	<Link to="/admin/distribution/order/summary" className="btn btn-primary"> Pesan Sekarang ! </Link>
 				        </div>
 				      </div>
 				    </div>
@@ -75,4 +97,4 @@ class ProductVerification extends Component {
 		);
 	}
 }
-export default ProductVerification;
+export default OrderProduct;

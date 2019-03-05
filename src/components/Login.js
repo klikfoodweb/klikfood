@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Card } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../login.css';
 import qs from 'qs';

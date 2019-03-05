@@ -84,7 +84,7 @@ class FooterBottom extends Component {
 				    <div className="container">
 				      <div className="row">
 				        <p className="pull-left">Copyright © 2019 klikfood.id. All rights reserved.</p>
-				        <p className="pull-right">Powered By <span><a target="_blank" href="http://www.bap-group.co.id">PT. Distra Boga Sarana</a></span></p>
+				        <p className="pull-right">Powered By <span><a target="_blank" rel="noopener noreferrer" href="http://www.bap-group.co.id">PT. Distra Boga Sarana</a></span></p>
 				      </div>
 				    </div>
 				  </div>{/*Footer--/End--Copyrights*/}

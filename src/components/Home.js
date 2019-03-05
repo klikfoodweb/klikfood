@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Banner from './Banner';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Home extends Component {
@@ -65,11 +64,11 @@ class Home extends Component {
 	                  <div className="price-range">{/*New-Product*/}
 	                    <h2>Produk Baru</h2>
 	                    <center><p>Produk Terbaru Kami</p>
-	                      <a href="#"><img src="images/home/shipping.jpg" alt /></a>
+	                      <a href="#"><img src="images/home/shipping.jpg" alt="shipping" /></a>
 	                    </center></div>{/*/New-Product*/}
 	                  <div className="price-range">{/*Pesan*/}						
 	                    <center><p>Catat dan Pesan di KlikFood</p>
-	                      <a href="#"><img src="images/home/shipping.jpg" alt /></a>
+	                      <a href="#"><img src="images/home/shipping.jpg" alt="shipping" /></a>
 	                    </center></div>{/*/Pesan*/}
 	                </div>
 	              </div> 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import UserInfo from './UserInfo';
 
 class LeftBarAdmin extends Component {
@@ -59,7 +58,7 @@ class LeftBarAdmin extends Component {
 				  {/* Footer */}
 				  <div className="legal">
 				    <div className="copyright">
-				      © 2019 <a href="javascript:void(0);">Admin - ClickFood</a>.
+				      © 2019 <a href="#">Admin - ClickFood</a>.
 				    </div>
 				    <div className="version">
 				      <b>Version: </b> 2.0.0

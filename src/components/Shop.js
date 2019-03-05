@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
-import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Pagination from './Pagination';
 
 class Shop extends Component {
@@ -56,7 +55,7 @@ class Shop extends Component {
 			<div>
 				<section id="advertisement">
 		          <div className="container">
-		            <img src="images/shop/advertisement.jpg" alt />
+		            <img src="images/shop/advertisement.jpg" alt="advertisement" />
 		          </div>
 		        </section>
 		        <section>
@@ -90,7 +89,7 @@ class Shop extends Component {
 		                  </div>{/*/category-productsr*/}
 		                  
 		                  <div className="shipping text-center">{/*shipping*/}
-		                    <img src="images/home/shipping.jpg" alt />
+		                    <img src="images/home/shipping.jpg" alt="shipping" />
 		                  </div>{/*/shipping*/}
 		                </div>
 		              </div>
@@ -101,7 +100,7 @@ class Shop extends Component {
 		                    <div className="product-image-wrapper">
 		                      <div className="single-products">
 		                        <div className="productinfo text-center">
-		                          <img src="images/shop/product12.jpg" alt />
+		                          <img src="images/shop/product12.jpg" alt="product12"  />
 		                          <h2>$56</h2>
 		                          <p>Easy Polo Black Edition</p>
 		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>
@@ -125,7 +124,7 @@ class Shop extends Component {
 		                    <div className="product-image-wrapper">
 		                      <div className="single-products">
 		                        <div className="productinfo text-center">
-		                          <img src="images/shop/product11.jpg" alt />
+		                          <img src="images/shop/product11.jpg" alt="product11" />
 		                          <h2>$56</h2>
 		                          <p>Easy Polo Black Edition</p>
 		                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Add to cart</a>

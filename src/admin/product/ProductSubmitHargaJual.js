@@ -5,11 +5,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-class CategoryCreate extends Component {
+class ProductSubmitHargaJual extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: ''
+			harga_jual: ''
 		}
 	}
 
@@ -21,19 +21,16 @@ class CategoryCreate extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-
 		const bodyFormData = new FormData();
-		
-		bodyFormData.set('name', this.state.name);
-
+		bodyFormData.set('harga_jual', this.state.harga_jual);
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-		axios.post(`http://apiklikfood.herokuapp.com/kategori/store`, bodyFormData )
+		axios.post(`http://apiklikfood.herokuapp.com/produksupplyer/verifikasi/`+this.props.match.params.id, bodyFormData )
 	      .then(res => {
-	      	toast.success("Tambah Kategori Sukses !");
+	      	toast.success("Berhasil Diverifikasi !");
 	      	setTimeout(() => {
-	      		window.location.href='/admin/categories';
+	      		window.location.href='/admin/products/verification';
 	      	}, 3000)
 	      }).catch(err => {
 	      	toast.error("Something Went Wrong :( ");
@@ -49,27 +46,28 @@ class CategoryCreate extends Component {
 				        <div classname="card">
 				            <div classname="header">
 				              <h2>
-				                Buat Kategori
+				                Masukkan Harga Jual
 				              </h2>
 				            </div>
 				            <div classname="body">
 				        		<Form onSubmit={this.handleSubmit} >
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      Name
+				        		      Harga Jual
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Harga Jual" name="harga_jual" value={this.state.name} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
 
 				        		  <Form.Group as={Row}>
 				        		    <Col sm={{ span: 10, offset: 2 }}>
-				        		      <Button type="submit">Create</Button>
+				        		      <Button type="submit">Submit</Button>
 				        		    </Col>
 				        		  </Form.Group>
 				        		</Form>;
 				            </div>
+
 				        </div>
 				    </div>
 				</div>
@@ -77,4 +75,4 @@ class CategoryCreate extends Component {
 		);
 	}
 }
-export default CategoryCreate;
+export default ProductSubmitHargaJual;
