@@ -72,7 +72,7 @@ class ProductList extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Product List
+				          List Produk
 				        </h2>
 				        
 				      </div>

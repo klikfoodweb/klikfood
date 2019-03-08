@@ -5,6 +5,7 @@ import FooterBottom from './FooterBottom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
 	constructor(props) {
@@ -12,9 +13,6 @@ class Home extends Component {
 		this.state = {
 			categories: []
 		}
-	}
-
-	componentDidMount() {
 		axios.get(`https://apiklikfood.herokuapp.com/kategori`)
 		  .then((response) => {
 		  		console.log(response.data.data);
@@ -82,9 +80,9 @@ class Home extends Component {
 	                          <img src="images/home/product6.jpg" alt />
 	                          <h2>Rp 75.000</h2>
 	                          <p>Makanan Lezat</p>
-	                          <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
+	                          <Link to="/mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
 	                        </div>
-	                        <div className="product-overlay">
+	                        {/*<div className="product-overlay">
 	                          <div className="overlay-content">
 	                            <h2>Makanan</h2>
 	                            <p>Dari bahan pilihan berkualitas tinggi.</p>
@@ -94,7 +92,7 @@ class Home extends Component {
 	                            <p>Makanan Lezat</p>
 	                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
 	                          </div>
-	                        </div>
+	                        </div>*/}
 	                      </div>
 	                      <div className="choose">
 	                        <ul className="nav nav-pills nav-justified">
@@ -106,11 +104,9 @@ class Home extends Component {
 	                <div className="category-tab">{/*category-tab*/}
 	                  <div className="col-sm-12">
 	                    <ul className="nav nav-tabs">
-	                      <li className="active"><a href="#olahan" data-toggle="tab">Daging Sapi</a></li>
-	                      <li><a href="#pangan" data-toggle="tab">Daging Ayam</a></li>
-	                      <li><a href="#siapsaji" data-toggle="tab">Daging Kambing</a></li>
-	                      <li><a href="#snacks" data-toggle="tab">Produk Olahan</a></li>
-	                      <li><a href="#siapolah" data-toggle="tab">Ikan Laut</a></li>
+	                    { this.state.categories.map((category,i) =>
+	                      <li className="active"><a href={"#"+category.kategori._id} data-toggle="tab">{ category.kategori.name }</a></li>
+	                    ) }
 	                    </ul>
 	                  </div>
 	                  {/*category-tab--#1*/}							
@@ -140,232 +136,9 @@ class Home extends Component {
 	                          </div>
 	                        </div>
 	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery3.jpg" alt /></a>
-	                              <h2>Rp 65.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery4.jpg" alt /></a>
-	                              <h2>Rp 75.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
 	                    </div>
 	                    {/*/End-category-tab--#1*/}
-	                    <div className="tab-pane fade" id="pangan">
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#">&lt;<img src="images/home/gallery4.jpg" alt /></a>				
-	                              <h2>Rp 55.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery3.jpg" alt /></a>
-	                              <h2>Rp 25.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery2.jpg" alt /></a>
-	                              <h2>Rp 35.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery1.jpg" alt /></a>
-	                              <h2>Rp 10.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    <div className="tab-pane fade" id="siapsaji">
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery3.jpg" alt /></a>
-	                              <h2>Rp 45.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery4.jpg" alt /></a>
-	                              <h2>Rp 25.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery1.jpg" alt /></a>
-	                              <h2>Rp 65.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery2.jpg" alt /></a>
-	                              <h2>Rp 23.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    <div className="tab-pane fade" id="snacks">
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery1.jpg" alt /></a>
-	                              <h2>Rp 35.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery2.jpg" alt /></a>
-	                              <h2>Rp 25.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery3.jpg" alt /></a>	
-	                              <h2>Rp 50.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery4.jpg" alt /></a>
-	                              <h2>Rp 23.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    <div className="tab-pane fade" id="siapolah">
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery2.jpg" alt /></a>
-	                              <h2>Rp 20.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery4.jpg" alt /></a>
-	                              <h2>Rp 75.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery3.jpg" alt /></a>
-	                              <h2>Rp 25.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery1.jpg" alt /></a>
-	                              <h2>Rp 35.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                    </div>
+	                    	                    
 	                  </div>
 	                </div>{/*/category-tab*/}
 	                <div className="recommended_items">{/*recommended_items*/}
@@ -618,8 +391,9 @@ class Home extends Component {
 	                <form action="#" className="searchform">
 	                  <input type="text" placeholder="Your email address" />
 	                  <button type="submit" className="btn btn-success"><i className="fa fa-arrow-circle-o-right" /></button>
-	                  <p>Anda berhak mengikuti sayembara yang kami adakan dengan merekomendasikan link kami.</p>
 	                </form>
+	                <br />
+	                <center><p>Anda berhak mengikuti sayembara yang kami adakan dengan merekomendasikan link kami.</p></center>
 	              </div>
 	              <p />
 	            </div></center>

@@ -1,23 +1,59 @@
 import React, { Component } from 'react';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
+import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 class Cart extends Component {
+	constructor(props) {
+	    super(props);
+
+	    this.state = {
+	 		carts: []
+	    };
+		
+		var carts = JSON.parse(localStorage.getItem('cart'));
+		if(carts)
+			carts.map(item => 
+				this.state.carts.push(item)
+			)
+
+		this.handleDeleteCart = this.handleDeleteCart.bind(this);
+	}
+
+	componentDidMount() {
+	}
+
+	handleDeleteCart = i => {
+		this.setState( state => {
+			const carts = this.state.carts.filter((item, j) => i !== j);
+			return {
+				carts,
+			}
+		});				                      
+	}
+
 	render() {
+		if (sessionStorage.length === 0) {
+			{toast.success("Login Terlebih Dahulu !")}
+			return (
+				<Redirect to={'/login'}/>
+			)
+	    }
 		return (
 			<div>
 				<section id="cart_items">
 		          <div className="container">
 		            <div className="breadcrumbs">
 		              <ol className="breadcrumb">
-		                <li><a href="#">Home</a></li>
+		                <li><a href="/">Home</a></li>
 		                <li className="active">Shopping Cart</li>
 		              </ol>
 		            </div>
 		            <div className="table-responsive cart_info">
 		              <table className="table table-condensed">
 		                <thead>
-		                  <tr className="cart_menu">
+		                  <tr className="cart_menu" onClick={e => console.log(this.state.carts)}>
 		                    <td className="image">Item</td>
 		                    <td className="description" />
 		                    <td className="price">Price</td>
@@ -27,81 +63,44 @@ class Cart extends Component {
 		                  </tr>
 		                </thead>
 		                <tbody>
+		                { this.state.carts.map( (cart, index) => 
 		                  <tr>
 		                    <td className="cart_product">
-		                      <a href><img src="images/cart/one.png" alt="one" /></a>
+		                      <a href><img src={ "http://bajax.0hi.me/produk/"+ cart[2] } alt="cart" width="150" /></a>
 		                    </td>
 		                    <td className="cart_description">
-		                      <h4><a href>Colorblock Scuba</a></h4>
-		                      <p>Web ID: 1089772</p>
+		                      <h4><a href>{ cart[0] }</a></h4>
+		                      {/*<p>Web ID: 1089772</p>*/}
 		                    </td>
 		                    <td className="cart_price">
-		                      <p>$59</p>
+		                      <p>Rp. { cart[1] }</p>
 		                    </td>
 		                    <td className="cart_quantity">
 		                      <div className="cart_quantity_button">
-		                        <a className="cart_quantity_up" href> + </a>
-		                        <input className="cart_quantity_input" type="text" name="quantity" defaultValue={1} autoComplete="off" size={2} />
-		                        <a className="cart_quantity_down" href> - </a>
+		                        <a className="cart_quantity_up" onClick={e => {
+		                        	const newJumlah = this.state.carts.slice();
+		                        	newJumlah[index][3] += 1;
+		                        	this.setState({carts: newJumlah});
+		                        	console.log(this.state.carts); 
+		                        } } href> + </a>
+		                        <input className="cart_quantity_input" type="text" value={cart[3]} name="quantity" autoComplete="off" size={2} />
+		                        <a className="cart_quantity_down" onClick={e => {
+		                        	const newJumlah = this.state.carts.slice();
+		                        	if(newJumlah[index][3] > 1)
+		                        		newJumlah[index][3] -= 1;
+		                        		this.setState({carts: newJumlah});
+		                        	console.log(this.state.carts); 
+		                        } }  href> - </a>
 		                      </div>
 		                    </td>
 		                    <td className="cart_total">
-		                      <p className="cart_total_price">$59</p>
+		                      <p className="cart_total_price">Rp. { cart[1] * cart[3] }</p>
 		                    </td>
 		                    <td className="cart_delete">
-		                      <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
+		                      <a className="cart_quantity_delete" id={cart[0]} onClick={() => this.handleDeleteCart(index) } href><i className="fa fa-times" id={index} /></a>
 		                    </td>
 		                  </tr>
-		                  <tr>
-		                    <td className="cart_product">
-		                      <a href><img src="images/cart/two.png" alt="two" /></a>
-		                    </td>
-		                    <td className="cart_description">
-		                      <h4><a href>Colorblock Scuba</a></h4>
-		                      <p>Web ID: 1089772</p>
-		                    </td>
-		                    <td className="cart_price">
-		                      <p>$59</p>
-		                    </td>
-		                    <td className="cart_quantity">
-		                      <div className="cart_quantity_button">
-		                        <a className="cart_quantity_up" href> + </a>
-		                        <input className="cart_quantity_input" type="text" name="quantity" defaultValue={1} autoComplete="off" size={2} />
-		                        <a className="cart_quantity_down" href> - </a>
-		                      </div>
-		                    </td>
-		                    <td className="cart_total">
-		                      <p className="cart_total_price">$59</p>
-		                    </td>
-		                    <td className="cart_delete">
-		                      <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
-		                    </td>
-		                  </tr>
-		                  <tr>
-		                    <td className="cart_product">
-		                      <a href><img src="images/cart/three.png" alt="three" /></a>
-		                    </td>
-		                    <td className="cart_description">
-		                      <h4><a href>Colorblock Scuba</a></h4>
-		                      <p>Web ID: 1089772</p>
-		                    </td>
-		                    <td className="cart_price">
-		                      <p>$59</p>
-		                    </td>
-		                    <td className="cart_quantity">
-		                      <div className="cart_quantity_button">
-		                        <a className="cart_quantity_up" href> + </a>
-		                        <input className="cart_quantity_input" type="text" name="quantity" defaultValue={1} autoComplete="off" size={2} />
-		                        <a className="cart_quantity_down" href> - </a>
-		                      </div>
-		                    </td>
-		                    <td className="cart_total">
-		                      <p className="cart_total_price">$59</p>
-		                    </td>
-		                    <td className="cart_delete">
-		                      <a className="cart_quantity_delete" href><i className="fa fa-times" /></a>
-		                    </td>
-		                  </tr>
+		                ) }
 		                </tbody>
 		              </table>
 		            </div>

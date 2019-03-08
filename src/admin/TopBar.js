@@ -13,7 +13,7 @@ class TopBar extends Component {
 			          	(sessionStorage.role === 'Administrator') ?
 			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>ADMIN - ClickFood</a>
 			          		: (sessionStorage.role === 'Supplyer') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Supplyer - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Pemasok - ClickFood</a>
 							: (sessionStorage.role === 'Mitra') ?
 							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Mitra - ClickFood</a>
 			          		: 

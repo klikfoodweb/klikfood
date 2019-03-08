@@ -7,10 +7,10 @@ class UserInfo extends Component {
 		console.log(sessionStorage);
 	}
 	logout = () => {
-	// sessionStorage.clear();
   	axios.get(`http://apiklikfood.herokuapp.com/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
 		sessionStorage.clear();
+		localStorage.clear();
 	  	toast.success("You Are Logged Out !");
 	  	setTimeout(() => {
 	  		this.setState({ 

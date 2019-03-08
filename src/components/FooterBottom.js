@@ -74,6 +74,14 @@ class FooterBottom extends Component {
 				              <button type="submit" className="btn btn-success"><i className="fa fa-arrow-circle-o-right" /></button>
 				              <p>Anda berhak mengikuti sayembara yang kami adakan dengan merekomendasikan link kami.</p>
 				            </form>
+				            <div className="social-icons pull-right" style={{marginTop: '-20px'}}>
+				              <ul className="nav navbar-nav">
+				                <li><a href="#"><i className="fa fa-facebook" /></a></li>
+				                <li><a href="#"><i className="fa fa-twitter" /></a></li>
+				                <li><a href="#"><i className="fa fa-linkedin" /></a></li>
+				                <li><a href="#"><i className="fa fa-google-plus" /></a></li>
+				              </ul>
+				            </div>
 				          </div>
 				        </div>{/*Footer--/End--Sayembara*/}
 				      </div>

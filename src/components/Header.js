@@ -30,6 +30,7 @@ class Header extends Component {
   	axios.get(`http://apiklikfood.herokuapp.com/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
 		sessionStorage.clear();
+		localStorage.clear();
 	  	toast.success("You Are Logged Out !");
 	  	setTimeout(() => {
 	  		this.setState({ 
@@ -59,19 +60,12 @@ class Header extends Component {
 	                  <div className="contactinfo">
 	                    <ul className="nav nav-pills">
 	                      <li><a href="#"><i className="fa fa-phone" /> (021) 7918 6869</a></li>
-	                      <li><a href="#"><i className="fa fa-envelope" /> info@klikfood.id</a></li>
+	                      <li><Link to="/contact"><i className="fa fa-envelope" /> info@klikfood.id</Link></li>
 	                    </ul>
 	                  </div>
 	                </div>
 	                <div className="col-sm-6">
-	                  <div className="social-icons pull-right" style={{marginTop: '-20px'}}>
-	                    <ul className="nav navbar-nav">
-	                      <li><a href="#"><i className="fa fa-facebook" /></a></li>
-	                      <li><a href="#"><i className="fa fa-twitter" /></a></li>
-	                      <li><a href="#"><i className="fa fa-linkedin" /></a></li>
-	                      <li><a href="#"><i className="fa fa-google-plus" /></a></li>
-	                    </ul>
-	                  </div>
+	                  
 	                </div>
 	              </div>
 	            </div>
@@ -87,9 +81,8 @@ class Header extends Component {
 	                <div className="col-sm-8">
 	                  <div className="shop-menu pull-right">
 	                    <ul className="nav navbar-nav">
-	                      <li><a href="#"><i className="fa fa-star" /> Daftar</a></li>
-	                      <li><a href="checkout.html"><i className="fa fa-crosshairs" /> Support</a></li>
-	                      <li><Link to="/cart"><i className="fa fa-shopping-cart" /> Keranjang Belanja</Link></li>
+	                      <li><Link to="/login"><i className="fa fa-star" /> Daftar</Link></li>
+	                      <li><Link to="/cart"><i className="fa fa-shopping-cart" /> Keranjang</Link></li>
 	                    {(sessionStorage.length === 0) ?
 	                      <li><Link to="/login"><i className="fa fa-lock" /> Login</Link></li>
 	                    	: null
@@ -98,9 +91,9 @@ class Header extends Component {
 	                      <React.Fragment>
 	                      {/*<li><Link to="/profile"><i className="fa fa-user" /> Akun Saya</Link></li>*/}
 	                      <li>
-	                      	<Dropdown>
+	                      	<Dropdown style={{position: 'relative', marginLeft: '20px'}}>
 	                      	  <Dropdown.Toggle variant="default" id="dropdown-basic">
-	                      	    <i className="fa fa-user" /> Akun Saya
+	                      	    <i className="fa fa-user" /> Dashboard
 	                      	  </Dropdown.Toggle>
 
 	                      	  <Dropdown.Menu>
@@ -110,7 +103,7 @@ class Header extends Component {
 	                      	    <Dropdown.Item onClick={this.logout}><b>Logout</b></Dropdown.Item>
 	                      	  </center>
 	                      	  </Dropdown.Menu>
-	                      	</Dropdown>;
+	                      	</Dropdown>
 	                      </li>
 	                      </React.Fragment>
 	                    	: null
@@ -140,18 +133,18 @@ class Header extends Component {
 	                        <ul role="menu" className="sub-menu">
 	                        { this.state.categories.map((category,i) => 
 	                        <div>
-	                          <li><Link to={"/search?kategori=" + category.kategori._id}>{ category.kategori.name }</Link></li>	
+	                        {/*{"/search?kategori=" + category.kategori._id}*/}
+	                          <li><Link to="#">{ category.kategori.name } <i className="fa fa-angle-down" /></Link></li>	
 	                        	{ category.subkategori.map((subcategory,i) =>
-                					<li key={ subcategory._id }><a href={"/search?kategori="+subcategory._id}>{ subcategory.name } </a></li>
+                					<li key={ subcategory._id }><Link to={"/search?kategori="+subcategory._id} style={{fontSize: '12px', paddingLeft: '10px'}}>{ subcategory.name } </Link></li>
                 				) }
                 			</div>
 	                        ) }
 	                        </ul>								
 	                      </li> 								
-	                      <li><Link to="/contact">Layanan Pelanggan</Link></li>								
-	                      <li><Link to="/contact">Layanan Mitra</Link></li>
 	                      <li><Link to="/contact">Kontak</Link></li>
 	                      <li><a href="http://klikfood.id" target="_blank" rel="noopener noreferrer">Blog</a></li>
+	                      <li><Link to="/support">Support</Link></li>
 	                    </ul>
 	                  </div>
 	                </div>

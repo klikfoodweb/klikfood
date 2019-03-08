@@ -70,35 +70,6 @@ class DetailProduct extends Component {
 		})
 	}
 
-	handleCart = (e) => {
-		e.preventDefault();
-		// const dataObject ={produk_id:this.props.match.params.id, jumlah:this.state.jumlah};
-		// localStorage.setItem('dataObject', JSON.stringify(dataObject));
-		// const retrievedObject = localStorage.getItem('dataObject');
-		// console.log(JSON.parse(retrievedObject));
-		// window.location.href='/admin/distribution/order';
-		
-		const bodyFormData = new FormData();
-		
-		bodyFormData.set('produk_id', this.props.match.params.id);
-		bodyFormData.set('jumlah', this.state.jumlah);
-
-		axios.defaults.headers = {  
-			'Authorization': sessionStorage.api_token 
-		}
-		axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, bodyFormData)
-	      .then(res => {
-	      	console.log(res);
-	      	toast.success("Berhasil Dipesan !");
-	      	setTimeout(() => {
-	      		// window.location.href='/admin/myproducts';
-	      	}, 3000)
-	      }).catch(err => {
-	      	console.log(err);
-	      	toast.error("Something Went Wrong :( ");
-	      });
-	}
-
 	render() {
 		return (
 			<div>
@@ -112,12 +83,6 @@ class DetailProduct extends Component {
 				              </h2>
 				            </div>
 				            <div classname="body">
-				            	<form onSubmit={this.handleCart}>
-				              		<center><label>Jumlah Pesanan : </label>
-				              		<input type="number" name="jumlah" onChange={this.handleChange} />
-				              		<button type="submit" value={this.props.match.params.id} className="btn btn-warning">Add to Cart</button></center>
-				            	</form>
-				            	<br />
 				        		<Form onSubmit={this.handleSubmit} >
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>

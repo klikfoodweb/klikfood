@@ -61,16 +61,17 @@ class MyOrder extends Component {
 	}
 
 	showLayout(cell, row){
-		const id = row._id;
-	  	if(row.bayar === 1 && row.konfirmasi_bayar === 1 && row.kirim === 1) {
+	  	if(row.bayar === 1 && row.konfirmasi_bayar === 1 && row.kirim === 1 && row.terima == 1) {
+	  		return <div className="btn btn-success">Transaksi Berhasil </div>
+	  	}else if(row.bayar === 1 && row.konfirmasi_bayar === 1 && row.kirim === 1) {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/terima/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Terima Kasih !");
 	  			      	setTimeout(() => {
-	  			      		window.location.href='/admin/myproducts';
+	  			      		window.location.href='/admin/distribution/myorder';
 	  			      	}, 3000)
 	  				  }).catch((error) => {
 	  				  	console.log(error)
@@ -81,12 +82,12 @@ class MyOrder extends Component {
 	  	}else if(row.bayar === 1 && row.konfirmasi_bayar === 1) {
 	  		return <div>Sedang Menunggu Barang Dikirim </div>	
 	  	}else if(row.bayar === 1){
-	  		return <div>Sedang Menunggu Konfirmasi </div>
+	  		return <div className="btn btn-warning">Sedang Menunggu Konfirmasi </div>
 	  	}else{
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/bayar/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Berhasil Dibayar !");
 	  			      	setTimeout(() => {
@@ -110,7 +111,7 @@ class MyOrder extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Transaksi 
+				          Pesanan Saya
 				        </h2>
 				      </div>
 				      <div className="body">
