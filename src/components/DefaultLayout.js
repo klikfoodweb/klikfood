@@ -14,6 +14,7 @@ import SearchProduct from './SearchProduct';
 import Support from './Support';
 import Profile from './Profile';
 import Privacy from '../pages/Privacy';
+import DetailProductMitra from './DetailProductMitra';
 
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -62,7 +63,8 @@ class DefaultLayout extends Component {
                 <Route path="/privacy" name="Privacy" component={Privacy} />
             	<Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />
                 <Route path="/search" name="SearchProduct" component={SearchProduct} />
-            	<Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
+                <Route path="/:mitra/:product" name="DetailProductMitra" component={DetailProductMitra} />
+                <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
             </Switch>
             </main>
 	      </div>
