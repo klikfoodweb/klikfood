@@ -48,9 +48,9 @@ class RiwayatTransfer extends Component {
     			        	<BootstrapTable data={this.state.transfers} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='uang' dataSort={true}>Jumlah Uang</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='username' dataSort={true}>Username</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='user_id' dataSort={true}>User ID</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='bayar' dataSort={true}>Jumlah Uang</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='created_at' dataSort={true}>Tanggal Ditransfer</TableHeaderColumn>
 				        	</BootstrapTable>    
     			        </div>
 				      </div>

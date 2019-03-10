@@ -115,7 +115,7 @@ class ProductCreate extends Component {
 				        		      Nama Barang
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -123,7 +123,7 @@ class ProductCreate extends Component {
 				        		      Stok
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Stok" name="stok" value={this.state.stok} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Stok" name="stok" value={this.state.stok} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -131,7 +131,7 @@ class ProductCreate extends Component {
 				        		      Berat Kemasan
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Berat Kemasan" name="berat_kemasan" value={this.state.berat_kemasan} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Berat Kemasan" name="berat_kemasan" value={this.state.berat_kemasan} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -139,7 +139,7 @@ class ProductCreate extends Component {
 				        		      Harga Supplyer
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Harga Supplyer" name="harga_supplyer" value={this.state.harga_supplyer} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Harga Supplyer" name="harga_supplyer" value={this.state.harga_supplyer} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -147,7 +147,7 @@ class ProductCreate extends Component {
 				        		      Tanggal Kadaluarsa
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="date" placeholder="Kadaluarsa" name="expire" value={this.state.expire} onChange={this.handleChange} />
+				        		      <Form.Control type="date" placeholder="Kadaluarsa" name="expire" value={this.state.expire} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 
@@ -156,7 +156,7 @@ class ProductCreate extends Component {
 				        		      Deskripsi
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Deskripsi" name="deskripsi" value={this.state.deskripsi} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Deskripsi" name="deskripsi" value={this.state.deskripsi} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 
@@ -165,13 +165,13 @@ class ProductCreate extends Component {
 				        		      Upload Gambar
 				        		    </Form.Label>
 				        		    <Col sm={3}>
-				        		      <Form.Control type="file" name="foto_1" onChange={this.handleChangeFoto1} />
+				        		      <Form.Control type="file" name="foto_1" onChange={this.handleChangeFoto1} required />
 				        		    </Col>
 				        		    <Col sm={3}>
-				        		      <Form.Control type="file" name="foto_2" onChange={this.handleChangeFoto2} />
+				        		      <Form.Control type="file" name="foto_2" onChange={this.handleChangeFoto2} required />
 				        		    </Col>
 				        		    <Col sm={3}>
-				        		      <Form.Control type="file" name="foto_3" onChange={this.handleChangeFoto3} />
+				        		      <Form.Control type="file" name="foto_3" onChange={this.handleChangeFoto3} required />
 				        		    </Col>
 				        		  </Form.Group>
 

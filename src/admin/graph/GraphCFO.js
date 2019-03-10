@@ -44,10 +44,10 @@ class GraphCFO extends Component {
 				        </h2>
 				      </div>
 				      <div className="body">
-				      	<h2> Transaksi Perbulan </h2>
+				      	<h2> Jumlah Dana Transaksi Perbulan </h2>
 				      	<ColumnChart data={this.state.transaksiBulanan} />
 				      	<hr />
-				      	<h2> Distribusi Perbulan </h2>
+				      	<h2> Jumlah Dana Distribusi Perbulan </h2>
 				      	<ColumnChart data={this.state.distribusiBulanan} />      	
 				      </div>
 				    </div>
