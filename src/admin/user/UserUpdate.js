@@ -11,14 +11,79 @@ class UserUpdate extends Component {
 		super(props);
 		this.state = {
 			name: '',
+			username: '',
 			email: '',
 			password: '',
 			birthplace: '',
 			dateofbirth: '',
 			address: '',
 			no_tlp: '',
-			roles: ''
+			roles: '',
+			provinsi: '',
+			kota: '',
+			provinsis: [],
+			kotas: []
 		}
+
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+
+		axios.get(`http://apiklikfood.herokuapp.com/user/show/`+this.props.match.params.id)
+	      .then(response => {
+
+	      	axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+response.data.data.user.provinsi)
+			  .then((res) => {
+			  	console.log(res);
+				this.setState({ 
+					kotas: res.data.data
+		  		})	
+			  }).catch((error) => {
+			  	toast.error("Something Went Wrong :(");
+			  })
+	      	console.log(response);
+	      	this.setState({
+	      		name: response.data.data.user.name,
+	      		username: response.data.data.user.username,
+				email: response.data.data.user.email,
+				birthplace: response.data.data.user.birthplace,
+				dateofbirth: response.data.data.user.dateofbirth,
+				address: response.data.data.user.birthplace,
+				no_tlp: response.data.data.user.no_tlp,
+				roles: response.data.data.role[0],
+				username: response.data.data.user.username,
+				provinsi: response.data.data.user.provinsi,
+				kota: response.data.data.user.kota,
+	      	})
+	      }).catch(err => {
+	      	toast.error("Gagal Mengambil Info :( ");
+	      });
+
+	      axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+		  .then((response) => {
+			this.setState({ 
+				provinsis: response.data.data
+	  		})	
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+	}
+
+	componentDidMount() {
+	}
+
+	changeProvinsi = (e) => {
+		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		  .then((response) => {
+		  	console.log(response)
+			this.setState({ 
+				provinsi: e.target.value,
+				kotas: response.data.data
+	  		})	
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+		  e.persist();
 	}
 
 	handleChange = (event) => {
@@ -31,24 +96,27 @@ class UserUpdate extends Component {
 		event.preventDefault();
 		const data = { 
 			name: this.state.name,
+			username: this.state.username,
 			email: this.state.email,
 			password: this.state.password,
 			birthplace: this.state.birthplace,
 			dateofbirth: this.state.dateofbirth,
 			address: this.state.address,
 			no_tlp: this.state.no_tlp,
-			roles: sessionStorage.role
+			provinsi: this.state.provinsi,
+			kota: this.state.kota
 		}
 
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-
+		console.log(qs.stringify(data));
 		axios.patch(`http://apiklikfood.herokuapp.com/user/update/`+this.props.match.params.id+"?"+qs.stringify(data))
 	      .then(response => {
+	      	console.log(response);
 	      	toast.success("Update User Sukses !");
 	      	setTimeout(() => {
-	      		window.location.href='/admin/users';
+	      		// window.location.href='/admin/users';
 	      	}, 3000)
 	      }).catch(err => {
 	      	toast.error("Something Went Wrong :( ");
@@ -75,6 +143,14 @@ class UserUpdate extends Component {
 				        		    </Form.Label>
 				        		    <Col sm={10}>
 				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
+				        		    </Col>
+				        		  </Form.Group>
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Username
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -115,6 +191,48 @@ class UserUpdate extends Component {
 				        		    </Form.Label>
 				        		    <Col sm={10}>
 				        		      <Form.Control type="text" placeholder="No Telepon" name="no_tlp" value={this.state.no_tlp} onChange={this.handleChange} />
+				        		    </Col>
+				        		  </Form.Group>
+
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Pilih Provinsi :
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		    	<select name="provinsi" style={{marginBottom: '20px'}} onChange={this.changeProvinsi}>
+										  { 
+										  	this.state.provinsis.map( provinsi =>
+										  		<React.Fragment>
+										  		{ (provinsi.province_id === this.state.provinsi) ?
+										  			<option key={provinsi.province_id} value={provinsi.province_id} selected>{ provinsi.province }</option>
+										  		:
+										  			<option key={provinsi.province_id} value={provinsi.province_id}>{ provinsi.province }</option>
+										  		}
+										  		</React.Fragment>
+										  	)
+										  }
+										</select>  
+				        		    </Col>
+				        		  </Form.Group>
+
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Pilih Kota :
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		    	<select name="kota" style={{marginBottom: '20px'}} onChange={this.handleChange}>
+										  { 
+										  	this.state.kotas.map( kota =>
+										  		<React.Fragment>
+										  		{ (kota.city_id === this.state.kota) ?
+										  			<option key={kota.city_id} value={kota.city_id} selected>{ kota.city_name }</option>
+										  		:
+										  			<option key={kota.city_id} value={kota.city_id}>{ kota.city_name }</option>
+										  		}
+										  		</React.Fragment>
+										  	)
+										  }
+										</select>
 				        		    </Col>
 				        		  </Form.Group>
 

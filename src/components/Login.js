@@ -81,6 +81,8 @@ class Login extends Component {
 	      	if(responseJSON.data.success) {
 	      		sessionStorage.setItem('api_token', responseJSON.data.data.api_token);
 	      		sessionStorage.setItem('username', responseJSON.data.data.user.name);
+	      		sessionStorage.setItem('email', responseJSON.data.data.user.email);
+	      		sessionStorage.setItem('kota', responseJSON.data.data.user.kota);
 	      		sessionStorage.setItem('id', responseJSON.data.data.user._id);
 	      		sessionStorage.setItem('role', responseJSON.data.data.role);
 	      	}  
@@ -115,6 +117,8 @@ class Login extends Component {
 			birthplace: this.state.registBirthplace,
 			dateofbirth: this.state.registDateOfBirth,
 			address: this.state.registAddress,
+			provinsi: this.state.registProvinsi,
+			kota: this.state.registKota,
 			no_tlp: this.state.registHp,
 			referall_id: this.state.registReff
 		}
@@ -220,19 +224,19 @@ class Login extends Component {
 								  }
 								</select>
 			                  <input type="text" name="registHp" placeholder="No Telp" value={this.state.registHp} onChange={this.handleChange} required />
-			                  <input type="text" name="registReff" placeholder="Refferal" value={this.state.registReff} onChange={this.handleChange} required />
+			                  <input type="text" name="registReff" placeholder="Refferal" value={this.state.registReff} onChange={this.handleChange} />
 			                  <label> Daftar Sebagai : </label>
 			                    <select name="registType" style={{marginBottom: '20px'}} onChange={this.handleChange} required>
 								  <option value="konsumen">Konsumen</option>
 								  <option value="mitra">Mitra</option>
 								  <option value="supplyer">Supplyer</option>
 								</select>
-							  <label> Pilih Paket : </label>
+							  {/*<label> Pilih Paket : </label>
 			                    <select name="registPaket" style={{marginBottom: '20px'}} onChange={this.handleChange}>
 								  <option value="paket-a">Paket A</option>
 								  <option value="paket-b">Paket B</option>
 								  <option value="paket-c">Paket C</option>
-								</select>
+								</select>*/}
 								{this.state.registrating ?
 								<div>
 									<b><center>Registrating...</center></b>

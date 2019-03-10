@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import UserInfo from './UserInfo';
 
 class LeftBarMitra extends Component {
-
 	render() {
 		return (
 			<div>
@@ -52,16 +51,22 @@ class LeftBarMitra extends Component {
 				        </a>
 				        <ul className="ml-menu">
 				          <li>
-				            <a href="#">
+				            <Link to="/admin/transactions/penjualan">
 				              <span>Penjualan</span>
-				            </a>
+				            </Link>
 				          </li>
-				          <li>
+				          {/*<li>
 				            <a href="#">
 				              <span>Infobox</span>
 				            </a>
-				          </li>
+				          </li>*/}
 				        </ul>
+				      </li>
+				      <li>
+				        <Link to="/admin/edit-header">
+				          <i className="material-icons">text_fields</i>
+				          <span>Header Toko</span>
+				        </Link>
 				      </li>
 				      
 				    </ul>

@@ -31,10 +31,40 @@ class MyProducts extends Component {
 	    return (<div>{index+1}</div>) 
 	}
 
-	// showLayout(cell, row){
-	// 	const id = row._id;
-	//   	return <Link className="btn btn-success" to={`/admin/products/${id}/update`}> Lihat </Link>;
-	// }
+	promoLayout(cell, row){
+		const id = row._id;
+		if(row.promo !== 1) {
+			return <button onClick={ (e) => {
+	  			axios.defaults.headers = {  
+	  				'Authorization': sessionStorage.api_token 
+	  			}
+	  			axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/${id}/1`)
+	  		      .then(res => {
+	  		      	toast.success("Produk Berhasil Dipromokan !");
+	  		      	setTimeout(() => {
+	  		      		window.location.href='/admin/myproducts';
+	  		      	}, 3000)
+	  		      }).catch(err => {
+	  		      	toast.error("Tidak Bisa Dipromokan :( ");
+	  		      });	  		
+		  	} } value={row._id} className="btn btn-success"> Promo </button>
+		}else{
+			return <button onClick={ (e) => {
+	  			axios.defaults.headers = {  
+	  				'Authorization': sessionStorage.api_token 
+	  			}
+	  			axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/${id}/0`)
+	  		      .then(res => {
+	  		      	toast.success("Promo Dicabut !");
+	  		      	setTimeout(() => {
+	  		      		window.location.href='/admin/myproducts';
+	  		      	}, 3000)
+	  		      }).catch(err => {
+	  		      	toast.error("Gagal Cabut Promo :( ");
+	  		      });	  		
+		  	} } value={row._id} className="btn btn-warning"> Cabut Promo </button>
+		}
+	}
 
 	render() {
 		return (
@@ -59,7 +89,7 @@ class MyProducts extends Component {
 				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='harga_jual' dataSort={true}>Harga Jual</TableHeaderColumn>
-		                  	  {/*<TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width="150"> </TableHeaderColumn>*/}
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.promoLayout } width="150"> </TableHeaderColumn>
 		                  	  {/*<TableHeaderColumn dataField='any' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>*/}
 				        	</BootstrapTable>  
 				        </div>

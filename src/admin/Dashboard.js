@@ -2,24 +2,41 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Redirect } from 'react-router-dom';
 
 class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			verifiedproducts: []
+			verifiedproducts: [],
+			belanja_pertama: false
 		}
 	}
 
-	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	componentWillMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
-		  	this.setState({
-		  		verifiedproducts: response.data.data
-		  	})
+		  	if(response.data.data.belanja_pertama !== true && sessionStorage.role === 'Mitra'){
+		  		window.location.href='/admin/pilih-paket';
+		  	}else{
+
+		  	}
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
 		  })
+
+		// axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		//   .then((response) => {
+		//   	this.setState({
+		//   		verifiedproducts: response.data.data
+		//   	})
+		//   }).catch((error) => {
+		//   	toast.error("Something Went Wrong :(");
+		//   })
+	}
+
+	componentDidMount() {
+		console.log(this.state.belanja_pertama);
 	}
 
 	render() {

@@ -33,10 +33,28 @@ class LeftBarAdmin extends Component {
 		      	          <span>Transaksi Pemesanan</span>
 		      	        </Link>
 		      	      </li>
+		      	      <li>
+		      	        <Link to="/admin/paket-mitra">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>Paket Mitra</span>
+		      	        </Link>
+		      	      </li>
 				      <li>
 				        <Link to="/admin/categories">
 				          <i className="material-icons">text_fields</i>
 				          <span>Kategori</span>
+				        </Link>
+				      </li>
+				      <li>
+				        <Link to="/admin/sliders">
+				          <i className="material-icons">layers</i>
+				          <span>Sliders</span>
+				        </Link>
+				      </li>
+				      <li>
+				        <Link to="/admin/testimonies">
+				          <i className="material-icons">layers</i>
+				          <span>Testimoni</span>
 				        </Link>
 				      </li>
 				      <li>

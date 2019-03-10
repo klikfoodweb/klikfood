@@ -20,13 +20,15 @@ class ProductCreate extends Component {
 			kategori_id: '',
 			foto_1: null,
 			foto_2: null,
-			foto_3: null
+			foto_3: null,
+			submitting: false
 		}
 	}
 
 	componentDidMount() {
 		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
 		  .then((response) => {
+		  	console.log(response);
 		  	this.setState({
 		  		categories: response.data.data
 		  	})
@@ -55,6 +57,9 @@ class ProductCreate extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+		this.setState({
+			submitting: true
+		})
 		const bodyFormData = new FormData();
 		
 		bodyFormData.set('name', this.state.name);
@@ -76,11 +81,17 @@ class ProductCreate extends Component {
 		
 		axios.post(`http://apiklikfood.herokuapp.com/produksupplyer/store`, bodyFormData)
 	      .then(response => {
+	      	this.setState({
+				submitting: true
+			})
 	      	toast.success("Menambah Produk Sukses !");
 	      	setTimeout(() => {
 	      		window.location.href='/admin/products';
 	      	}, 3000)
 	      }).catch(err => {
+	      	this.setState({
+				submitting: false
+			})
 	      	toast.error("Something Went Wrong :( ");
 	      });
 	}
@@ -181,14 +192,11 @@ class ProductCreate extends Component {
 				        		    <Col sm={2}>
 				        		    <label>{ category.kategori.name }</label>
 				        		    	{ category.subkategori.map((subkategori,i) =>
-			        		            <Form.Check
-			        		              type="radio"
-			        		              label={subkategori.name}
-			        		              name="kategori_id"
-			        		              id="formHorizontalRadios1"
-			        		              value={subkategori.kategori_id}
-			        		              onClick={this.handleChange}
-			        		            />
+			        		            	<React.Fragment>
+			        		            		<br />
+			        		            		<input type="radio" name="kategori_id" value={subkategori._id} onClick={this.handleChange} style={{position: 'relative'}} />{subkategori.name}
+			        		            		<br />
+			        		            	</React.Fragment>
 			        		            )}
 			        		        </Col>
 			        		        )}
@@ -196,7 +204,13 @@ class ProductCreate extends Component {
 
 				        		  <Form.Group as={Row}>
 				        		    <Col sm={{ span: 10, offset: 2 }}>
-				        		      <Button type="submit">Tambahkan</Button>
+				        		      {this.state.submitting ?
+										<div>
+											<b><center>Sedang Upload...</center></b>
+										</div>
+										:
+											<Button type="submit" className="btn btn-success">Register</Button>
+										}
 				        		    </Col>
 				        		  </Form.Group>
 				        		</Form>;

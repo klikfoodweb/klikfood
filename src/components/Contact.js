@@ -1,10 +1,49 @@
 import React, { Component } from 'react';
 import FooterBottom from './FooterBottom';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
 
 class Contact extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			name: '',
+			email: '',
+			title: '',
+			message: ''
+		}
+	}
+
+	handleChange = (event) => {
+		this.setState({ 
+			[event.target.name]: event.target.value
+		})
+	}
+
+	handleSubmit = (e) => {
+		e.preventDefault();
+
+		const Contact = new FormData();
+		Contact.set('name', this.state.name);
+		Contact.set('title', this.state.title);
+		Contact.set('email', this.state.email);
+		Contact.set('message', this.state.message);
+		
+		axios.post(`http://apiklikfood.herokuapp.com/contact`, Contact)
+	      .then(res => {
+	      	console.log(res);
+		  	toast.success("Pesan Terkirim");
+		  	window.location.href='/';
+	      }).catch(err => {
+		  	toast.error("Pesan Tidak Terkirim :(");
+	      });
+	}
+
 	render() {
 		return (
 			<div>
+			<ToastContainer /> 
 				<div id="contact-page" className="container">
 			        <div className="bg">
 			          <div className="row">    		
@@ -20,21 +59,21 @@ class Contact extends Component {
 			              <div className="contact-form">
 			                <h2 className="title text-center">Kontak Email</h2>
 			                <div className="status alert alert-success" style={{display: 'none'}} />
-			                <form id="main-contact-form" className="contact-form row" name="contact-form" method="post">
+			                <form id="main-contact-form" className="contact-form row" name="contact-form" onSubmit={this.handleSubmit}>
 			                  <div className="form-group col-md-6">
-			                    <input type="text" name="name" className="form-control" required="required" placeholder="Nama" />
+			                    <input type="text" name="name" onChange={this.handleChange} className="form-control" required="required" placeholder="Nama" />
 			                  </div>
 			                  <div className="form-group col-md-6">
-			                    <input type="email" name="email" className="form-control" required="required" placeholder="Email" />
+			                    <input type="email" name="email" onChange={this.handleChange} className="form-control" required="required" placeholder="Email" />
 			                  </div>
 			                  <div className="form-group col-md-12">
-			                    <input type="text" name="subject" className="form-control" required="required" placeholder="Judul" />
+			                    <input type="text" name="title" className="form-control" onChange={this.handleChange} required="required" placeholder="Judul" />
 			                  </div>
 			                  <div className="form-group col-md-12">
-			                    <textarea name="message" id="message" required="required" className="form-control" rows={8} placeholder="Isi pesan" defaultValue={""} />
+			                    <textarea name="message" id="message" required="required" onChange={this.handleChange} className="form-control" rows={8} placeholder="Isi pesan" defaultValue={""} />
 			                  </div>                        
 			                  <div className="form-group col-md-12">
-			                    <input type="submit" name="submit" className="btn btn-primary pull-right" defaultValue="Kirim" />
+			                    <button type="submit" className="btn btn-primary pull-right">Kirim </button>
 			                  </div>
 			                </form>
 			              </div>

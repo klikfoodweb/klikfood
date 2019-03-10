@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
-import qs from 'qs';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -11,14 +10,44 @@ class UserCreate extends Component {
 		super(props);
 		this.state = {
 			name: '',
-			email: '',
+			usename: '',
 			password: '',
+			email: '',
 			birthplace: '',
 			dateofbirth: '',
 			address: '',
 			no_tlp: '',
-			roles: 'konsumen'
+			roles: 'konsumen',
+			provinsi: '',
+			kota: '',
+			provinsis: [],
+			kotas: []
 		}
+	}
+
+	componentDidMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+		  .then((response) => {
+			this.setState({ 
+				provinsis: response.data.data
+	  		})	
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+	}
+
+	changeProvinsi = (e) => {
+		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		  .then((response) => {
+		  	console.log(response)
+			this.setState({ 
+				provinsi: e.target.value,
+				kotas: response.data.data
+	  		})	
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+		  e.persist();
 	}
 
 	handleChange = (event) => {
@@ -29,23 +58,28 @@ class UserCreate extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-		const data = { 
-			name: this.state.name,
-			email: this.state.email,
-			password: this.state.password,
-			birthplace: this.state.birthplace,
-			dateofbirth: this.state.dateofbirth,
-			address: this.state.address,
-			no_tlp: this.state.no_tlp,
-			roles: this.state.roles
-		}
+
+		const bodyFormData = new FormData();
+		
+		bodyFormData.set('name', this.state.name);
+		bodyFormData.set('username', this.state.username);
+		bodyFormData.set('email', this.state.email);
+		bodyFormData.set('password', this.state.password);
+		bodyFormData.set('birthplace', this.state.birthplace);
+		bodyFormData.set('dateofbirth', this.state.dateofbirth);
+		bodyFormData.set('address', this.state.address);
+		bodyFormData.set('provinsi', this.state.provinsi);
+		bodyFormData.set('kota', this.state.kota);
+		bodyFormData.set('no_tlp', this.state.no_tlp);
+		bodyFormData.set('roles', this.state.roles);
 
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-		console.log(data);
-		axios.post(`http://apiklikfood.herokuapp.com/user/store`, qs.stringify(data))
+
+		axios.post(`http://apiklikfood.herokuapp.com/user/store`, bodyFormData)
 	      .then(response => {
+	      	console.log(response);
 	      	toast.success("Menambah User Sukses !");
 	      	setTimeout(() => {
 	      		window.location.href='/admin/users';
@@ -77,6 +111,16 @@ class UserCreate extends Component {
 				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
+
+				        		  <Form.Group as={Row} controlId="formHorizontalUserName">
+				        		    <Form.Label column sm={2}>
+				        		      Username
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleChange} />
+				        		    </Col>
+				        		  </Form.Group>
+
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
 				        		      Email
@@ -85,6 +129,16 @@ class UserCreate extends Component {
 				        		      <Form.Control type="email" placeholder="Email" name="email" value={this.state.email} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
+
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Password
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} />
+				        		    </Col>
+				        		  </Form.Group>
+
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
 				        		      Tempat Lahir
@@ -121,6 +175,40 @@ class UserCreate extends Component {
 
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
+				        		      Pilih Provinsi :
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		    	<select name="provinsi" style={{marginBottom: '20px'}} onChange={this.changeProvinsi} required>
+										  { 
+										  	this.state.provinsis.map( provinsi =>
+										  		<React.Fragment>
+										  		<option key={provinsi.province_id} value={provinsi.province_id}>{ provinsi.province }</option>
+										  		</React.Fragment>
+										  	)
+										  }
+										</select>  
+				        		    </Col>
+				        		  </Form.Group>
+
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Pilih Kota :
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		    	<select name="kota" style={{marginBottom: '20px'}} onChange={this.handleChange} required>
+										  { 
+										  	this.state.kotas.map( kota =>
+										  		<React.Fragment>
+										  		<option key={kota.city_id} value={kota.city_id}>{ kota.city_name }</option>
+										  		</React.Fragment>
+										  	)
+										  }
+										</select>  
+				        		    </Col>
+				        		  </Form.Group>
+								  
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
 				        		      Roles
 				        		    </Form.Label>
 				        		    <Col sm={10}>
@@ -153,7 +241,7 @@ class UserCreate extends Component {
 
 				        		  <Form.Group as={Row}>
 				        		    <Col sm={{ span: 10, offset: 2 }}>
-				        		      <Button type="submit">Update</Button>
+				        		      <Button type="submit">Tambahkan</Button>
 				        		    </Col>
 				        		  </Form.Group>
 				        		</Form>;

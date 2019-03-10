@@ -2,38 +2,138 @@ import React, { Component } from 'react';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
 import { Redirect } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import axios from 'axios';
 
 class Cart extends Component {
 	constructor(props) {
 	    super(props);
 
 	    this.state = {
-	 		carts: []
+	 		carts: [],
+	 		hargaNya: [],
+			beratNya: [],
+			jumlahHarga: '',
+			jumlahBerat: '',
+			servis: '',
+			jumlahOngkir: '',
+	 		listOngkir: []
 	    };
-		
-		var carts = JSON.parse(localStorage.getItem('cart'));
-		if(carts)
-			carts.map(item => 
-				this.state.carts.push(item)
-			)
 
 		this.handleDeleteCart = this.handleDeleteCart.bind(this);
 	}
 
+	componentWillMount() {
+		var carts = JSON.parse(localStorage.getItem('cart'));
+		let jumlahBeratNya = null;
+		let jumlahHargaNya = null;
+		if(carts){
+			carts.map((item, i) => {
+				this.state.carts.push(item);
+				jumlahBeratNya += Number(item[4]);
+				jumlahHargaNya += Number(item[1]);
+			})
+			this.setState({
+				jumlahBerat: jumlahBeratNya,
+				jumlahHarga: jumlahHargaNya
+			})
+		}
+	}
+
 	componentDidMount() {
+		console.log(this.state.jumlahHarga)
+		const cekOngkir = new FormData();
+		console.log(sessionStorage);
+		cekOngkir.set('tujuan', sessionStorage.kota);
+		cekOngkir.set('berat', this.state.jumlahBerat);
+
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+		
+		axios.post(`http://apiklikfood.herokuapp.com/ongkir/harga`, cekOngkir)
+	      .then(res => {
+	      	console.log(res);
+	      	this.setState({
+	      		listOngkir: res.data.data
+	      	})
+	      }).catch(err => {
+	  //     	if(localStorage.getItem('redirectOnce')){
+			// 	window.location.href='/admin/distribution/order/courier';
+			// 	localStorage.removeItem('redirectOnce');
+			// }
+	      });
+
+	      // this.setState({
+	      // 	jumlahTotal: this.state.jumlahHarga + this.state.jumlahOngkir
+	      // })
 	}
 
 	handleDeleteCart = i => {
-		this.setState( state => {
-			const carts = this.state.carts.filter((item, j) => i !== j);
-			return {
-				carts,
-			}
-		});				                      
+		// this.setState( state => {
+		const carts = this.state.carts.filter((item, j) => i !== j);
+		
+		// 	return {
+		// 		carts,
+		// 	}
+		// });
+		console.log(carts);
+		localStorage.setItem('cart', JSON.stringify(carts));
+		this.setState({
+			carts: JSON.parse(localStorage.getItem('cart'))
+		})
+		window.location.href='/cart';
+		console.log(this.state);
+	}
+
+	handleChange = (event) => {
+		this.setState({ 
+			servis: event.target.value,
+			jumlahOngkir: event.target.id
+		})
+	}
+
+	handleSubmitOrder = (e) => {
+		e.preventDefault();
+
+		const willParsedCart = JSON.parse(localStorage.getItem('cart'));
+		let finalCart = [...Array(willParsedCart.length)].map( x => Array(2).fill(0) );
+
+		willParsedCart.map((item,i) => {
+			finalCart[i][0] = (item[2].split('/')[0]);
+			finalCart[i][1] = (item[3]);
+		})
+		console.log(finalCart);
+		var obj = {
+		    'produk' : finalCart,
+		    'servis' : this.state.servis
+		};
+		console.log(obj);
+		
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+
+		axios.post(`http://apiklikfood.herokuapp.com/transaksi/store`, obj)
+	      .then(res => {
+	      	console.log(res);
+	      	toast.success(res.data.messages);
+	      	setTimeout(() => {
+	      		window.location.href='/admin/transactions/pembelian';
+	      	}, 3000)
+	      }).catch(err => {
+	      	console.log(err);
+	      	toast.error("Tidak Bisa Diorder :( ");
+	      });
 	}
 
 	render() {
+		if (this.state.carts.length === 0) {
+			{toast.warning("Silahkan Pilih Produk Dahulu !")}
+			return (
+				<Redirect to={'/'}/>
+			)
+	    }
 		if (sessionStorage.length === 0) {
 			{toast.success("Login Terlebih Dahulu !")}
 			return (
@@ -42,6 +142,7 @@ class Cart extends Component {
 	    }
 		return (
 			<div>
+			<ToastContainer />
 				<section id="cart_items">
 		          <div className="container">
 		            <div className="breadcrumbs">
@@ -109,27 +210,27 @@ class Cart extends Component {
 		        <section id="do_action">
 		          <div className="container">
 		            <div className="heading">
-		              <h3>What would you like to do next?</h3>
-		              <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+		              <h3>Silahkan Pilih Metode Pengiriman</h3>
+		              <p>Pengiriman Via JNE dan akan dikirim menurut Kota yang telah didaftarkan ketika register.</p>
 		            </div>
 		            <div className="row">
 		              <div className="col-sm-6">
 		                <div className="chose_area">
 		                  <ul className="user_option">
-		                    <li>
-		                      <input type="checkbox" />
-		                      <label>Use Coupon Code</label>
-		                    </li>
-		                    <li>
-		                      <input type="checkbox" />
-		                      <label>Use Gift Voucher</label>
-		                    </li>
-		                    <li>
-		                      <input type="checkbox" />
-		                      <label>Estimate Shipping &amp; Taxes</label>
-		                    </li>
+		                  	{ 
+		                  		(this.state.listOngkir.length !== null) ?
+			                  	this.state.listOngkir.map((item,i) => 
+		                  		<React.Fragment>
+					        		<li key={i}>
+				                      <input style={{position: 'relative'}} type="radio" id={item.cost[0].value} name="servis" onChange={this.handleChange} value={item.service} /> { item.service }
+				                      <label>Rp.{ item.cost[0].value } { item.service } { item.cost[0].etd } Hari</label>
+				                    </li>
+				        		</React.Fragment>
+				        		)
+				        		: null
+				        	}
 		                  </ul>
-		                  <ul className="user_info">
+		                  {/*<ul className="user_info">
 		                    <li className="single_field">
 		                      <label>Country:</label>
 		                      <select>
@@ -160,21 +261,20 @@ class Cart extends Component {
 		                      <label>Zip Code:</label>
 		                      <input type="text" />
 		                    </li>
-		                  </ul>
-		                  <a className="btn btn-default update" href>Get Quotes</a>
-		                  <a className="btn btn-default check_out" href>Continue</a>
+		                  </ul>*/}
+		                  {/*<a className="btn btn-default update" href>Get Quotes</a>
+		                  <a className="btn btn-default check_out" href>Continue</a>*/}
 		                </div>
 		              </div>
 		              <div className="col-sm-6">
 		                <div className="total_area">
 		                  <ul>
-		                    <li>Cart Sub Total <span>$59</span></li>
-		                    <li>Eco Tax <span>$2</span></li>
-		                    <li>Shipping Cost <span>Free</span></li>
-		                    <li>Total <span>$61</span></li>
+		                    <li>Keranjang Sub Total <span>Rp. { this.state.jumlahHarga }</span></li>
+		                    <li>Biaya Pengiriman <span>Rp. { this.state.jumlahOngkir }</span></li>
+		                    <li>Total <span>Rp. { Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir) }</span></li>
 		                  </ul>
-		                  <a className="btn btn-default update" href>Update</a>
-		                  <a className="btn btn-default check_out" href>Check Out</a>
+		                  {/*<a className="btn btn-default update" href>Update</a>*/}
+		                  <button className="btn btn-default update" onClick={this.handleSubmitOrder} href>Pesan Sekarang !</button>
 		                </div>
 		              </div>
 		            </div>

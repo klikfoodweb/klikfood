@@ -26,7 +26,8 @@ export default class Profile extends Component {
 			kotas: [],
 			provinsis: [],
 			user: [],
-			updating: false
+			updating: false,
+			header: null
 		}
 
 		axios.defaults.headers = {  
@@ -85,6 +86,7 @@ export default class Profile extends Component {
 		this.setState({
 			updating: true
 		})
+
 		const data = { 
 			name: this.state.name,
 			email: this.state.email,
@@ -158,6 +160,14 @@ export default class Profile extends Component {
 				        		    </Form.Label>
 				        		    <Col sm={10}>
 				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
+				        		    </Col>
+				        		  </Form.Group>
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Username
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="text" placeholder="Username" name="username" value={this.state.username} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">

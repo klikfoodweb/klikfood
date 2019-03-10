@@ -3,6 +3,7 @@ import Banner from './Banner';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
 import axios from 'axios';
+import qs from 'qs';
 import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
@@ -11,8 +12,14 @@ class Home extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: []
+			categories: [],
+			testimonies: [],
+			emailSubscribe: ''
 		}
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	componentWillMount() {
 		axios.get(`https://apiklikfood.herokuapp.com/kategori`)
 		  .then((response) => {
 		  		console.log(response.data.data);
@@ -22,6 +29,36 @@ class Home extends Component {
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
 		  })
+
+		  axios.get(`http://apiklikfood.herokuapp.com/testimoni`)
+		  .then((response) => {
+		  	console.log(response.data.data)
+		  	this.setState({
+		  		testimonies: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+	}
+
+	handleChange(event) {
+		event.preventDefault();
+		this.setState({ 
+			[event.target.name]: event.target.value
+		})
+	}
+
+	handleSubscribe = (e) => {
+		e.preventDefault();
+		const bodyFormData = {
+			email: this.state.emailSubscribe
+		}
+		axios.post(`http://apiklikfood.herokuapp.com/subscribe`, qs.stringify(bodyFormData))
+	      .then(res => {
+	      	toast.success("Terimakasih Sudah Subscribe !");
+	      }).catch(err => {
+	      	toast.error("Something Went Wrong :( ");
+	      });
 	}
 
 	render() {
@@ -350,31 +387,20 @@ class Home extends Component {
 	            </div>	
 	          </div>
 	          <div className="row">
-	            <div className="col-sm-4">
+	          {
+	          	this.state.testimonies.map((item,i) => 
+	          	<React.Fragment>	
+	          	<div className="col-sm-4">
 	              <center>
 	                <div className="price-range">{/*Telah-Bergabung #1*/}
-	                  <h3>Mitra</h3>
-	                  <center><p>Testimoni Mitra yang telah beraktifitas</p></center>
-	                  <a href="#"><img src="images/home/mitra1.jpg" alt /></a>
+	                  <h3>{item.judul}</h3>
+	                  <center><p>{ item.subjudul }</p></center>
+	                  <a href="#"><img src={"http://bajax.0hi.me/testimoni/"+item._id+"/"+item.image} alt /></a>
 	                </div>{/*/End-Telah Bergabung #1*/}</center>
 	            </div>
-	            <div className="col-sm-4">
-	              <center>
-	                <div className="price-range">{/*Telah-Bergabung #2*/}
-	                  <h3>Mitra</h3>
-	                  <center><p>Baru bergabung menjadi keluarga besar kami</p></center>
-	                  <a href="#"><img src="images/home/mitra2.jpg" alt /></a>
-	                </div>{/*/End-Telah Bergabung #2*/}</center>
-	            </div>
-	            <div className="col-sm-4">
-	              <center>
-	                <div className="price-range">{/*Telah-Bergabung #3*/}
-	                  <h3>Rekan</h3>
-	                  <center><p>Telah bergabung, Rekan Bisnis dari Bogor</p></center>
-	                  <a href="#"><img src="images/home/rekan1.jpg" alt /></a>
-	                </div>{/*/End-Telah Bergabung #3*/}</center>
-	            </div>
-	            <p />
+	            </React.Fragment>
+	            )
+	          }
 	          </div>
 	        </div>		
 	        {/*/End_Pilih_Kami_Section--#3*/}
@@ -388,8 +414,8 @@ class Home extends Component {
 	          </div>
 	          <center><div className="row">
 	              <div className="col-sm-12">
-	                <form action="#" className="searchform">
-	                  <input type="text" placeholder="Your email address" />
+	                <form onSubmit={this.handleSubscribe} className="searchform">
+	                  <input type="email" name="emailSubscribe" placeholder="Your email address" onChange={this.handleChange} />
 	                  <button type="submit" className="btn btn-success"><i className="fa fa-arrow-circle-o-right" /></button>
 	                </form>
 	                <br />

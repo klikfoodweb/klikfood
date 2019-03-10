@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class MyOrder extends Component {
+class KonsumenPembelian extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -31,10 +31,10 @@ class MyOrder extends Component {
 		const bodyFormData = {
 			produk: this.state.produk
 		}
-		axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, JSON.stringify(localStorage.getItem('dataObject')))
+		axios.post(`http://apiklikfood.herokuapp.com/transaksi/bayar`, JSON.stringify(localStorage.getItem('dataObject')))
 	      .then(res => {
 	      	console.log(res);
-	      	toast.success("Berhasil Dipesan !");
+	      	toast.success("Berhasil Dibayar !");
 	      	setTimeout(() => {
 	      		// window.location.href='/admin/myproducts';
 	      	}, 3000)
@@ -45,7 +45,7 @@ class MyOrder extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/distribusi/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/transaksi/konsumen`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -62,7 +62,7 @@ class MyOrder extends Component {
 
 	showLayout(cell, row){
 		const id = row._id;
-	  	return <Link className="btn btn-success" to={`/admin/distribution/${id}`}> Lihat </Link>;
+	  	return <Link className="btn btn-success" to={`/admin/transactions/${id}`}> Lihat </Link>;
 	}
 
 	confirmLayout(cell, row){
@@ -72,11 +72,11 @@ class MyOrder extends Component {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`http://apiklikfood.herokuapp.com/transaksi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Terima Kasih !");
 	  			      	setTimeout(() => {
-	  			      		window.location.href='/admin/distribution/myorder';
+	  			      		window.location.href='/admin/transactions/pembelian';
 	  			      	}, 3000)
 	  				  }).catch((error) => {
 	  				  	console.log(error)
@@ -92,11 +92,11 @@ class MyOrder extends Component {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`http://apiklikfood.herokuapp.com/transaksi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Berhasil Dibayar !");
 	  			      	setTimeout(() => {
-	  			      		window.location.href='/admin/distribution/myorder';
+	  			      		window.location.href='/admin/transactions/pembelian';
 	  			      	}, 3000)
 	  				  }).catch((error) => {
 	  				  	console.log(error)
@@ -124,7 +124,7 @@ class MyOrder extends Component {
 				        	<BootstrapTable data={this.state.products} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='_id' dataSort={true}>ID Distribusi</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='_id' dataSort={true}>ID Transaksi</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='jumlah_keseluruhan' dataSort={true}>Total Harga</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='created_at' dataSort={true}>Created_at</TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout }> </TableHeaderColumn>
@@ -140,4 +140,4 @@ class MyOrder extends Component {
 		);
 	}
 }
-export default MyOrder;
+export default KonsumenPembelian;

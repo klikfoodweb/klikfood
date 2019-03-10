@@ -6,24 +6,26 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class OrderProduct extends Component {
+class PaketMitraCreate extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			products: [],
-			produk: []
+			produk: [],
+			name: ''
 		}
 		this.handleChange = this.handleChange.bind(this);
 		localStorage.clear();
 	}
 
 	handleChange(event) {
+		console.log(this.state);
 		this.setState({ 
 			[event.target.name]: event.target.value
 		})
 	}
 	
-	handleNextStep = (e) => {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		let productSubmit = [];
 		let validProduct = [];
@@ -35,10 +37,30 @@ class OrderProduct extends Component {
 					productSubmit[i] = JSON.parse(localStorage.getItem('product'+i));
 			}
 		}
-		localStorage.setItem('mitraCart', JSON.stringify(productSubmit.filter(n => n)));
-		localStorage.setItem('redirectOnce', true);
-		window.location.href='/admin/distribution/order/courier';
-		console.log(localStorage);
+		// localStorage.setItem('paketCart', JSON.stringify(productSubmit.filter(n => n)));
+		// localStorage.setItem('redirectOnce', true);
+		// window.location.href='/admin/distribution/order/courier';
+		var obj = {
+		    'produk' : productSubmit,
+		    'name' : this.state.name
+		};
+		
+		console.log(obj);
+		axios.defaults.headers = {  
+			'Authorization': sessionStorage.api_token 
+		}
+
+		axios.post(`http://apiklikfood.herokuapp.com/paketmitra/store`, obj)
+	      .then(res => {
+	      	console.log(res);
+	      	toast.success(res.data.messages);
+	      	setTimeout(() => {
+	      		window.location.href='/admin/paket-mitra';
+	      	}, 3000)
+	      }).catch(err => {
+	      	console.log(err);
+	      	toast.error("Tidak Bisa Menambah Paket :( ");
+	      });
 	}
 
 	componentDidMount() {
@@ -99,10 +121,11 @@ class OrderProduct extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Product List
+				          Tambah Paket Pendaftaran Mitra
 				        </h2>
 				      </div>
 				      <div className="body">
+				      	<label>Nama Paket </label><input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
 				        <div className="table-responsive">
 				        	<BootstrapTable data={this.state.products} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
@@ -115,7 +138,7 @@ class OrderProduct extends Component {
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout }> </TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.jumlahLayout } width='150'>Jumlah </TableHeaderColumn>
 		                  	</BootstrapTable>  
-				        	<button className="btn btn-primary" onClick={this.handleNextStep}> Lanjutkan </button>
+				        	<button className="btn btn-primary" onClick={this.handleSubmit}> Tambahkan </button>
 				        </div>
 				      </div>
 				    </div>
@@ -125,4 +148,4 @@ class OrderProduct extends Component {
 		);
 	}
 }
-export default OrderProduct;
+export default PaketMitraCreate;

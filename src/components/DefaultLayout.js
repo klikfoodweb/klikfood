@@ -11,6 +11,7 @@ import SearchMitra from './SearchMitra';
 import SearchProduct from './SearchProduct';
 import Support from './Support';
 import Profile from './Profile';
+import Privacy from '../pages/Privacy';
 
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -40,9 +41,10 @@ class DefaultLayout extends Component {
             	<Route path="/cart" name="Cart" component={Cart} />
             	<Route path="/contact" name="Contact" component={Contact} />
             	<Route path="/search" name="SearchProduct" component={SearchProduct} />
-            	<Route path="/mitra" name="SearchMitra" component={SearchMitra} />
+            	<Route path="/search-mitra" name="SearchMitra" component={SearchMitra} />
             	<Route path="/support" name="Support" component={Support} />
                 <Route path="/profile" name="Profile" component={Profile} />
+                <Route path="/privacy" name="Privacy" component={Privacy} />
             	<Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
             </Switch>
             </main>

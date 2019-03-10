@@ -5,19 +5,21 @@ import 'react-input-range/lib/css/index.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Pagination from './Pagination';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Jumbotron } from 'react-bootstrap';
 import ContentLoader from "react-content-loader";
 
 class CatalogMitra extends Component {
-	constructor() {
-	    super();
+	constructor(props) {
+	    super(props);
 
 	    this.state = {
 	        pageOfItems: [],
 	 		categories: [],
 	 		products: [],
-	 		loader: true
+	 		carts: [],
+	 		header: '',
+	 		mitraId: ''
 	    };
 
 	    this.onChangePage = this.onChangePage.bind(this);
@@ -26,6 +28,24 @@ class CatalogMitra extends Component {
 	onChangePage(pageOfItems) {
 	    // update state with new page of items
 	    this.setState({ pageOfItems: pageOfItems });
+	}
+
+	componentWillMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/header/`+this.props.match.params.mitra)
+	      .then((response) => {
+	      	this.setState({
+	      		header: response.data.data.header,
+	      		mitraId: response.data.data._id
+	      	})
+	      	console.log(response.data.data);
+	      }).catch((error) => {
+	      	toast.error("Something Went Wrong :(");
+	      })
+
+	    if(localStorage.getItem('cart') !== null)
+	    	this.setState({
+	    		carts: JSON.parse(localStorage.getItem('cart'))
+	    	})
 	}
 
 	componentDidMount() {
@@ -38,9 +58,9 @@ class CatalogMitra extends Component {
 		  	toast.error("Something Went Wrong :(");
 		  })		
 
-	  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/5c7c60102cb8710ef4005c88`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+      	console.log(this.props.match.params.mitra);
+	  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra, { 'headers': { 'Authorization': sessionStorage.api_token } })
       .then((response) => {
-      	console.log(response.data.data);
       	this.setState({
       		products: response.data.data,
       		loader: false
@@ -49,6 +69,21 @@ class CatalogMitra extends Component {
       }).catch((error) => {
       	toast.error("Something Went Wrong :(");
       })
+	}
+
+	handleAddToCart = (e) => {
+		if (sessionStorage.length === 0) {
+			{toast.warning("Login Terlebih Dahulu !")}
+			window.location.href='/login';
+	    }else{
+	    	e.preventDefault();
+			this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+		    
+		    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+		    console.log(JSON.stringify(this.state.carts));
+		    console.log(JSON.parse(localStorage.getItem('cart')));
+			toast.success("Berhasil Dimasukkan Keranjang !");
+	    }
 	}
 
 	render() {
@@ -75,10 +110,7 @@ class CatalogMitra extends Component {
 				    <div className="row">
 				    	<div className="col-sm-12">
 				    		<Jumbotron>
-				    		  <h1>Selamat Datang, Di Toko Kami!</h1>
-				    		  <p>
-				    		    Silahkan berbelanja, kami akan melayani dengan sepenuh hati.
-				    		  </p>
+				    		  <img style={{maxHeight: '256px', maxWidth: '1024px', width: '100%'}} src={ "http://bajax.0hi.me/header/" + this.state.mitraId + "/" + this.state.header } alt="header-toko"/>
 				    		</Jumbotron>;
 		            	</div>
 		            </div>
@@ -274,17 +306,17 @@ class CatalogMitra extends Component {
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
-		                      	        <img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12"  />
+		                      	        <img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
 		                      	        <h2>Rp {item.harga_jual}</h2>
 		                      	        <p>{ item.name }</p>
-		                      	        <a href="#" onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	        <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	      </div>
 		                      	      <div className="product-overlay">
 		                      	        <div className="overlay-content">
 		                      	          <h2>Rp {item.harga_jual}</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
-		                      	          <a href="#" onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	          <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	        </div>
 		                      	      </div>
 		                      	    </div>

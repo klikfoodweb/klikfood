@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class TransactionVerif extends Component {
+class MitraPenjualan extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -16,7 +16,7 @@ class TransactionVerif extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/distribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/transaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data);
 		  	this.setState({
@@ -48,11 +48,11 @@ class TransactionVerif extends Component {
 			return (
 				<button onClick={ (e) => {
 					e.preventDefault();
-					axios.get(`http://apiklikfood.herokuapp.com/distribusi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
-					  .then((response) => {
+					axios.get(`http://apiklikfood.herokuapp.com/transaksi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+					  .then((response) => {	
 					  	toast.success("Berhasil Dikirim !");
 				      	setTimeout(() => {
-				      		window.location.href='/admin/transactions/verification';
+				      		window.location.href='/admin/transactions/penjualan';
 				      	}, 3000)
 					  }).catch((error) => {
 					  	console.log(error)
@@ -64,11 +64,11 @@ class TransactionVerif extends Component {
 			return (
 				<button onClick={ (e) => {
 					e.preventDefault();
-					axios.get(`http://apiklikfood.herokuapp.com/distribusi/konfirmasi_bayar/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+					axios.get(`http://apiklikfood.herokuapp.com/transaksi/konfirmasi_bayar/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 					  .then((response) => {
 					  	toast.success("Berhasil Di Verifikasi !");
 				      	setTimeout(() => {
-				      		window.location.href='/admin/transactions/verification';
+				      		window.location.href='/admin/transactions/penjualan';
 				      	}, 3000)
 					  }).catch((error) => {
 					  	console.log(error)
@@ -116,4 +116,4 @@ class TransactionVerif extends Component {
 		);
 	}
 }
-export default TransactionVerif;
+export default MitraPenjualan;

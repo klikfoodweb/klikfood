@@ -28,43 +28,15 @@ class LeftBarConsument extends Component {
 				        </a>
 				        <ul className="ml-menu">
 				          <li>
-				            <a href="#" className="menu-toggle">
-				              <span>Cards</span>
-				            </a>
-				            <ul className="ml-menu">
-				              <li>
-				                <a href="pages/widgets/cards/basic.html">Basic</a>
-				              </li>
-				              <li>
-				                <a href="pages/widgets/cards/colored.html">Colored</a>
-				              </li>
-				              <li>
-				                <a href="pages/widgets/cards/no-header.html">No Header</a>
-				              </li>
-				            </ul>
+				            <Link to="/admin/transactions/pembelian">
+				              <span>Pembelian</span>
+				            </Link>
 				          </li>
-				          <li>
-				            <a href="#" className="menu-toggle">
+				          {/*<li>
+				            <Link to="#">
 				              <span>Infobox</span>
-				            </a>
-				            <ul className="ml-menu">
-				              <li>
-				                <a href="pages/widgets/infobox/infobox-1.html">Infobox-1</a>
-				              </li>
-				              <li>
-				                <a href="pages/widgets/infobox/infobox-2.html">Infobox-2</a>
-				              </li>
-				              <li>
-				                <a href="pages/widgets/infobox/infobox-3.html">Infobox-3</a>
-				              </li>
-				              <li>
-				                <a href="pages/widgets/infobox/infobox-4.html">Infobox-4</a>
-				              </li>
-				              <li>
-				                <a href="pages/widgets/infobox/infobox-5.html">Infobox-5</a>
-				              </li>
-				            </ul>
-				          </li>
+				            </Link>
+				          </li>*/}
 				        </ul>
 				      </li>
 				      

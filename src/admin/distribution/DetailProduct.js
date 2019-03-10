@@ -110,10 +110,10 @@ class DetailProduct extends Component {
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      Harga Jual
+				        		      Harga Pemasok
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Harga Jual" name="harga_jual" value={this.state.harga_jual} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Harga Pemasok" name="harga_pemasok" value={this.state.harga_supplyer} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
