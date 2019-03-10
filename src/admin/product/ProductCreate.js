@@ -162,15 +162,6 @@ class ProductCreate extends Component {
 
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      No Telepon
-				        		    </Form.Label>
-				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="No Telepon" name="no_tlp" value={this.state.no_tlp} onChange={this.handleChange} />
-				        		    </Col>
-				        		  </Form.Group>
-
-				        		  <Form.Group as={Row} controlId="formHorizontalName">
-				        		    <Form.Label column sm={2}>
 				        		      Upload Gambar
 				        		    </Form.Label>
 				        		    <Col sm={3}>
@@ -209,7 +200,7 @@ class ProductCreate extends Component {
 											<b><center>Sedang Upload...</center></b>
 										</div>
 										:
-											<Button type="submit" className="btn btn-success">Register</Button>
+											<Button type="submit" className="btn btn-success">Ajukan</Button>
 										}
 				        		    </Col>
 				        		  </Form.Group>

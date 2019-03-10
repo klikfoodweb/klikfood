@@ -62,19 +62,7 @@ class MitraPenjualan extends Component {
 			)	
 		}else if(row.bayar === 1){
 			return (
-				<button onClick={ (e) => {
-					e.preventDefault();
-					axios.get(`http://apiklikfood.herokuapp.com/transaksi/konfirmasi_bayar/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
-					  .then((response) => {
-					  	toast.success("Berhasil Di Verifikasi !");
-				      	setTimeout(() => {
-				      		window.location.href='/admin/transactions/penjualan';
-				      	}, 3000)
-					  }).catch((error) => {
-					  	console.log(error)
-					  	toast.error("Something Went Wrong :(");
-					  })
-				} } className="btn btn-warning">Verifikasi</button>
+				<button className="btn btn-warning">Menunggu Verifikasi Pembayaran</button>
 			)
 		}else{
 			return (

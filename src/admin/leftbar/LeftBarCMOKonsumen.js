@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import UserInfo from './UserInfo';
 
-class LeftBarSupplyer extends Component {
+class LeftBarCMOKonsumen extends Component {
 
 	render() {
 		return (
@@ -21,30 +21,13 @@ class LeftBarSupplyer extends Component {
 				          <span>Dashboard</span>
 				        </Link>
 				      </li>
-				      <li>
-				        <Link to="/admin/products">
-				          <i className="material-icons">widgets</i>
-				          <span>Produk</span>
-				        </Link>
-				      </li>
-				      <li>
-				        <a href="#" className="menu-toggle">
-				          <i className="material-icons">widgets</i>
-				          <span>Transaksi</span>
-				        </a>
-				        <ul className="ml-menu">
-			                <li>
-			                  <a>
-			                    <span>Penjualan</span>
-			                  </a>
-			                </li>
-			                <li>
-			                  <a>
-			                    <span>Pembelian</span>
-			                  </a>
-			                </li>
-			              </ul>
-				      </li>
+		      	      <li>
+		      	        <Link to="/admin/cmo/konsumen">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>User Konsumen</span>
+		      	        </Link>
+		      	      </li>
+				      
 				    </ul>
 				  </div>
 				  {/* #Menu */}
@@ -63,4 +46,4 @@ class LeftBarSupplyer extends Component {
 		);
 	}
 }
-export default LeftBarSupplyer;
+export default LeftBarCMOKonsumen;

@@ -3,6 +3,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router-dom';
+import GraphAdmin from './graph/GraphAdmin';
+import GraphCEO from './graph/GraphCEO';
+import GraphCFO from './graph/GraphCFO';
+import GraphCMO from './graph/GraphCMO';
+import GraphCOO from './graph/GraphCOO';
+import GraphKonsumen from './graph/GraphKonsumen';
+import GraphSupplyer from './graph/GraphSupplyer';
+import GraphMitra from './graph/GraphMitra';
 
 class Dashboard extends Component {
 	constructor(props) {
@@ -42,58 +50,28 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<div>
-				<div className="block-header">
-				  <h2>DASHBOARD</h2>
-				</div>
-				{/* Widgets */}
-				<div className="row clearfix">
-				  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				    <div className="info-box bg-pink hover-expand-effect">
-				      <div className="icon">
-				        <i className="material-icons">playlist_add_check</i>
-				      </div>
-				      <div className="content">
-				        <div className="text">Jumlah Produk</div>
-				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={15} data-fresh-interval={20} />
-				      </div>
-				    </div>
-				  </div>
-				  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				    <div className="info-box bg-cyan hover-expand-effect">
-				      <div className="icon">
-				        <i className="material-icons">help</i>
-				      </div>
-				      <div className="content">
-				        <div className="text">Jumlah Konsumen</div>
-				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={1000} data-fresh-interval={20} />
-				      </div>
-				    </div>
-				  </div>
-				  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				    <div className="info-box bg-light-green hover-expand-effect">
-				      <div className="icon">
-				        <i className="material-icons">forum</i>
-				      </div>
-				      <div className="content">
-				        <div className="text">Jumlah Mitra</div>
-				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={1000} data-fresh-interval={20} />
-				      </div>
-				    </div>
-				  </div>
-				  <div className="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-				    <div className="info-box bg-orange hover-expand-effect">
-				      <div className="icon">
-				        <i className="material-icons">person_add</i>
-				      </div>
-				      <div className="content">
-				        <div className="text">Jumlah Pemasok</div>
-				        <div className="number count-to" data-from={0} data-to={this.state.verifiedproducts.length} data-speed={1000} data-fresh-interval={20} />
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				{/* #END# Widgets */}
-				
+				{
+	          	(sessionStorage.role === 'Administrator') ?
+	          	<GraphAdmin />
+          		: (sessionStorage.role === 'CEO') ?
+          		<GraphCEO />
+          		: (sessionStorage.role === 'CFO') ?
+          		<GraphCFO />
+          		: (sessionStorage.role === 'COO') ?
+          		<GraphCOO />
+          		: (sessionStorage.role === 'CMO_konsumen') ?
+          		<GraphCMO />
+          		: (sessionStorage.role === 'CMO_mitra') ?
+          		<GraphCMO />
+          		: (sessionStorage.role === 'CMO_pemasok') ?
+          		<GraphCMO />
+          		: (sessionStorage.role === 'Supplyer') ?
+				<GraphSupplyer />
+				: (sessionStorage.role === 'Mitra') ?
+				<GraphMitra />
+          		: 
+          		<GraphKonsumen />
+	          }
 			</div>
 		);
 	}

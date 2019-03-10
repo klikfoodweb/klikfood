@@ -18,9 +18,12 @@ class CatalogMitra extends Component {
 	 		categories: [],
 	 		products: [],
 	 		promoProducts: [],
+	 		popularProducts: [],
+	 		newProducts: [],
 	 		carts: [],
 	 		header: '',
-	 		mitraId: ''
+	 		mitraId: '',
+	 		loader: true
 	    };
 
 	    this.onChangePage = this.onChangePage.bind(this);
@@ -60,27 +63,45 @@ class CatalogMitra extends Component {
 		  })		
 
       	console.log(this.props.match.params.mitra);
-		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra)
 	      .then((response) => {
 	      	this.setState({
 	      		products: response.data.data,
 	      		loader: false
 	      	})
-	      	console.log(this.state.products);
 	      }).catch((error) => {
 	      	toast.error("Something Went Wrong :(");
 	      })
 
-	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?promo=1", { 'headers': { 'Authorization': sessionStorage.api_token } })
+	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?promo=1")
 	      .then((response) => {
 	      	this.setState({
 	      		promoProducts: response.data.data,
 	      		loader: false
 	      	})
-	      	console.log(this.state.products);
 	      }).catch((error) => {
 	      	toast.error("Something Went Wrong :(");
 	      })
+
+	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?orderby=terjual&limit=3")
+	      .then((response) => {
+	      	this.setState({
+	      		popularProducts: response.data.data,
+	      		loader: false
+	      	})
+	      }).catch((error) => {
+	      	toast.error("Something Went Wrong :(");
+	      })
+
+	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2`)
+		  .then((response) => {
+		  	console.log(response.data.data)
+		  	this.setState({
+		  		newProducts: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
 	}
 
 	handleAddToCart = (e) => {
@@ -146,7 +167,7 @@ class CatalogMitra extends Component {
 	                    			<div class="panel-body">
 	                    				<ul>
 	                    				{ category.subkategori.map((subcategory,i) =>
-	                    					<li key={ subcategory._id }><a href={"/search?kategori="+subcategory._id}>{ subcategory.name } </a></li>
+	                    					<li key={ subcategory._id }><a href={"/search/"+subcategory._id}>{ subcategory.name } </a></li>
 	                    				) }
 	                    				</ul>
 	                    			</div>
@@ -158,7 +179,28 @@ class CatalogMitra extends Component {
 		                  <div className="price-range">{/*New-Product*/}
 		                    <h2>Produk Baru</h2>
 		                    <center><p>Produk Terbaru Kami</p>
-		                      <a href="#"><img src="images/home/shipping.jpg" alt="shipping" /></a>
+		                      {
+		                  	this.state.newProducts.map( (item, i) => 
+		                  		<React.Fragment>
+		                  			<div key={i}>
+		                  			    <div className="product-image-wrapper">
+		                  			      	<div className="single-products">
+		                  			        	<div className="productinfo text-center">
+		                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+		                  			          		<h2>Rp. { item.harga_jual }</h2>
+		                  			          		<p>{ item.name }</p>
+		                  			          		<Link to={"/"+this.props.match.params.mitra+"/"+item._id} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+		                  			      		</div>
+		                  			      		<div className="choose">
+		                  			        		<ul className="nav nav-pills nav-justified">
+		                  			        		</ul>
+		                  			      		</div>
+		                  			    	</div>
+		                  			  	</div>
+		                  			</div>
+		                  		</React.Fragment>
+		                  	)
+		                  }
 		                    </center></div>{/*/New-Product*/}
 		                  <div className="price-range">{/*Pesan*/}						
 		                    <center><p>Catat dan Pesan di KlikFood</p>
@@ -199,82 +241,28 @@ class CatalogMitra extends Component {
 		                  <h2 className="title text-center">Rekomendasi Produk</h2>
 		                  <div id="recommended-item-carousel" className="carousel slide" data-ride="carousel">
 		                    <div className="carousel-inner">
-		                      <div className="item active">	
+		                      	{/*(i+1 % 3 === 0 || i === 0) ? <div className="item active"> : <div className="item">	*/}
+	                      {
+	                      	this.state.popularProducts.map((item,i) => 
+		                    <React.Fragment>
+		                        
 		                        <div className="col-sm-4">
 		                          <div className="product-image-wrapper">
 		                            <div className="single-products">
 		                              <div className="productinfo text-center">
-		                                <a href="#"><img src="images/home/recommend1.jpg" alt /></a>											
-		                                <h2>Rp 10.000</h2>
-		                                <p>Jajanan Enak</p>
-		                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
+		                                <a href="#"><img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+		                                <h2>Rp { item.harga_jual }</h2>
+		                                <p>{ item.name }</p>
+		                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
 		                              </div>
 		                            </div>
 		                          </div>
 		                        </div>
-		                        <div className="col-sm-4">
-		                          <div className="product-image-wrapper">
-		                            <div className="single-products">
-		                              <div className="productinfo text-center">
-		                                <a href="#"><img src="images/home/recommend2.jpg" alt /></a>									
-		                                <h2>Rp 15.000</h2>
-		                                <p>Kue enak</p>
-		                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-		                              </div>
-		                            </div>
-		                          </div>
-		                        </div>
-		                        <div className="col-sm-4">
-		                          <div className="product-image-wrapper">
-		                            <div className="single-products">
-		                              <div className="productinfo text-center">	
-		                                <a href="#"><img src="images/home/recommend3.jpg" alt /></a>	
-		                                <h2>Rp 15.000</h2>
-		                                <p>Jajanan Spesial</p>
-		                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-		                              </div>
-		                            </div>
-		                          </div>
-		                        </div>
-		                      </div>
-		                      <div className="item">	
-		                        <div className="col-sm-4">
-		                          <div className="product-image-wrapper">
-		                            <div className="single-products">
-		                              <div className="productinfo text-center">
-		                                <a href="#"><img src="images/home/recommend1.jpg" alt /></a>
-		                                <h2>Rp 23.000</h2>
-		                                <p>Kue enak</p>
-		                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-		                              </div>
-		                            </div>
-		                          </div>
-		                        </div>
-		                        <div className="col-sm-4">
-		                          <div className="product-image-wrapper">
-		                            <div className="single-products">
-		                              <div className="productinfo text-center">
-		                                <a href="#"><img src="images/home/recommend2.jpg" alt /></a>
-		                                <h2>Rp 10.000</h2>
-		                                <p>Jajanan huenak</p>
-		                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-		                              </div>
-		                            </div>
-		                          </div>
-		                        </div>
-		                        <div className="col-sm-4">
-		                          <div className="product-image-wrapper">
-		                            <div className="single-products">
-		                              <div className="productinfo text-center">
-		                                <a href="#"><img src="images/home/recommend3.jpg" alt /></a>
-		                                <h2>Rp 13.000</h2>
-		                                <p>Makanan enak</p>
-		                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-		                              </div>
-		                            </div>
-		                          </div>
-		                        </div>
-		                      </div>
+
+		                    </React.Fragment>
+		                    )
+	                      }
+		                    {/*(i+1 % 3 === 0 || i === 0) ? </div> : </div>*/}
 		                    </div>
 		                    <a className="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 		                      <i className="fa fa-angle-left" />
@@ -313,7 +301,7 @@ class CatalogMitra extends Component {
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
-		                      	        <img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
+		                      	        <Link to={"/"+this.props.match.params.mitra+"/"+item._id}><img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
 		                      	        <h2>Rp {item.harga_jual}</h2>
 		                      	        <p>{ item.name }</p>
 		                      	        <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
@@ -323,6 +311,7 @@ class CatalogMitra extends Component {
 		                      	          <h2>Rp {item.harga_jual}</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
+		                      	          <Link to={"/"+this.props.match.params.mitra+"/"+item._id} className="btn btn-default add-to-cart">Lihat</Link>
 		                      	          <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	        </div>
 		                      	      </div>

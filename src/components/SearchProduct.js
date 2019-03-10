@@ -56,14 +56,14 @@ class SearchProduct extends Component {
 		  })		
 		}
 
-	handleAddToCart = (e) => {
-		e.preventDefault();
-		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1]);
-	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-	    console.log(JSON.stringify(this.state.carts));
-	    console.log(JSON.parse(localStorage.getItem('cart')));
-		toast.success("Berhasil Dimasukkan Keranjang !");
-	}
+	// handleAddToCart = (e) => {
+	// 	e.preventDefault();
+	// 	this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1]);
+	//     localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	//     console.log(JSON.stringify(this.state.carts));
+	//     console.log(JSON.parse(localStorage.getItem('cart')));
+	// 	toast.success("Berhasil Dimasukkan Keranjang !");
+	// }
 	
 	render() {
 		const MyLoader = props => (
@@ -87,7 +87,7 @@ class SearchProduct extends Component {
 			<ToastContainer />
 				<section id="advertisement">
 		          <div className="container">
-		            <img src="images/shop/advertisement.jpg" alt="advertisement" />
+		            <img src="/images/shop/advertisement.jpg" alt="advertisement" />
 		          </div>
 		        </section>
 		        <section>
@@ -121,7 +121,7 @@ class SearchProduct extends Component {
 		                  </div>{/*/category-productsr*/}
 		                  
 		                  <div className="shipping text-center">{/*shipping*/}
-		                    <Link to="/login"><img src="images/home/shipping.jpg" alt="shipping" /></Link>
+		                    <Link to="/login"><img src="/images/home/shipping.jpg" alt="shipping" /></Link>
 		                  </div>{/*/shipping*/}
 		                </div>
 		              </div>
@@ -159,14 +159,14 @@ class SearchProduct extends Component {
 		                      	        <img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
 		                      	        <h2>Rp {item.harga_jual}</h2>
 		                      	        <p>{ item.name }</p>
-		                      	        <a href="#" onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	      </div>
 		                      	      <div className="product-overlay">
 		                      	        <div className="overlay-content">
 		                      	          <h2>Rp {item.harga_jual}</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
-		                      	          <a href="#" onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	        </div>
 		                      	      </div>
 		                      	    </div>

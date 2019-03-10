@@ -63,6 +63,12 @@ class LeftBarMitra extends Component {
 				        </ul>
 				      </li>
 				      <li>
+				        <Link to="/admin/riwayat-transfer">
+				          <i className="material-icons">text_fields</i>
+				          <span>Riwayat Transfer</span>
+				        </Link>
+				      </li>
+				      <li>
 				        <Link to="/admin/edit-header">
 				          <i className="material-icons">text_fields</i>
 				          <span>Header Toko</span>

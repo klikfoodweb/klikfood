@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class TransactionVerif extends Component {
+class TransactionConsument extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -16,7 +16,7 @@ class TransactionVerif extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/distribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/transaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data);
 		  	this.setState({
@@ -33,7 +33,7 @@ class TransactionVerif extends Component {
 
 	showLayout(cell, row){
 		const id = row._id;
-	  	return <Link className="btn btn-success" to={`/admin/transactions/${id}`}> Lihat </Link>;
+	  	return <Link className="btn btn-success" to={`/admin/transaction-consuments/${id}`}> Lihat </Link>;
 	}
 	
 	confirmLayout(cell, row){
@@ -130,11 +130,11 @@ class TransactionVerif extends Component {
 				return (
 					<button onClick={ (e) => {
 						e.preventDefault();
-						axios.get(`http://apiklikfood.herokuapp.com/distribusi/konfirmasi_bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+						axios.get(`http://apiklikfood.herokuapp.com/transaksi/konfirmasi_bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 						  .then((response) => {
 						  	toast.success("Berhasil Di Verifikasi !");
 					      	setTimeout(() => {
-					      		window.location.href='/admin/transactions/verification';
+					      		window.location.href='/admin/transaction-consuments/verification';
 					      	}, 3000)
 						  }).catch((error) => {
 						  	console.log(error)
@@ -160,7 +160,7 @@ class TransactionVerif extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Daftar Transaksi Pemesanan
+				          Daftar Transaksi Konsumen
 				        </h2>
 				        
 				      </div>
@@ -184,4 +184,4 @@ class TransactionVerif extends Component {
 		);
 	}
 }
-export default TransactionVerif;
+export default TransactionConsument;

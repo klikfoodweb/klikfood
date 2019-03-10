@@ -81,7 +81,7 @@ class Header extends Component {
 	              <div className="row">
 	                <div className="col-sm-4">
 	                  <div className="logo pull-left">
-	                    <Link to="/"><img src="images/home/logo.png" alt="logo" /></Link>
+	                    <Link to="/"><img src="/images/home/logo.png" alt="logo" /></Link>
 	                  </div>
 	                </div>
 	                <div className="col-sm-8">

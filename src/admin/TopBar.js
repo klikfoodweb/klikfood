@@ -16,6 +16,18 @@ class TopBar extends Component {
 							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Pemasok - ClickFood</a>
 							: (sessionStorage.role === 'Mitra') ?
 							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Mitra - ClickFood</a>
+			          		: (sessionStorage.role === 'COO') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>COO - ClickFood</a>
+			          		: (sessionStorage.role === 'CFO') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CFO - ClickFood</a>
+			          		: (sessionStorage.role === 'CEO') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CEO - ClickFood</a>
+			          		: (sessionStorage.role === 'CMO_konsumen') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Konsumen - ClickFood</a>
+			          		: (sessionStorage.role === 'CMO_mitra') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Mitra - ClickFood</a>
+			          		: (sessionStorage.role === 'CMO_pemasok') ?
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Pemasok - ClickFood</a>
 			          		: 
 			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Konsumen - ClickFood</a>
 			          }

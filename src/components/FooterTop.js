@@ -21,7 +21,7 @@ class FooterTop extends Component {
 				          <div className="video-gallery text-center">
 				            <a href="#">
 				              <div className="iframe-img">
-				                <img src="images/home/iframe1.png" alt />
+				                <img src="/images/home/iframe1.png" alt />
 				              </div>
 				              <div className="overlay-icon">
 				                <i className="fa fa-play-circle-o" />
@@ -35,7 +35,7 @@ class FooterTop extends Component {
 				          <div className="video-gallery text-center">
 				            <a href="#">
 				              <div className="iframe-img">
-				                <img src="images/home/iframe2.png" alt />
+				                <img src="/images/home/iframe2.png" alt />
 				              </div>
 				              <div className="overlay-icon">
 				                <i className="fa fa-play-circle-o" />
@@ -49,7 +49,7 @@ class FooterTop extends Component {
 				          <div className="video-gallery text-center">
 				            <a href="#">
 				              <div className="iframe-img">
-				                <img src="images/home/iframe3.png" alt />
+				                <img src="/images/home/iframe3.png" alt />
 				              </div>
 				              <div className="overlay-icon">
 				                <i className="fa fa-play-circle-o" />
@@ -63,7 +63,7 @@ class FooterTop extends Component {
 				          <div className="video-gallery text-center">
 				            <a href="#">
 				              <div className="iframe-img">
-				                <img src="images/home/iframe4.png" alt />
+				                <img src="/images/home/iframe4.png" alt />
 				              </div>
 				              <div className="overlay-icon">
 				                <i className="fa fa-play-circle-o" />
@@ -76,7 +76,7 @@ class FooterTop extends Component {
 				      {/*Footer---Map*/}
 				      <div className="col-sm-3">
 				        <div className="address">
-				          <a href="#"><img src="images/home/map.png" alt /></a>
+				          <a href="#"><img src="/images/home/map.png" alt /></a>
 				          <p>Jl.Loka Indah No.1, Warung Buncit, Jakarta Selatan 12740</p>
 				        </div>
 				      </div>

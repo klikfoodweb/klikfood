@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 let jumlahProdukNya = 0;
 
-class ShowTransaction extends Component {
+class ShowTransactionConsument extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -20,7 +20,7 @@ class ShowTransaction extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/distribusi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/transaksi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data.transaksi);
 		  	this.setState({
@@ -101,4 +101,4 @@ class ShowTransaction extends Component {
 		);
 	}
 }
-export default ShowTransaction;
+export default ShowTransactionConsument;
