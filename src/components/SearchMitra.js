@@ -14,9 +14,37 @@ class SearchMitra extends Component {
 
 	    this.state = {
 	    	categories: [],
+	        provinsis: [],
+	        kotas: [],
 	        mitras: [],
-	        query: ''
+	        kota: ''
 	    };
+	}
+
+	componentWillMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+		  .then((response) => {
+			this.setState({ 
+				provinsis: response.data.data
+	  		})	
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+	}
+
+	changeProvinsi = (e) => {
+		this.setState({ 
+			kotas: []
+  		})
+		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		  .then((response) => {
+		  	this.setState({ 
+				kotas: response.data.data
+	  		})	
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+		  e.persist();
 	}
 
 	handleChange = (event) => {
@@ -28,18 +56,14 @@ class SearchMitra extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		const bodyFormData = new FormData();
-		
-		bodyFormData.set('name', this.state.name);
-
-		axios.post(`http://apiklikfood.herokuapp.com/kategori/store`, bodyFormData )
+		axios.get(`http://apiklikfood.herokuapp.com/mitra?kota=`+this.state.kota)
 	      .then(res => {
-	      	toast.success("Tambah Kategori Sukses !");
-	      	setTimeout(() => {
-	      		window.location.href='/admin/categories';
-	      	}, 3000)
+	      	console.log(res);
+	      	this.setState({
+	      		mitras: res.data.data
+	      	})
 	      }).catch(err => {
-	      	toast.error("Something Went Wrong :( ");
+	      	toast.error("Gagal Mencari Mitra :( ");
 	      });
 	}
 
@@ -48,7 +72,7 @@ class SearchMitra extends Component {
 	}
 
 	showLayout(cell, row){
-	  	return <Link className="btn btn-success" to={`/$(row._id)`}> Lihat </Link>;
+	  	return <Link className="btn btn-success" to={"/"+row.username}> Lihat </Link>;
 	}
 
 	render() {
@@ -62,13 +86,36 @@ class SearchMitra extends Component {
 		                  <h2 className="title text-center">Masukkan Kota Anda</h2>
 		                  <center>
 		                  	<form onSubmit={this.handleSubmit}>
-		                  		<input type="text" name="query" placeholder="Dari Kota Manakah Anda?" onChange={this.handleChange} />
+		                  		<label> Pilih Provinsi : </label>
+			                    <select name="provinsi" style={{marginBottom: '20px'}} onChange={this.changeProvinsi}>
+									<option value="#">Pilih Provinsi</option>
+								{ 
+									this.state.provinsis.map( provinsi =>
+										<React.Fragment>
+											<option key={provinsi.province_id} value={provinsi.province_id}>{ provinsi.province }</option>
+										</React.Fragment>
+									)
+								}
+								</select>
+								<label> Pilih Kota : </label>
+								<select name="kota" style={{marginBottom: '20px'}} onChange={this.handleChange}>
+									<option value="#">Pilih Kota</option>
+								{ 
+									this.state.kotas.map( kota =>
+										<React.Fragment>
+											<option key={kota.city_id} value={kota.city_id}>{kota.type} { kota.city_name }</option>
+										</React.Fragment>
+									)
+								}
+								</select>
 		                  		<button type="submit" className="btn btn-success">Cari Mitra Terdekat</button>
 		                  	</form>
+		                  	<hr />
 		                  	<BootstrapTable data={this.state.mitras} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='username' dataSort={true}>Username Toko</TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width="150"> </TableHeaderColumn>
 				        	</BootstrapTable>
 		                  </center>

@@ -14,11 +14,11 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN MITRA</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><a href="bemitra.html">Daftar Jadi Mitra</a></li>
-				              <li><a href="konfirmasi.html">Konfirmasi</a></li>
-				              <li><a href="downloadapp.html">Dowload Aplikasi</a></li>
-				              <li><a href="aturan-sayembara.html">Ikut Sayembara</a></li>
-				              <li><a href="faqs.html">FAQs</a></li>
+				              <li><Link to="bemitra.html">Daftar Jadi Mitra</Link></li>
+				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
+				              <li><Link to="downloadapp.html">Dowload Aplikasi</Link></li>
+				              <li><Link to="aturan-sayembara.html">Ikut Sayembara</Link></li>
+				              <li><Link to="faqs.html">FAQs</Link></li>
 				              <li><Link to="/login">Login</Link></li>
 				            </ul>
 				          </div>
@@ -28,11 +28,11 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN PEMASOK</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><a href="bepemasok.html">Daftar Jadi Pemasok </a></li>
-				              <li><a href="konfirmasi.html">Konfirmasi</a></li>
-				              <li><a href="downloadapp.html">Download Aplikasi</a></li>
-				              <li><a href="faqs.html">FAQs</a></li>
-				              <li><a href="login-pemasok.html">Login</a></li>
+				              <li><Link to="bepemasok.html">Daftar Jadi Pemasok </Link></li>
+				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
+				              <li><Link to="downloadapp.html">Download Aplikasi</Link></li>
+				              <li><Link to="faqs.html">FAQs</Link></li>
+				              <li><Link to="login-pemasok.html">Login</Link></li>
 				            </ul>
 				          </div>
 				        </div>{/*Footer--/End--Join-Rekan*/}
@@ -41,13 +41,13 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>KEBIJAKAN</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><a href="tou.html">Kebijakan Layanan</a></li>
-				              <li><a href="retur.html">Kebijakan Retur Produk</a></li>
-				              <li><a href="aturan-sayembara.html">Cara Mengikuti Sayembara</a></li>
-				              <li><a href="point.html">tentang Point</a></li>
-				              <li><a href="rewards.html">Tentang Rewards</a></li>
-				              <li><a href="privacy.html">Kebijakan Privacy</a></li>
-				              <li><a href="disclaimer.html">Disclaimer</a></li>
+				              <li><Link to="tou.html">Kebijakan Layanan</Link></li>
+				              <li><Link to="retur.html">Kebijakan Retur Produk</Link></li>
+				              <li><Link to="aturan-sayembara.html">Cara Mengikuti Sayembara</Link></li>
+				              <li><Link to="point.html">tentang Point</Link></li>
+				              <li><Link to="rewards.html">Tentang Rewards</Link></li>
+				              <li><Link to="privacy.html">Kebijakan Privacy</Link></li>
+				              <li><Link to="disclaimer.html">Disclaimer</Link></li>
 				            </ul>
 				          </div>
 				        </div>{/*Footer--/End--Kebijakan*/}
@@ -56,12 +56,12 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>TENTANG KAMI</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><a href="info.html">Informasi Perusahaan</a></li>
-				              <li><a href="budaya.html">Budaya Perusahaan</a></li>
-				              <li><a href="visi-misi.html">Visi &amp; Misi</a></li>
-				              <li><a href="lokasi-mitra.html">Mitra &amp; Lokasi</a></li>
-				              <li><a href="investor.html">Hubungan Investor</a></li>
-				              <li><a href="haki.html">Hak Cipta</a></li>
+				              <li><Link to="info.html">Informasi Perusahaan</Link></li>
+				              <li><Link to="budaya.html">Budaya Perusahaan</Link></li>
+				              <li><Link to="visi-misi.html">Visi &amp; Misi</Link></li>
+				              <li><Link to="lokasi-mitra.html">Mitra &amp; Lokasi</Link></li>
+				              <li><Link to="investor.html">Hubungan Investor</Link></li>
+				              <li><Link to="haki.html">Hak Cipta</Link></li>
 				            </ul>
 				          </div>
 				        </div>{/*Footer--/End--Tentang-Kami*/}
@@ -76,10 +76,10 @@ class FooterBottom extends Component {
 				            </form>
 				            <div className="social-icons pull-right" style={{marginTop: '-20px'}}>
 				              <ul className="nav navbar-nav">
-				                <li><a href="#"><i className="fa fa-facebook" /></a></li>
-				                <li><a href="#"><i className="fa fa-twitter" /></a></li>
-				                <li><a href="#"><i className="fa fa-linkedin" /></a></li>
-				                <li><a href="#"><i className="fa fa-google-plus" /></a></li>
+				                <li><Link to="#"><i className="fa fa-facebook" /></Link></li>
+				                <li><Link to="#"><i className="fa fa-twitter" /></Link></li>
+				                <li><Link to="#"><i className="fa fa-linkedin" /></Link></li>
+				                <li><Link to="#"><i className="fa fa-google-plus" /></Link></li>
 				              </ul>
 				            </div>
 				          </div>

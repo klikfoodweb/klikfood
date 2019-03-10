@@ -218,7 +218,7 @@ class Login extends Component {
 								  { 
 								  	this.state.kotas.map( kota =>
 								  		<React.Fragment>
-								  		<option key={kota.city_id} value={kota.city_id}>{ kota.city_name }</option>
+								  		<option key={kota.city_id} value={kota.city_id}>{kota.type} { kota.city_name }</option>
 								  		</React.Fragment>
 								  	)
 								  }

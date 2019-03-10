@@ -225,9 +225,9 @@ class UserUpdate extends Component {
 										  	this.state.kotas.map( kota =>
 										  		<React.Fragment>
 										  		{ (kota.city_id === this.state.kota) ?
-										  			<option key={kota.city_id} value={kota.city_id} selected>{ kota.city_name }</option>
+										  			<option key={kota.city_id} value={kota.city_id} selected>{kota.type} { kota.city_name }</option>
 										  		:
-										  			<option key={kota.city_id} value={kota.city_id}>{ kota.city_name }</option>
+										  			<option key={kota.city_id} value={kota.city_id}>{kota.type} { kota.city_name }</option>
 										  		}
 										  		</React.Fragment>
 										  	)

@@ -14,6 +14,9 @@ class Home extends Component {
 		this.state = {
 			categories: [],
 			testimonies: [],
+			expireProducts: [],
+			popularProducts: [],
+			newProducts: [],
 			emailSubscribe: ''
 		}
 		this.handleChange = this.handleChange.bind(this);
@@ -35,6 +38,38 @@ class Home extends Component {
 		  	console.log(response.data.data)
 		  	this.setState({
 		  		testimonies: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+	}
+
+	componentDidMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=expire&limit=6`)
+		  .then((response) => {
+		  	console.log(response.data.data)
+		  	this.setState({
+		  		expireProducts: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terjual&limit=3`)
+		  .then((response) => {
+		  	console.log(response.data.data)
+		  	this.setState({
+		  		popularProducts: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2`)
+		  .then((response) => {
+		  	console.log(response.data.data)
+		  	this.setState({
+		  		newProducts: response.data.data
 		  	})
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
@@ -98,46 +133,64 @@ class Home extends Component {
 	                  </div>{/*/category-products*/}
 	                  <div className="price-range">{/*New-Product*/}
 	                    <h2>Produk Baru</h2>
-	                    <center><p>Produk Terbaru Kami</p>
-	                      <a href="#"><img src="images/home/shipping.jpg" alt="shipping" /></a>
-	                    </center></div>{/*/New-Product*/}
+	                    <center>
+	                    	<p>Produk Terbaru Kami</p>
+	                    	{
+		                  	this.state.newProducts.map( (item, i) => 
+		                  		<React.Fragment>
+		                  			<div key={i}>
+		                  			    <div className="product-image-wrapper">
+		                  			      	<div className="single-products">
+		                  			        	<div className="productinfo text-center">
+		                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+		                  			          		<h2>Rp. { item.harga_jual }</h2>
+		                  			          		<p>{ item.name }</p>
+		                  			          		<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
+		                  			      		</div>
+		                  			      		<div className="choose">
+		                  			        		<ul className="nav nav-pills nav-justified">
+		                  			        		</ul>
+		                  			      		</div>
+		                  			    	</div>
+		                  			  	</div>
+		                  			</div>
+		                  		</React.Fragment>
+		                  	)
+		                  }
+	                    </center>
+	                  </div>{/*/New-Product*/}
 	                  <div className="price-range">{/*Pesan*/}						
 	                    <center><p>Catat dan Pesan di KlikFood</p>
-	                      <a href="#"><img src="images/home/shipping.jpg" alt="shipping" /></a>
+	                      <Link to="/login"><img src="images/home/shipping.jpg" alt="shipping" /></Link>
 	                    </center></div>{/*/Pesan*/}
 	                </div>
 	              </div> 
 	              <div className="col-sm-9 padding-right">
 	                <div className="features_items">{/*features_items*/}
 	                  <h2 className="title text-center">Produk Promo</h2>
-	                  <div className="col-sm-4">
-	                    <div className="product-image-wrapper">
-	                      <div className="single-products">
-	                        <div className="productinfo text-center">
-	                          <img src="images/home/product6.jpg" alt />
-	                          <h2>Rp 75.000</h2>
-	                          <p>Makanan Lezat</p>
-	                          <Link to="/mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
-	                        </div>
-	                        {/*<div className="product-overlay">
-	                          <div className="overlay-content">
-	                            <h2>Makanan</h2>
-	                            <p>Dari bahan pilihan berkualitas tinggi.</p>
-	                            <p>Silahkan mencoba sebelum membeli.</p>
-	                            <p>Makanan ini sangat Lezat, boleh dicoba!</p>
-	                            <h2>Rp 75.000</h2>
-	                            <p>Makanan Lezat</p>
-	                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                          </div>
-	                        </div>*/}
-	                      </div>
-	                      <div className="choose">
-	                        <ul className="nav nav-pills nav-justified">
-	                          </ul>
-	                      </div>
-	                    </div>
-	                  </div>
-	                </div>{/*features_items*/}
+	                  {
+	                  	this.state.expireProducts.map( (item, i) => 
+	                  		<React.Fragment>
+	                  			<div className="col-sm-4" key={i}>
+	                  			    <div className="product-image-wrapper">
+	                  			      	<div className="single-products">
+	                  			        	<div className="productinfo text-center">
+	                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+	                  			          		<h2>Rp. { item.harga_jual }</h2>
+	                  			          		<p>{ item.name }</p>
+	                  			          		<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
+	                  			      		</div>
+	                  			      		<div className="choose">
+	                  			        		<ul className="nav nav-pills nav-justified">
+	                  			        		</ul>
+	                  			      		</div>
+	                  			    	</div>
+	                  			  	</div>
+	                  			</div>
+	                  		</React.Fragment>
+	                  	)
+	                  }
+	                </div>
 	                <div className="category-tab">{/*category-tab*/}
 	                  <div className="col-sm-12">
 	                    <ul className="nav nav-tabs">
@@ -147,117 +200,62 @@ class Home extends Component {
 	                    </ul>
 	                  </div>
 	                  {/*category-tab--#1*/}							
-	                  <div className="tab-content"><a href="#siapolah" data-toggle="tab">
-	                    </a><div className="tab-pane fade active in" id="olahan"><a href="#siapolah" data-toggle="tab">
-	                      </a><div className="col-sm-3"><a href="#siapolah" data-toggle="tab">
-	                        </a><div className="product-image-wrapper"><a href="#siapolah" data-toggle="tab">
-	                          </a><div className="single-products"><a href="#siapolah" data-toggle="tab">
-	                            </a><div className="productinfo text-center"><a href="#siapolah" data-toggle="tab">
-	                              </a><a href="#"><img src="images/home/gallery1.jpg" alt /></a>											
-	                              <h2>Rp 30.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="col-sm-3">
-	                        <div className="product-image-wrapper">
-	                          <div className="single-products">
-	                            <div className="productinfo text-center">
-	                              <a href="#"><img src="images/home/gallery2.jpg" alt /></a>
-	                              <h2>Rp 45.000</h2>
-	                              <p>Makanan enak</p>
-	                              <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                    </div>
-	                    {/*/End-category-tab--#1*/}
-	                    	                    
+	                  <div className="tab-content">
+	                  		<div className="tab-pane fade active in" id="olahan">	                  			
+	                  			<div className="col-sm-3">
+	                  				<div className="product-image-wrapper">
+	                  					<div className="single-products">
+	                  						<div className="productinfo text-center">
+												<img src="images/home/gallery1.jpg" alt />		
+		                              			<h2>Rp 30.000</h2>
+		                              			<p>Makanan enak</p>
+		                              			<a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
+	                            			</div>
+		                          		</div>
+		                        	</div>
+		                      	</div>
+	                      		<div className="col-sm-3">
+	                        		<div className="product-image-wrapper">
+	                          			<div className="single-products">
+	                            			<div className="productinfo text-center">
+												<a href="#"><img src="images/home/gallery2.jpg" alt /></a>
+												<h2>Rp 45.000</h2>
+												<p>Makanan enak</p>
+												<a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
+	                            			</div>
+	                          			</div>
+	                        		</div>
+	                      		</div>
+	                    	</div>
+	                    {/*/End-category-tab--#1*/}                    
 	                  </div>
 	                </div>{/*/category-tab*/}
 	                <div className="recommended_items">{/*recommended_items*/}
 	                  <h2 className="title text-center">Rekomendasi Produk</h2>
 	                  <div id="recommended-item-carousel" className="carousel slide" data-ride="carousel">
 	                    <div className="carousel-inner">
-	                      <div className="item active">	
-	                        <div className="col-sm-4">
-	                          <div className="product-image-wrapper">
-	                            <div className="single-products">
-	                              <div className="productinfo text-center">
-	                                <a href="#"><img src="images/home/recommend1.jpg" alt /></a>											
-	                                <h2>Rp 10.000</h2>
-	                                <p>Jajanan Enak</p>
-	                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                        <div className="col-sm-4">
-	                          <div className="product-image-wrapper">
-	                            <div className="single-products">
-	                              <div className="productinfo text-center">
-	                                <a href="#"><img src="images/home/recommend2.jpg" alt /></a>									
-	                                <h2>Rp 15.000</h2>
-	                                <p>Kue enak</p>
-	                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                        <div className="col-sm-4">
-	                          <div className="product-image-wrapper">
-	                            <div className="single-products">
-	                              <div className="productinfo text-center">	
-	                                <a href="#"><img src="images/home/recommend3.jpg" alt /></a>	
-	                                <h2>Rp 15.000</h2>
-	                                <p>Jajanan Spesial</p>
-	                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
-	                      <div className="item">	
-	                        <div className="col-sm-4">
-	                          <div className="product-image-wrapper">
-	                            <div className="single-products">
-	                              <div className="productinfo text-center">
-	                                <a href="#"><img src="images/home/recommend1.jpg" alt /></a>
-	                                <h2>Rp 23.000</h2>
-	                                <p>Kue enak</p>
-	                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                        <div className="col-sm-4">
-	                          <div className="product-image-wrapper">
-	                            <div className="single-products">
-	                              <div className="productinfo text-center">
-	                                <a href="#"><img src="images/home/recommend2.jpg" alt /></a>
-	                                <h2>Rp 10.000</h2>
-	                                <p>Jajanan huenak</p>
-	                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                        <div className="col-sm-4">
-	                          <div className="product-image-wrapper">
-	                            <div className="single-products">
-	                              <div className="productinfo text-center">
-	                                <a href="#"><img src="images/home/recommend3.jpg" alt /></a>
-	                                <h2>Rp 13.000</h2>
-	                                <p>Makanan enak</p>
-	                                <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-	                              </div>
-	                            </div>
-	                          </div>
-	                        </div>
-	                      </div>
+	                      	{/*(i+1 % 3 === 0 || i === 0) ? <div className="item active"> : <div className="item">	*/}
+	                      {
+	                      	this.state.popularProducts.map((item,i) => 
+		                    <React.Fragment>
+		                        
+		                        <div className="col-sm-4">
+		                          <div className="product-image-wrapper">
+		                            <div className="single-products">
+		                              <div className="productinfo text-center">
+		                                <a href="#"><img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+		                                <h2>Rp { item.harga_jual }</h2>
+		                                <p>{ item.name }</p>
+		                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
+		                              </div>
+		                            </div>
+		                          </div>
+		                        </div>
+
+		                    </React.Fragment>
+		                    )
+	                      }
+		                    {/*(i+1 % 3 === 0 || i === 0) ? </div> : </div>*/}
 	                    </div>
 	                    <a className="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
 	                      <i className="fa fa-angle-left" />
@@ -289,18 +287,18 @@ class Home extends Component {
 	              <center>
 	                <div className="price-range">{/*Jadi Mitra*/}
 	                  <h3>Jadi MITRA</h3>
-	                  <center><p>Menjadi mitra kami dengan membuka usaha mandiri. <br /><a href="http://localhost/klikfood.id/bemitra.html">Baca keterangan lebih lanjut disini</a></p></center>
-	                  <a href="http://localhost/klikfood.id/bemitra.html"><img src="images/home/mitra.png" alt /></a>
-	                  <center><a href="http://localhost/klikfood.id/bemitra.html"><button type="button" className="btn btn-default get">JADI MITRA KAMI</button></a></center><br />
+	                  <center><p>Menjadi mitra kami dengan membuka usaha mandiri. <br /><Link to="/privacy">Baca keterangan lebih lanjut disini</Link></p></center>
+	                  <Link to="/login"><img src="images/home/mitra.png" alt /></Link>
+	                  <center><Link to="/login"><button type="button" className="btn btn-default get">JADI MITRA KAMI</button></Link></center><br />
 	                </div>{/*/New-Product*/}</center>
 	            </div>
 	            <div className="col-sm-6">
 	              <center>
 	                <div className="price-range">{/*Jadi Rekan*/}
 	                  <h3>Jadi PEMASOK</h3>
-	                  <center><p>Anda sudah punya usaha? Ayo maju bareng kami!<br /><a href="http://localhost/klikfood.id/besupplier.html">Baca keterangan lebih lanjut disini</a></p></center>
-	                  <a href="http://localhost/klikfood.id/besupplier.html"><img src="images/home/shake-hands.png" alt /></a>
-	                  <center><a href="http://localhost/klikfood.id/besupplier.html"><button type="button" className="btn btn-default get">JADI PEMASOK</button></a></center><br />
+	                  <center><p>Anda sudah punya usaha? Ayo maju bareng kami!<br /><Link to="/privacy">Baca keterangan lebih lanjut disini</Link></p></center>
+	                  <Link to="/login"><img src="images/home/shake-hands.png" alt /></Link>
+	                  <center><Link to="/login"><button type="button" className="btn btn-default get">JADI PEMASOK</button></Link></center><br />
 	                </div>{/*/New-Product*/}</center>
 	            </div>		
 	          </div>
@@ -395,7 +393,7 @@ class Home extends Component {
 	                <div className="price-range">{/*Telah-Bergabung #1*/}
 	                  <h3>{item.judul}</h3>
 	                  <center><p>{ item.subjudul }</p></center>
-	                  <a href="#"><img src={"http://bajax.0hi.me/testimoni/"+item._id+"/"+item.image} alt /></a>
+	                  <a href="#"><img src={"http://bajax.0hi.me/testimoni/"+item._id+"/"+item.image} style={{maxHeight: '330px'}} alt /></a>
 	                </div>{/*/End-Telah Bergabung #1*/}</center>
 	            </div>
 	            </React.Fragment>

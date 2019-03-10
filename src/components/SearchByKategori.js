@@ -9,7 +9,7 @@ import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import ContentLoader from "react-content-loader";
 
-class SearchProduct extends Component {
+class SearchByKategori extends Component {
 	constructor() {
 	    super();
 
@@ -33,19 +33,6 @@ class SearchProduct extends Component {
 	}
 
 	componentDidMount() {
-		var query = this.props.location.search.split('=');
-		if( query.length !== 0 ){
-			axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?name=`+query[1], { 'headers': { 'Authorization': sessionStorage.api_token } })
-		      .then((response) => {
-		      	console.log(response);
-		      	this.setState({
-		      		products: response.data.data,
-		      		loader: false
-		      	})
-		      }).catch((error) => {
-		      	toast.error("Something Went Wrong :(");
-		      })
-		}
 		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
 		  .then((response) => {
 		  	this.setState({
@@ -54,7 +41,21 @@ class SearchProduct extends Component {
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
 		  })		
-		}
+
+		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	      .then((response) => {
+	      	console.log(response);
+	      	this.setState({
+	      		products: response.data.data,
+	      		loader: false
+	      	})
+	      }).catch((error) => {
+	      	toast.error("Something Went Wrong :(");
+	      })
+		
+	    // localStorage.getItem('cart');
+	    // localStorage.clear();
+	}
 
 	handleAddToCart = (e) => {
 		e.preventDefault();
@@ -195,4 +196,4 @@ class SearchProduct extends Component {
 		);
 	}
 }
-export default SearchProduct;
+export default SearchByKategori;

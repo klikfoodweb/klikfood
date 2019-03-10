@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Col, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
 
 class SliderShow extends Component {
 	constructor(props) {

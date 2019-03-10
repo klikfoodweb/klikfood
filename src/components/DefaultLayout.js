@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
+import axios from 'axios';
 import Header from './Header';
 import Home from './Home';
 import Products from './Products';
@@ -8,6 +9,7 @@ import Cart from './Cart';
 import Contact from './Contact';
 import CatalogMitra from './CatalogMitra';
 import SearchMitra from './SearchMitra';
+import SearchByKategori from './SearchByKategori';
 import SearchProduct from './SearchProduct';
 import Support from './Support';
 import Profile from './Profile';
@@ -22,6 +24,20 @@ const Login = Loadable({
 });
 
 class DefaultLayout extends Component {
+    componentDidMount() {
+        setInterval(() => {
+            axios.get(`http://apiklikfood.herokuapp.com/token/`+sessionStorage.api_token)
+              .then((response) => {
+              }).catch((error) => {
+                if(sessionStorage.api_token !== undefined){
+                    sessionStorage.clear();
+                    setTimeout(() => {
+                        window.location.href='/login';
+                    }, 3000);
+                }
+              })
+        }, 60000);
+    }
 
 	signOut(e) {
 	  e.preventDefault()
@@ -40,11 +56,12 @@ class DefaultLayout extends Component {
             	<Route path="/login" name="Login" exact component={Login} />
             	<Route path="/cart" name="Cart" component={Cart} />
             	<Route path="/contact" name="Contact" component={Contact} />
-            	<Route path="/search" name="SearchProduct" component={SearchProduct} />
-            	<Route path="/search-mitra" name="SearchMitra" component={SearchMitra} />
-            	<Route path="/support" name="Support" component={Support} />
+                <Route path="/search-mitra" name="SearchMitra" component={SearchMitra} />
+                <Route path="/support" name="Support" component={Support} />
                 <Route path="/profile" name="Profile" component={Profile} />
                 <Route path="/privacy" name="Privacy" component={Privacy} />
+            	<Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />
+                <Route path="/search" name="SearchProduct" component={SearchProduct} />
             	<Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
             </Switch>
             </main>

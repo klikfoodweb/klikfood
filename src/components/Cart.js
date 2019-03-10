@@ -218,7 +218,7 @@ class Cart extends Component {
 		                <div className="chose_area">
 		                  <ul className="user_option">
 		                  	{ 
-		                  		(this.state.listOngkir.length !== null) ?
+		                  		(this.state.listOngkir.length > 0) ?
 			                  	this.state.listOngkir.map((item,i) => 
 		                  		<React.Fragment>
 					        		<li key={i}>

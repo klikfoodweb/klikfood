@@ -17,6 +17,7 @@ class CatalogMitra extends Component {
 	        pageOfItems: [],
 	 		categories: [],
 	 		products: [],
+	 		promoProducts: [],
 	 		carts: [],
 	 		header: '',
 	 		mitraId: ''
@@ -59,16 +60,27 @@ class CatalogMitra extends Component {
 		  })		
 
       	console.log(this.props.match.params.mitra);
-	  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra, { 'headers': { 'Authorization': sessionStorage.api_token } })
-      .then((response) => {
-      	this.setState({
-      		products: response.data.data,
-      		loader: false
-      	})
-      	console.log(this.state.products);
-      }).catch((error) => {
-      	toast.error("Something Went Wrong :(");
-      })
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	      .then((response) => {
+	      	this.setState({
+	      		products: response.data.data,
+	      		loader: false
+	      	})
+	      	console.log(this.state.products);
+	      }).catch((error) => {
+	      	toast.error("Something Went Wrong :(");
+	      })
+
+	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?promo=1", { 'headers': { 'Authorization': sessionStorage.api_token } })
+	      .then((response) => {
+	      	this.setState({
+	      		promoProducts: response.data.data,
+	      		loader: false
+	      	})
+	      	console.log(this.state.products);
+	      }).catch((error) => {
+	      	toast.error("Something Went Wrong :(");
+	      })
 	}
 
 	handleAddToCart = (e) => {
@@ -157,33 +169,28 @@ class CatalogMitra extends Component {
 		              <div className="col-sm-9 padding-right">
 		                <div className="features_items">{/*features_items*/}
 		                  <h2 className="title text-center">Produk Promo</h2>
-		                  <div className="col-sm-4">
-		                    <div className="product-image-wrapper">
-		                      <div className="single-products">
-		                        <div className="productinfo text-center">
-		                          <img src="images/home/product6.jpg" alt />
-		                          <h2>Rp 75.000</h2>
-		                          <p>Makanan Lezat</p>
-		                          <Link to="/mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
-		                        </div>
-		                        {/*<div className="product-overlay">
-		                          <div className="overlay-content">
-		                            <h2>Makanan</h2>
-		                            <p>Dari bahan pilihan berkualitas tinggi.</p>
-		                            <p>Silahkan mencoba sebelum membeli.</p>
-		                            <p>Makanan ini sangat Lezat, boleh dicoba!</p>
-		                            <h2>Rp 75.000</h2>
-		                            <p>Makanan Lezat</p>
-		                            <a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
-		                          </div>
-		                        </div>*/}
-		                      </div>
-		                      <div className="choose">
-		                        <ul className="nav nav-pills nav-justified">
-		                          </ul>
-		                      </div>
-		                    </div>
-		                  </div>
+		                  {
+	                  	this.state.promoProducts.map( (item, i) => 
+	                  		<React.Fragment>
+	                  			<div className="col-sm-4" key={i}>
+	                  			    <div className="product-image-wrapper">
+	                  			      	<div className="single-products">
+	                  			        	<div className="productinfo text-center">
+	                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+	                  			          		<h2>Rp. { item.harga_jual }</h2>
+	                  			          		<p>{ item.name }</p>
+	                  			          		<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+	                  			          	</div>
+	                  			      		<div className="choose">
+	                  			        		<ul className="nav nav-pills nav-justified">
+	                  			        		</ul>
+	                  			      		</div>
+	                  			    	</div>
+	                  			  	</div>
+	                  			</div>
+	                  		</React.Fragment>
+		                  	)
+		                  }
 		                </div>{/*features_items*/}
 		                
 		                {/*/category-tab*/}

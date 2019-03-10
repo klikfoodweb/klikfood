@@ -48,6 +48,12 @@ class Header extends Component {
   	window.location.href='/profile';
   }
 
+  keyPress = (e) => {
+  	if(e.keyCode == 13){
+  		window.location.href='/search?query='+e.target.value;		
+    }
+  }
+
   render() {
     return (
     	<div>
@@ -136,21 +142,21 @@ class Header extends Component {
 	                        {/*{"/search?kategori=" + category.kategori._id}*/}
 	                          <li><Link to="#">{ category.kategori.name } <i className="fa fa-angle-down" /></Link></li>	
 	                        	{ category.subkategori.map((subcategory,i) =>
-                					<li key={ subcategory._id }><Link to={"/search?kategori="+subcategory._id} style={{fontSize: '12px', paddingLeft: '10px'}}>{ subcategory.name } </Link></li>
+                					<li key={ subcategory._id }><a href={"/search/"+subcategory._id} style={{fontSize: '12px', paddingLeft: '10px'}}>{ subcategory.name } </a></li>
                 				) }
                 			</div>
 	                        ) }
 	                        </ul>								
 	                      </li> 								
 	                      <li><Link to="/contact">Kontak</Link></li>
-	                      <li><a href="http://klikfood.id" target="_blank" rel="noopener noreferrer">Blog</a></li>
-	                      <li><Link to="/support">Support</Link></li>
+	                      <li><a href="http://blogklikfood.000webhostapp.com" target="_blank" rel="noopener noreferrer">Blog</a></li>
+	                      <li><a href="https://tawk.to/chat/5c8407f1c37db86fcfcce4bc/1d5hs5ip0" target="_blank" rel="noopener noreferrer">Support</a></li>
 	                    </ul>
 	                  </div>
 	                </div>
 	                <div className="col-sm-3" style={{marginTop: '10px'}}>
 	                  <div className="search_box pull-right">
-	                    <input type="text" placeholder="Cari Produk" />
+	                    <input type="text" placeholder="Cari Produk" onKeyDown={this.keyPress} />
 	                  </div>
 	                </div>
 	              </div>
