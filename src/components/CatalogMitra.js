@@ -43,7 +43,7 @@ class CatalogMitra extends Component {
 	      	})
 	      	console.log(response.data.data);
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Mengambil Banner Toko :(");
 	      })
 
 	    if(localStorage.getItem('cart') !== null)
@@ -59,7 +59,7 @@ class CatalogMitra extends Component {
 		  		categories: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })		
 
       	console.log(this.props.match.params.mitra);
@@ -70,7 +70,7 @@ class CatalogMitra extends Component {
 	      		loader: false
 	      	})
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Mendapatkan Info Produk :(");
 	      })
 
 	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?promo=1")
@@ -80,7 +80,7 @@ class CatalogMitra extends Component {
 	      		loader: false
 	      	})
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Mendapatkan Info Promo Produk :(");
 	      })
 
 	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?orderby=terjual&limit=3")
@@ -90,7 +90,7 @@ class CatalogMitra extends Component {
 	      		loader: false
 	      	})
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Mendapatkan Info Produk Populer :(");
 	      })
 
 	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2`)
@@ -100,7 +100,7 @@ class CatalogMitra extends Component {
 		  		newProducts: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Produk Terbaru :(");
 		  })
 	}
 
@@ -253,7 +253,7 @@ class CatalogMitra extends Component {
 		                                <a href="#"><img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 		                                <h2>Rp { item.harga_jual }</h2>
 		                                <p>{ item.name }</p>
-		                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
+		                                <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                              </div>
 		                            </div>
 		                          </div>

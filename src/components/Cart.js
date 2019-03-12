@@ -15,9 +15,11 @@ class Cart extends Component {
 			beratNya: [],
 			jumlahHarga: '',
 			jumlahBerat: '',
+			beratPerProduk: [],
 			servis: '',
 			jumlahOngkir: '',
-	 		listOngkir: []
+	 		listOngkir: [],
+	 		loadOngkir: false
 	    };
 
 		this.handleDeleteCart = this.handleDeleteCart.bind(this);
@@ -27,14 +29,17 @@ class Cart extends Component {
 		var carts = JSON.parse(localStorage.getItem('cart'));
 		let jumlahBeratNya = null;
 		let jumlahHargaNya = null;
+		let beratProduk = [];
 		if(carts){
 			carts.map((item, i) => {
 				this.state.carts.push(item);
 				jumlahBeratNya += Number(item[4]);
 				jumlahHargaNya += Number(item[1]);
+				beratProduk[i] = Number(item[4]);
 			})
 			this.setState({
 				jumlahBerat: jumlahBeratNya,
+				beratPerProduk: beratProduk,
 				jumlahHarga: jumlahHargaNya
 			})
 		}
@@ -178,11 +183,38 @@ class Cart extends Component {
 		                    </td>
 		                    <td className="cart_quantity">
 		                      <div className="cart_quantity_button">
-		                        <a className="cart_quantity_up" onClick={e => {
+		                        <a className="cart_quantity_up" lang={cart[4]} onClick={e => {
 		                        	const newJumlah = this.state.carts.slice();
+		                        	let jumlahBeratSekarang = this.state.jumlahBerat;
 		                        	newJumlah[index][3] += 1;
-		                        	this.setState({carts: newJumlah});
-		                        	console.log(this.state.carts); 
+		                        	newJumlah[index][4] = Number(newJumlah[index][4]) + this.state.beratPerProduk[index];
+		                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) + this.state.beratPerProduk[index];
+		                        	this.setState({
+		                        		carts: newJumlah,
+		                        		jumlahBerat: jumlahBeratSekarang,
+		                        		loadOngkir: true
+		                        	});
+
+		    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
+
+									const cekOngkir = new FormData();
+									cekOngkir.set('tujuan', sessionStorage.kota);
+									cekOngkir.set('berat', this.state.jumlahBerat);
+
+									axios.defaults.headers = {  
+										'Authorization': sessionStorage.api_token 
+									}
+									
+									axios.post(`http://apiklikfood.herokuapp.com/ongkir/harga`, cekOngkir)
+								      .then(res => {
+								      	console.log(res.data.data);
+								      	this.setState({
+								      		listOngkir: res.data.data,
+								      		loadOngkir: false
+								      	})
+								      }).catch(err => {
+								  			loadOngkir: false
+								      });
 		                        } } href> + </a>
 		                        <input className="cart_quantity_input" type="text" value={cart[3]} name="quantity" autoComplete="off" size={2} />
 		                        <a className="cart_quantity_down" onClick={e => {
@@ -217,22 +249,30 @@ class Cart extends Component {
 		              <div className="col-sm-6">
 		                <div className="chose_area">
 		                  <ul className="user_option">
-		                  	{ 
-		                  		(this.state.listOngkir.length > 0) ?
-			                  	this.state.listOngkir.map((item,i) => 
-		                  		<React.Fragment>
-					        		<li key={i}>
-				                      <input style={{position: 'relative'}} type="radio" id={item.cost[0].value} name="servis" onChange={this.handleChange} value={item.service} /> { item.service }
-				                      <label>Rp.{ item.cost[0].value } { item.service } { item.cost[0].etd } Hari</label>
-				                    </li>
-				        		</React.Fragment>
-				        		)
-				        		: null
-				        	}
+							{this.state.loadOngkir ?
+							<div>
+								<center><b>Sedang Kalkulasi Ongkir...</b></center>
+							</div>
+							:
+			                <div>
+			                  	{ 
+			                  		(this.state.listOngkir.length > 0) ?
+				                  	this.state.listOngkir.map((item,i) => 
+			                  		<React.Fragment>
+						        		<li key={i}>
+					                      <input style={{position: 'relative'}} type="radio" id={item.cost[0].value} name="servis" onChange={this.handleChange} value={item.service} /> { item.service }
+					                      <label>Rp.{ item.cost[0].value } { item.service } { item.cost[0].etd } Hari</label>
+					                    </li>
+					        		</React.Fragment>
+					        		)
+					        		: null
+					        	}
+							</div>
+							}
 		                  </ul>
 		                  {/*<ul className="user_info">
 		                    <li className="single_field">
-		                      <label>Country:</label>
+		                      <label>Country:</label>	
 		                      <select>
 		                        <option>United States</option>
 		                        <option>Bangladesh</option>

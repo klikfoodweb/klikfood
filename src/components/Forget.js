@@ -9,7 +9,8 @@ class Forget extends Component {
 		super(props);
 		this.state = {
 			email: '',
-			submitting: false
+			submitting: false,
+			message: false
 		}	
 	}
 
@@ -24,12 +25,13 @@ class Forget extends Component {
 		this.setState({
 			submitting: true
 		})
-		axios.post(`http://apiklikfood.herokuapp.com/forgetpassword?email=`+this.state.email)
+		axios.post(`http://apiklikfood.herokuapp.com/forgotpassword?email=`+this.state.email)
 	      .then((response) => {
 	      	toast.success("Kode Verifikasi Terkirim Ke Email!");
 	      	setTimeout(() => {
-	      		this.setState({ 
-	      			submitting: true
+	      		this.setState({
+	      			submitting: false, 
+	      			message: true
 	      		});
 	      		// window.location.href='/';
 	      	}, 3000)
@@ -52,13 +54,18 @@ class Forget extends Component {
 		                <form onSubmit={this.handleSubmit}>
 		                  <input type="email" name="email" className="form-control" placeholder="Alamat Email" value={this.state.email} onChange={this.handleChange} required />
 		               	  <br />
-		               	  {this.state.submitting ?
+		               	  {
+		               	  	(this.state.submitting) ?
 							<div>
 								<center><b>Sedang Mengirim...</b></center>
 							</div>
-						  :
-		               	  <center><button type="submit" className="btn btn-success">Kirim Email Verfikasi</button></center>
-						  }
+							: (this.state.message) ?
+								<div>
+									<center><b>Silahkan Cek Email</b></center>
+								</div>
+							:
+							<center><button type="submit" className="btn btn-success">Kirim Email Verfikasi</button></center>
+							}
 		                </form>
 		            </div>
 		        </section>

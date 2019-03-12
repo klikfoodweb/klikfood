@@ -29,7 +29,7 @@ class ShowTransaction extends Component {
 		  		details: response.data.data.transaksi.detail
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Informasi Produk :(");
 		  });
 	}
 

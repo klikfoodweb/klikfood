@@ -35,7 +35,7 @@ class SearchProduct extends Component {
 	componentDidMount() {
 		var query = this.props.location.search.split('=');
 		if( query.length !== 0 ){
-			axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?name=`+query[1], { 'headers': { 'Authorization': sessionStorage.api_token } })
+			axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?verify=1&name=`+query[1], { 'headers': { 'Authorization': sessionStorage.api_token } })
 		      .then((response) => {
 		      	console.log(response);
 		      	this.setState({
@@ -43,7 +43,7 @@ class SearchProduct extends Component {
 		      		loader: false
 		      	})
 		      }).catch((error) => {
-		      	toast.error("Something Went Wrong :(");
+		      	toast.error("Gagal Mendapatkan Info Produk :(");
 		      })
 		}
 		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
@@ -52,7 +52,7 @@ class SearchProduct extends Component {
 		  		categories: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })		
 		}
 

@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^3.4.1",
+    "dotenv": "^6.2.0",
     "gh-pages": "^2.0.1",
     "loaders.css": "^0.1.2",
     "qs": "^6.6.0",

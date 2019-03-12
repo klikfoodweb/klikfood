@@ -34,15 +34,20 @@ class LeftBarCFO extends Component {
 		      	        </Link>
 		      	      </li>
 		      	      <li>
-		      	        <Link to="/admin/bills" className="menu-toggle">
+		      	        <a href="#" className="menu-toggle">
 		      	          <i className="material-icons">widgets</i>
 		      	          <span>Tagihan</span>
-		      	        </Link>
+		      	        </a>
 		      	        <ul class="ml-menu">
                             <li>
-                                <a href="javascript:void(0);">
+                                <Link to="/admin/bills/supplyer">
                                     <span>Pemasok</span>
-                                </a>
+                                </Link>
+                        	</li>
+                        	<li>
+                                <Link to="/admin/bills/mitra">
+                                    <span>Mitra</span>
+                                </Link>
                         	</li>
                         </ul>
 		      	      </li>

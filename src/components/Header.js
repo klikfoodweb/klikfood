@@ -22,7 +22,7 @@ class Header extends Component {
 		  		categories: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })
 	}
 
@@ -31,7 +31,7 @@ class Header extends Component {
 	  .then((response) => {
 		sessionStorage.clear();
 		localStorage.clear();
-	  	toast.success("You Are Logged Out !");
+	  	toast.success("Log Out Berhasil !");
 	  	setTimeout(() => {
 	  		this.setState({ 
 				redirect: true,
@@ -40,7 +40,7 @@ class Header extends Component {
 	  		window.location.href='/';
 	  	}, 3000)
 	  }).catch((error) => {
-	  	toast.error("Something Went Wrong :(");
+	  	toast.error("Gagal Log Out :(");
 	  })
   }
 
@@ -105,8 +105,8 @@ class Header extends Component {
 	                      	  <Dropdown.Menu>
 	                      	  <center>
 	                      	    <Dropdown.Item href="/admin"><b>Dashboard</b></Dropdown.Item><br />
-	                      	    <Dropdown.Item href="/profile"><b>Profile</b></Dropdown.Item><br />
-	                      	    <Dropdown.Item onClick={this.logout}><b>Logout</b></Dropdown.Item>
+	                      	    <Dropdown.Item href="/profile"><b>Profil</b></Dropdown.Item><br />
+	                      	    <Dropdown.Item onClick={this.logout}><b>Keluar</b></Dropdown.Item>
 	                      	  </center>
 	                      	  </Dropdown.Menu>
 	                      	</Dropdown>

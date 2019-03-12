@@ -42,7 +42,7 @@ class Login extends Component {
 				provinsis: response.data.data
 	  		})	
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Provinsi :(");
 		  })
 	}
 
@@ -61,7 +61,7 @@ class Login extends Component {
 				kotas: response.data.data
 	  		})	
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Ongkir :(");
 		  })
 		  e.persist();
 	}
@@ -97,7 +97,7 @@ class Login extends Component {
 	      	}, 3000)
 	        console.log(response);
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Menghubungi Server :(");
 	      	this.setState({
 				submitting: false
 			})
@@ -144,7 +144,7 @@ class Login extends Component {
 	      	}, 3000)
 	        console.log(response);
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Menghubungi Server :(");
 	      	this.setState({
 				registrating: false
 			})

@@ -39,10 +39,10 @@ class SearchByKategori extends Component {
 		  		categories: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })		
 
-		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?verify=1&kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	      .then((response) => {
 	      	console.log(response);
 	      	this.setState({
@@ -50,7 +50,7 @@ class SearchByKategori extends Component {
 	      		loader: false
 	      	})
 	      }).catch((error) => {
-	      	toast.error("Something Went Wrong :(");
+	      	toast.error("Gagal Mendapatkan Info Produk :(");
 	      })
 		
 	    // localStorage.getItem('cart');

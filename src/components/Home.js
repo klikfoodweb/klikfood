@@ -31,7 +31,7 @@ class Home extends Component {
 		  		categories: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })
 
 		  axios.get(`http://apiklikfood.herokuapp.com/testimoni`)
@@ -41,7 +41,7 @@ class Home extends Component {
 		  		testimonies: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Memuat Info Testimoni :(");
 		  })
 	}
 
@@ -53,7 +53,7 @@ class Home extends Component {
 		  		productsByCategory: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Produk :(");
 		  })
 
 		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=expire&limit=6`)
@@ -63,7 +63,7 @@ class Home extends Component {
 		  		expireProducts: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Promo Produk :(");
 		  })
 
 		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terjual&limit=3`)
@@ -73,7 +73,7 @@ class Home extends Component {
 		  		popularProducts: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Produk Populer :(");
 		  })
 
 		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2`)
@@ -83,7 +83,7 @@ class Home extends Component {
 		  		newProducts: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Produk Terbaru :(");
 		  })
 	}
 
@@ -103,7 +103,7 @@ class Home extends Component {
 	      .then(res => {
 	      	toast.success("Terimakasih Sudah Subscribe !");
 	      }).catch(err => {
-	      	toast.error("Something Went Wrong :( ");
+	      	toast.error("Gagal Menghubungi Server :( ");
 	      });
 	}
 
@@ -116,8 +116,8 @@ class Home extends Component {
 	            <div className="row">
 	              <div className="col-sm-3">
 	                <div className="left-sidebar">
-	                  <h2>Kategori</h2>
-	                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
+	                  <h2 className="hidden-sm hidden-xs">Kategori</h2>
+	                  <div className="panel-group category-products hidden-sm hidden-xs" id="accordian">{/*category-productsr*/}
                     	
                     	{ this.state.categories.map((category,i) =>
                     	<div class="panel panel-default" key={category.kategori.id}>

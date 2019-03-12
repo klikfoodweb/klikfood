@@ -11,7 +11,7 @@ class UserInfo extends Component {
 	  .then((response) => {
 		sessionStorage.clear();
 		localStorage.clear();
-	  	toast.success("You Are Logged Out !");
+	  	toast.success("Log Out Berhasil !");
 	  	setTimeout(() => {
 	  		this.setState({ 
 				redirect: true,
@@ -36,9 +36,9 @@ class UserInfo extends Component {
 				    <div className="btn-group user-helper-dropdown">
 				      <i className="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
 				      <ul className="dropdown-menu pull-right">
-				        <li><a href="/profile"><i className="material-icons">person</i>Profile</a></li>
+				        <li><a href="/profile"><i className="material-icons">person</i>Profil</a></li>
 				        <li role="separator" className="divider" />
-				        <li><a href="#" onClick={this.logout}><i className="material-icons">input</i>Sign Out</a></li>
+				        <li><a href="#" onClick={this.logout}><i className="material-icons">input</i>Keluar</a></li>
 				      </ul>
 				    </div>
 				  </div>

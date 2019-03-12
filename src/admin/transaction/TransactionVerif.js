@@ -23,7 +23,7 @@ class TransactionVerif extends Component {
 		  		products: response.data.data
 		  	})
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan List Produk :(");
 		  })
 	}
 
@@ -58,7 +58,7 @@ class TransactionVerif extends Component {
 					      	}, 3000)
 						  }).catch((error) => {
 						  	console.log(error)
-						  	toast.error("Something Went Wrong :(");
+						  	toast.error("Gagal Mengirim Informasi :(");
 						  })
 					} } className="btn btn-warning">Kirim Barang</button>
 				)	
@@ -74,7 +74,7 @@ class TransactionVerif extends Component {
 					      	}, 3000)
 						  }).catch((error) => {
 						  	console.log(error)
-						  	toast.error("Something Went Wrong :(");
+						  	toast.error("Gagal Mengkonfirmasi Pembayaran :(");
 						  })
 					} } className="btn btn-warning">Verifikasi</button>
 				)
@@ -102,7 +102,7 @@ class TransactionVerif extends Component {
 					      	}, 3000)
 						  }).catch((error) => {
 						  	console.log(error)
-						  	toast.error("Something Went Wrong :(");
+						  	toast.error("Gagal Mengirim Informasi :(");
 						  })
 					} } className="btn btn-warning">Kirim Barang</button>
 				)	
@@ -138,7 +138,7 @@ class TransactionVerif extends Component {
 					      	}, 3000)
 						  }).catch((error) => {
 						  	console.log(error)
-						  	toast.error("Something Went Wrong :(");
+						  	toast.error("Gagal Memverifikasi Pembayaran :(");
 						  })
 					} } className="btn btn-warning">Verifikasi Pembayaran</button>
 				)

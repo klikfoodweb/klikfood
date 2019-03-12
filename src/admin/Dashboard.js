@@ -30,7 +30,7 @@ class Dashboard extends Component {
 
 		  	}
 		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
+		  	toast.error("Gagal Mendapatkan Info Akun Anda :(");
 		  })
 
 		// axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
