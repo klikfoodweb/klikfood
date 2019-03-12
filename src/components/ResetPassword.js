@@ -16,10 +16,7 @@ class ResetPassword extends Component {
 	componentWillMount() {
 		axios.get(`http://apiklikfood.herokuapp.com/cekforgotpassword?forgot_password=`+this.props.match.params.kode)
 		  .then((response) => {
-		  	if (!response.success) {
-		  		toast.error("Kode Reset Password Anda Salah :(");
-		  		window.location.href='/forget';
-		  	}
+		  	
 		  }).catch((error) => {
 		  		toast.error("Kode Reset Password Anda Salah :(");
 		  		window.location.href='/forget';
