@@ -46,7 +46,7 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?limit=20`)
+		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?limit=20&type=verify`)
 		  .then((response) => {
 		  		console.log(response.data.data);
 		  	this.setState({
@@ -56,7 +56,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Produk :(");
 		  })
 
-		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=expire&limit=6`)
+		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=expire&limit=6&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -66,7 +66,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Promo Produk :(");
 		  })
 
-		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terjual&limit=3`)
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terjual&limit=3&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -76,7 +76,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Produk Populer :(");
 		  })
 
-		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2`)
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
