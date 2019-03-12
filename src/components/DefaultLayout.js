@@ -15,6 +15,7 @@ import Support from './Support';
 import Profile from './Profile';
 import Privacy from '../pages/Privacy';
 import DetailProductMitra from './DetailProductMitra';
+import Forget from './Forget';
 import ResetToken from './ResetToken';
 
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -65,6 +66,7 @@ class DefaultLayout extends Component {
             	<Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />
                 <Route path="/search" name="SearchProduct" component={SearchProduct} />
                 <Route path="/reset" name="ResetToken" component={ResetToken} />
+                <Route path="/forget" name="Forget" component={Forget} />
                 <Route path="/:mitra/:product" name="DetailProductMitra" component={DetailProductMitra} />
                 <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
             </Switch>

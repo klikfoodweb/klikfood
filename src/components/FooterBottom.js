@@ -46,7 +46,7 @@ class FooterBottom extends Component {
 				              <li><Link to="aturan-sayembara.html">Cara Mengikuti Sayembara</Link></li>
 				              <li><Link to="point.html">tentang Point</Link></li>
 				              <li><Link to="rewards.html">Tentang Rewards</Link></li>
-				              <li><Link to="privacy.html">Kebijakan Privacy</Link></li>
+				              <li><Link to="/privacy">Kebijakan Privacy</Link></li>
 				              <li><Link to="disclaimer.html">Disclaimer</Link></li>
 				            </ul>
 				          </div>

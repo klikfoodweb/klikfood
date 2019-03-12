@@ -304,14 +304,15 @@ class CatalogMitra extends Component {
 		                      	        <Link to={"/"+this.props.match.params.mitra+"/"+item._id}><img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
 		                      	        <h2>Rp {item.harga_jual}</h2>
 		                      	        <p>{ item.name }</p>
-		                      	        <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	        {/*<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>*/}
 		                      	      </div>
 		                      	      <div className="product-overlay">
 		                      	        <div className="overlay-content">
 		                      	          <h2>Rp {item.harga_jual}</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
-		                      	          <Link to={"/"+this.props.match.params.mitra+"/"+item._id} className="btn btn-default add-to-cart">Lihat</Link>
+		                      	          <Link to={"/"+this.props.match.params.mitra+"/"+item._id} className="btn btn-default add-to-cart"><i className="fa fa-eye" />Lihat</Link>
+		                      	          <br />
 		                      	          <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	        </div>
 		                      	      </div>

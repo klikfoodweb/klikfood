@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../login.css';
 import qs from 'qs';
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
@@ -170,38 +171,39 @@ class Login extends Component {
 			          <div className="row">
 			            <div className="col-sm-4 col-sm-offset-1">
 			              <div className="login-form">{/*login form*/}
-			                <h2>Login to your account</h2>
+			                <h2>Masuk ke Akun Anda</h2>
 			                <form onSubmit={this.handleSubmit}>
-			                  <input type="email" name="email" placeholder="Email Address" value={this.state.email} onChange={this.handleChange} required />
+			                  <input type="email" name="email" placeholder="Alamat Email" value={this.state.email} onChange={this.handleChange} required />
 			                  <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
+			                  <Link to="/forget">Lupa Kata Sandi?</Link>
 			                  {/*<span>
 			                    <input type="checkbox" className="checkbox" /> 
 			                    Keep me signed in
 			                  </span>*/}
 								{this.state.submitting ?
 								<div>
-									<b><center>Logging In...</center></b>
+									<b>Sedang Masuk...</b>
 								</div>
 								:
-									<button type="submit" className="btn btn-success">Login</button>
+									<button type="submit" className="btn btn-success">Masuk</button>
 								}
 			                </form>
 			              </div>{/*/login form*/}
 			            </div>
 			            <div className="col-sm-1">
-			              <h2 className="or">OR</h2>
+			              <h2 className="or">Atau</h2>
 			            </div>
 			            <div className="col-sm-4">
 			              <div className="signup-form">{/*sign up form*/}
-			                <h2>New User Signup!</h2>
+			                <h2>Daftar Baru!</h2>
 			                <form onSubmit={this.handleRegister}>
-			                  <input type="text" name="registName" placeholder="Name" value={this.state.registName} onChange={this.handleChange} required />
+			                  <input type="text" name="registName" placeholder="Nama" value={this.state.registName} onChange={this.handleChange} required />
 			                  <input type="text" name="registUsername" placeholder="Username" value={this.state.registUsername} onChange={this.handleChange} required />
-			                  <input type="email" name="registEmail" placeholder="Email Address" value={this.state.registEmail} onChange={this.handleChange} required />
+			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />
 			                  <input type="password" name="registPassword" placeholder="Password" value={this.state.registPassword} onChange={this.handleChange} required />
-			                  <input type="text" name="registBirthplace" placeholder="Birthplace" value={this.state.registBirthplace} onChange={this.handleChange} required />
-			                  <input type="date" name="registDateOfBirth" placeholder="Date Of Birth" value={this.state.registDateOfBirth} onChange={this.handleChange} required />
-			                  <input type="text" name="registAddress" placeholder="Address" value={this.state.registAddress} onChange={this.handleChange} required />
+			                  <input type="text" name="registBirthplace" placeholder="Tempat Lahir" value={this.state.registBirthplace} onChange={this.handleChange} required />
+			                  <input type="date" name="registDateOfBirth" placeholder="Tanggal Lahir" value={this.state.registDateOfBirth} onChange={this.handleChange} required />
+			                  <input type="text" name="registAddress" placeholder="Alamat" value={this.state.registAddress} onChange={this.handleChange} required />
 			                  <label> Pilih Provinsi : </label>
 			                    <select name="registProvinsi" style={{marginBottom: '20px'}} onChange={this.changeProvinsi} required>
 			                    <option value="#">Pilih Provinsi</option>
@@ -229,20 +231,14 @@ class Login extends Component {
 			                    <select name="registType" style={{marginBottom: '20px'}} onChange={this.handleChange} required>
 								  <option value="konsumen">Konsumen</option>
 								  <option value="mitra">Mitra</option>
-								  <option value="supplyer">Supplyer</option>
+								  <option value="supplyer">Pemasok</option>
 								</select>
-							  {/*<label> Pilih Paket : </label>
-			                    <select name="registPaket" style={{marginBottom: '20px'}} onChange={this.handleChange}>
-								  <option value="paket-a">Paket A</option>
-								  <option value="paket-b">Paket B</option>
-								  <option value="paket-c">Paket C</option>
-								</select>*/}
 								{this.state.registrating ?
 								<div>
-									<b><center>Registrating...</center></b>
+									<b>Mendaftar...</b>
 								</div>
 								:
-									<button type="submit" className="btn btn-success">Register</button>
+									<button type="submit" className="btn btn-success">Daftar</button>
 								}
 			                </form>
 			              </div>{/*/sign up form*/}

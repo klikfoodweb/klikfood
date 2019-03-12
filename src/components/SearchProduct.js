@@ -111,7 +111,7 @@ class SearchProduct extends Component {
 		                 			<div class="panel-body">
 		                 				<ul>
 		                 				{ category.subkategori.map((subcategory,i) =>
-		                 					<li key={ subcategory._id }><a href={"/search?kategori="+subcategory._id}>{ subcategory.name } </a></li>
+		                 					<li key={ subcategory._id }><a href={"/search/"+subcategory._id}>{ subcategory.name } </a></li>
 		                 				) }
 		                 				</ul>
 		                 			</div>

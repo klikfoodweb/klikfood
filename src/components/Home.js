@@ -17,6 +17,7 @@ class Home extends Component {
 			expireProducts: [],
 			popularProducts: [],
 			newProducts: [],
+			productsByCategory: [],
 			emailSubscribe: ''
 		}
 		this.handleChange = this.handleChange.bind(this);
@@ -45,6 +46,16 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
+		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?limit=20`)
+		  .then((response) => {
+		  		console.log(response.data.data);
+		  	this.setState({
+		  		productsByCategory: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Something Went Wrong :(");
+		  })
+
 		axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=expire&limit=6`)
 		  .then((response) => {
 		  	console.log(response.data.data)
@@ -122,7 +133,7 @@ class Home extends Component {
                     			<div class="panel-body">
                     				<ul>
                     				{ category.subkategori.map((subcategory,i) =>
-                    					<li key={ subcategory._id }><a href={"/search?kategori="+subcategory._id}>{ subcategory.name } </a></li>
+                    					<li key={ subcategory._id }><a href={"/search/"+subcategory._id}>{ subcategory.name } </a></li>
                     				) }
                     				</ul>
                     			</div>
@@ -191,7 +202,7 @@ class Home extends Component {
 	                  	)
 	                  }
 	                </div>
-	                <div className="category-tab">{/*category-tab*/}
+	                {/*<div className="category-tab">
 	                  <div className="col-sm-12">
 	                    <ul className="nav nav-tabs">
 	                    { this.state.categories.map((category,i) =>
@@ -199,7 +210,6 @@ class Home extends Component {
 	                    ) }
 	                    </ul>
 	                  </div>
-	                  {/*category-tab--#1*/}							
 	                  <div className="tab-content">
 	                  		<div className="tab-pane fade active in" id="olahan">	                  			
 	                  			<div className="col-sm-3">
@@ -209,7 +219,7 @@ class Home extends Component {
 												<img src="images/home/gallery1.jpg" alt />		
 		                              			<h2>Rp 30.000</h2>
 		                              			<p>Makanan enak</p>
-		                              			<a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
+		                              			<a href="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
 	                            			</div>
 		                          		</div>
 		                        	</div>
@@ -221,15 +231,14 @@ class Home extends Component {
 												<a href="#"><img src="images/home/gallery2.jpg" alt /></a>
 												<h2>Rp 45.000</h2>
 												<p>Makanan enak</p>
-												<a href="#" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
+												<a href="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</a>
 	                            			</div>
 	                          			</div>
 	                        		</div>
 	                      		</div>
-	                    	</div>
-	                    {/*/End-category-tab--#1*/}                    
-	                  </div>
-	                </div>{/*/category-tab*/}
+	                    	</div>*/}                    
+	                  {/*</div>
+	                </div>*/}
 	                <div className="recommended_items">{/*recommended_items*/}
 	                  <h2 className="title text-center">Rekomendasi Produk</h2>
 	                  <div id="recommended-item-carousel" className="carousel slide" data-ride="carousel">

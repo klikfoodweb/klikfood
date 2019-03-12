@@ -11,25 +11,25 @@ class TopBar extends Component {
 				      <a href="javascript:void(0);" className="bars" />
 				      {
 			          	(sessionStorage.role === 'Administrator') ?
-			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>ADMIN - ClickFood</a>
+			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>ADMIN - KlikFood</a>
 			          		: (sessionStorage.role === 'Supplyer') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Pemasok - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Pemasok - KlikFood</a>
 							: (sessionStorage.role === 'Mitra') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Mitra - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Mitra - KlikFood</a>
 			          		: (sessionStorage.role === 'COO') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>COO - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>COO - KlikFood</a>
 			          		: (sessionStorage.role === 'CFO') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CFO - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CFO - KlikFood</a>
 			          		: (sessionStorage.role === 'CEO') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CEO - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CEO - KlikFood</a>
 			          		: (sessionStorage.role === 'CMO_konsumen') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Konsumen - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Konsumen - KlikFood</a>
 			          		: (sessionStorage.role === 'CMO_mitra') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Mitra - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Mitra - KlikFood</a>
 			          		: (sessionStorage.role === 'CMO_pemasok') ?
-							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Pemasok - ClickFood</a>
+							<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>CMO Pemasok - KlikFood</a>
 			          		: 
-			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Konsumen - ClickFood</a>
+			          		<a className="navbar-brand" href="/" style={{marginLeft: '50px'}}>Konsumen - KlikFood</a>
 			          }
 				    </div>
 				    <div className="collapse navbar-collapse" id="navbar-collapse">
