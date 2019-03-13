@@ -66,7 +66,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Promo Produk :(");
 		  })
 
-		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terjual&limit=3&type=verify`)
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terjual&limit=6&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -76,7 +76,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Produk Populer :(");
 		  })
 
-		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2&type=verify`)
+		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=3&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -142,8 +142,8 @@ class Home extends Component {
                     	) }
 
 	                  </div>{/*/category-products*/}
-	                  <div className="price-range">{/*New-Product*/}
-	                    <h2>Produk Baru</h2>
+	                  {/*<div className="price-range">*/}{/*New-Product*/}
+	                    {/*<h2>Produk Baru</h2>
 	                    <center>
 	                    	<p>Produk Terbaru Kami</p>
 	                    	{
@@ -169,7 +169,7 @@ class Home extends Component {
 		                  	)
 		                  }
 	                    </center>
-	                  </div>{/*/New-Product*/}
+	                  </div>*/}{/*/New-Product*/}
 	                  <div className="price-range">{/*Pesan*/}						
 	                    <center><p>Catat dan Pesan di KlikFood</p>
 	                      <Link to="/login"><img src="images/home/shipping.jpg" alt="shipping" /></Link>
@@ -240,12 +240,12 @@ class Home extends Component {
 	                  {/*</div>
 	                </div>*/}
 	                <div className="recommended_items">{/*recommended_items*/}
-	                  <h2 className="title text-center">Rekomendasi Produk</h2>
+	                  <h2 className="title text-center">Produk Terbaru</h2>
 	                  <div id="recommended-item-carousel" className="carousel slide" data-ride="carousel">
 	                    <div className="carousel-inner">
 	                      	{/*(i+1 % 3 === 0 || i === 0) ? <div className="item active"> : <div className="item">	*/}
 	                      {
-	                      	this.state.popularProducts.map((item,i) => 
+	                      	this.state.newProducts.map((item,i) => 
 		                    <React.Fragment>
 		                        
 		                        <div className="col-sm-4">
@@ -274,6 +274,31 @@ class Home extends Component {
 	                    </a>			
 	                  </div>
 	                </div>{/*/recommended_items*/}
+	              	<div className="features_items">{/*features_items*/}
+	                  <h2 className="title text-center">Rekomendasi Produk</h2>
+	                  {
+	                  	this.state.popularProducts.map( (item, i) => 
+	                  		<React.Fragment>
+	                  			<div className="col-sm-4" key={i}>
+	                  			    <div className="product-image-wrapper">
+	                  			      	<div className="single-products">
+	                  			        	<div className="productinfo text-center">
+	                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+	                  			          		<h2>Rp. { item.harga_jual }</h2>
+	                  			          		<p>{ item.name }</p>
+	                  			          		<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Beli</Link>
+	                  			      		</div>
+	                  			      		<div className="choose">
+	                  			        		<ul className="nav nav-pills nav-justified">
+	                  			        		</ul>
+	                  			      		</div>
+	                  			    	</div>
+	                  			  	</div>
+	                  			</div>
+	                  		</React.Fragment>
+	                  	)
+	                  }
+	                </div>
 	              </div>
 	            </div>
 	          </div>

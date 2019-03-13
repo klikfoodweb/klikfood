@@ -219,10 +219,37 @@ class Cart extends Component {
 		                        <input className="cart_quantity_input" type="text" value={cart[3]} name="quantity" autoComplete="off" size={2} />
 		                        <a className="cart_quantity_down" onClick={e => {
 		                        	const newJumlah = this.state.carts.slice();
-		                        	if(newJumlah[index][3] > 1)
-		                        		newJumlah[index][3] -= 1;
-		                        		this.setState({carts: newJumlah});
-		                        	console.log(this.state.carts); 
+		                        	if(newJumlah[index][3] > 1){
+			                        	let jumlahBeratSekarang = this.state.jumlahBerat;
+			                        	newJumlah[index][3] -= 1;
+			                        	newJumlah[index][4] = Number(newJumlah[index][4]) - this.state.beratPerProduk[index];
+			                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) - this.state.beratPerProduk[index];
+			                        	this.setState({
+			                        		carts: newJumlah,
+			                        		jumlahBerat: jumlahBeratSekarang,
+			                        		loadOngkir: true
+			                        	});
+
+			    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
+
+										const cekOngkir = new FormData();
+										cekOngkir.set('tujuan', sessionStorage.kota);
+										cekOngkir.set('berat', this.state.jumlahBerat);
+
+										axios.defaults.headers = {  
+											'Authorization': sessionStorage.api_token 
+										}
+										
+										axios.post(`http://apiklikfood.herokuapp.com/ongkir/harga`, cekOngkir)
+									      .then(res => {
+									      	this.setState({
+									      		listOngkir: res.data.data,
+									      		loadOngkir: false
+									      	})
+									      }).catch(err => {
+									  			loadOngkir: false
+									      }); 
+		                        	}
 		                        } }  href> - </a>
 		                      </div>
 		                    </td>

@@ -37,11 +37,13 @@ class PaketMitraCreate extends Component {
 					productSubmit[i] = JSON.parse(localStorage.getItem('product'+i));
 			}
 		}
-		// localStorage.setItem('paketCart', JSON.stringify(productSubmit.filter(n => n)));
-		// localStorage.setItem('redirectOnce', true);
-		// window.location.href='/admin/distribution/order/courier';
+
+		var filteredProductSubmit = productSubmit.filter(function (el) {
+		  return el != null;
+		});
+
 		var obj = {
-		    'produk' : productSubmit,
+		    'produk' : filteredProductSubmit,
 		    'name' : this.state.name
 		};
 		
