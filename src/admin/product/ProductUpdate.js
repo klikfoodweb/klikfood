@@ -25,7 +25,7 @@ class ProductUpdate extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -38,7 +38,7 @@ class ProductUpdate extends Component {
 			'Authorization': sessionStorage.api_token 
 			}
 
-		 axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/show/`+this.props.match.params.id)
+		 axios.get(`http://35.243.170.33/index.php/produksupplyer/show/`+this.props.match.params.id)
 		  .then((response) => {
 		  	this.setState({
 		  		name: response.data.data.name,
@@ -97,7 +97,7 @@ class ProductUpdate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(bodyFormData);
-		axios.post(`http://apiklikfood.herokuapp.com/produksupplyer/update/`+this.props.match.params.id, bodyFormData)
+		axios.post(`http://35.243.170.33/index.php/produksupplyer/update/`+this.props.match.params.id, bodyFormData)
 	      .then(response => {
 	      	console.log(response)
 	      	toast.success("Produk Berhasil diUbah!");
@@ -179,21 +179,21 @@ class ProductUpdate extends Component {
 				        		    </Form.Label>
 				        		    <Col sm={3}>
 				        		    { (this.state.foto_1) ? 
-				        		    	<img src={ "http://bajax.0hi.me/produk/" + this.props.match.params.id + "/" + this.state.foto_1 } height="150px" />
+				        		    	<img src={ "http://35.243.170.33/uploads/produk/" + this.props.match.params.id + "/" + this.state.foto_1 } height="150px" />
 				        		    	: null
 				        		    }
 				        		      <Form.Control type="file" name="foto_1" onChange={this.handleChangeFoto1} />
 				        		    </Col>
 				        		    <Col sm={3}>
 				        		    { (this.state.foto_2) ? 
-				        		    	<img src={ "http://bajax.0hi.me/produk/" + this.props.match.params.id + "/" + this.state.foto_2 } height="150px" />
+				        		    	<img src={ "http://35.243.170.33/uploads/produk/" + this.props.match.params.id + "/" + this.state.foto_2 } height="150px" />
 				        		    	: null
 				        		    }
 				        		      <Form.Control type="file" name="foto_2" onChange={this.handleChangeFoto2} />
 				        		    </Col>
 				        		    <Col sm={3}>
 				        		    { (this.state.foto_3) ? 
-				        		    	<img src={ "http://bajax.0hi.me/produk/" + this.props.match.params.id + "/" + this.state.foto_3 } height="150px" />
+				        		    	<img src={ "http://35.243.170.33/uploads/produk/" + this.props.match.params.id + "/" + this.state.foto_3 } height="150px" />
 				        		    	: null
 				        		    }
 				        		      <Form.Control type="file" name="foto_3" onChange={this.handleChangeFoto3} />

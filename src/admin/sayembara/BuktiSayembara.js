@@ -5,38 +5,46 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-class CategoryCreate extends Component {
+class BuktiSayembara extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: ''
+			bukti_install: null,
+			submitting: false
 		}
 	}
 
-	handleChange = (event) => {
-		this.setState({ 
-			[event.target.name]: event.target.value
-		})
+	handleChangeFoto = (event) => {
+		this.setState({bukti_install:event.target.files[0]})
 	}
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-
+		this.setState({
+			submitting: true
+		})
 		const bodyFormData = new FormData();
 		
-		bodyFormData.set('name', this.state.name);
+		bodyFormData.append('bukti_install', this.state.bukti_install);
 
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-		axios.post(`http://35.243.170.33/index.php/kategori/store`, bodyFormData )
+
+		axios.post(`http://35.243.170.33/index.php/buktiinstall`, bodyFormData )
 	      .then(res => {
-	      	toast.success("Tambah Kategori Sukses !");
+	      	this.setState({
+				submitting: true
+			})
+	      	toast.success("Upload Bukti Install Sukses !");
 	      	setTimeout(() => {
-	      		window.location.href='/admin/categories';
+	      		window.location.href='/admin/sayembara';
 	      	}, 3000)
 	      }).catch(err => {
-	      	toast.error("Something Went Wrong :( ");
+	      	this.setState({
+				submitting: false
+			})
+	      	toast.error("Gagal Upload :( ");
 	      });
 	}
 
@@ -49,26 +57,32 @@ class CategoryCreate extends Component {
 				        <div classname="card">
 				            <div classname="header">
 				              <h2>
-				                Buat Kategori
+				                Upload Bukti Install
 				              </h2>
 				            </div>
 				            <div classname="body">
 				        		<Form onSubmit={this.handleSubmit} >
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      Name
+				        		      Bukti Install
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
+				        		      <Form.Control type="file" name="bukti_install" onChange={this.handleChangeFoto} />
 				        		    </Col>
 				        		  </Form.Group>
 
 				        		  <Form.Group as={Row}>
 				        		    <Col sm={{ span: 10, offset: 2 }}>
-				        		      <Button type="submit">Create</Button>
+				        		      {this.state.submitting ?
+										<div>
+											<b><center>Sedang Upload...</center></b>
+										</div>
+										:
+											<Button type="submit" className="btn btn-success">Upload</Button>
+										}
 				        		    </Col>
 				        		  </Form.Group>
-				        		</Form>;
+				        		</Form>
 				            </div>
 				        </div>
 				    </div>
@@ -77,4 +91,4 @@ class CategoryCreate extends Component {
 		);
 	}
 }
-export default CategoryCreate;
+export default BuktiSayembara;

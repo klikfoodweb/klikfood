@@ -26,7 +26,7 @@ class ProductCreate extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	console.log(response);
 		  	this.setState({
@@ -79,7 +79,7 @@ class ProductCreate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		
-		axios.post(`http://apiklikfood.herokuapp.com/produksupplyer/store`, bodyFormData)
+		axios.post(`http://35.243.170.33/index.php/produksupplyer/store`, bodyFormData)
 	      .then(response => {
 	      	this.setState({
 				submitting: true

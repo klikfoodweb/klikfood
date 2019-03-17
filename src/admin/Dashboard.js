@@ -22,7 +22,7 @@ class Dashboard extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	if(response.data.data.belanja_pertama !== true && sessionStorage.role === 'Mitra'){
 		  		window.location.href='/admin/pilih-paket';
@@ -33,7 +33,7 @@ class Dashboard extends Component {
 		  	toast.error("Gagal Mendapatkan Info Akun Anda :(");
 		  })
 
-		// axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		// axios.get(`http://35.243.170.33/index.php/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		//   .then((response) => {
 		//   	this.setState({
 		//   		verifiedproducts: response.data.data

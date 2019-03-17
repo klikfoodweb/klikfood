@@ -17,7 +17,7 @@ class PilihPaket extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	if(response.data.data.belanja_pertama === true || sessionStorage.role !== 'Mitra'){
 		  		window.location.href='/admin';
@@ -30,7 +30,7 @@ class PilihPaket extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/paketmitra`)
+		axios.get(`http://35.243.170.33/index.php/paketmitra`)
 		.then((response) => {
 			console.log(response.data.data);
 			this.setState({
@@ -65,7 +65,7 @@ class PilihPaket extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://apiklikfood.herokuapp.com/ongkir/harga`, cekOngkir)
+		axios.post(`http://35.243.170.33/index.php/ongkir/harga`, cekOngkir)
 	      .then(res => {
 	      	console.log(res);
 	      	this.setState({
@@ -90,7 +90,7 @@ class PilihPaket extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(this.state.servis);
-		axios.post(`http://apiklikfood.herokuapp.com/distribusi/paket/`+this.state.idpaket, bodyFormData)
+		axios.post(`http://35.243.170.33/index.php/distribusi/paket/`+this.state.idpaket, bodyFormData)
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success('Cek Pesanan Di "Pesanan Saya"');
@@ -119,11 +119,13 @@ class PilihPaket extends Component {
 					  <Modal.Body>
 					    <p>Yth Mitra, untuk mengakses penuh fitur Mitra diharapkan memilih paket dahulu. <br /> Berikut Daftar Paket nya:</p>
 					  	{
-					  		this.state.pakets.map((item,i) => 
+					  		this.state.pakets.map((item,i) =>
+					  			(!item.kosong) ? 
 					  			<React.Fragment>
         		            		<input key={i} type="radio" lang={item.name} accessKey={item.berat} name="paket" onChange={this.handleChangePaket} value={item._id} onClick={this.handleChange} style={{position: 'relative'}} />{item.name} <p>Lihat Detail</p>
         		            		<br />
         		            	</React.Fragment>
+        		            	: null
 					  		)
 					  	}
 					  	<label>Pilih Kurir : </label>

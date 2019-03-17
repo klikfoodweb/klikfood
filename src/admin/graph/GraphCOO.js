@@ -13,7 +13,7 @@ class GraphCOO extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/grafik/transaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/grafik/transaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		transaksiBulanan : response.data.data
@@ -22,7 +22,7 @@ class GraphCOO extends Component {
 		  	toast.error("Gagal Membuat Grafik :(");
 		  });
 
-		  axios.get(`http://apiklikfood.herokuapp.com/grafik/distribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		  axios.get(`http://35.243.170.33/index.php/grafik/distribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		distribusiBulanan : response.data.data

@@ -29,10 +29,10 @@ class UserUpdate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.get(`http://apiklikfood.herokuapp.com/user/show/`+this.props.match.params.id)
+		axios.get(`http://35.243.170.33/index.php/user/show/`+this.props.match.params.id)
 	      .then(response => {
 
-	      	axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+response.data.data.user.provinsi)
+	      	axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+response.data.data.user.provinsi)
 			  .then((res) => {
 			  	console.log(res);
 				this.setState({ 
@@ -59,7 +59,7 @@ class UserUpdate extends Component {
 	      	toast.error("Gagal Mengambil Info :( ");
 	      });
 
-	      axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+	      axios.get(`http://35.243.170.33/index.php/ongkir/provinsi`)
 		  .then((response) => {
 			this.setState({ 
 				provinsis: response.data.data
@@ -73,7 +73,7 @@ class UserUpdate extends Component {
 	}
 
 	changeProvinsi = (e) => {
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+e.target.value)
 		  .then((response) => {
 		  	console.log(response)
 			this.setState({ 
@@ -111,7 +111,7 @@ class UserUpdate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(qs.stringify(data));
-		axios.patch(`http://apiklikfood.herokuapp.com/user/update/`+this.props.match.params.id+"?"+qs.stringify(data))
+		axios.patch(`http://35.243.170.33/index.php/user/update/`+this.props.match.params.id+"?"+qs.stringify(data))
 	      .then(response => {
 	      	console.log(response);
 	      	toast.success("Update User Sukses !");

@@ -22,7 +22,7 @@ class SearchMitra extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+		axios.get(`http://35.243.170.33/index.php/ongkir/provinsi`)
 		  .then((response) => {
 			this.setState({ 
 				provinsis: response.data.data
@@ -36,7 +36,7 @@ class SearchMitra extends Component {
 		this.setState({ 
 			kotas: []
   		})
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+e.target.value)
 		  .then((response) => {
 		  	this.setState({ 
 				kotas: response.data.data
@@ -56,7 +56,7 @@ class SearchMitra extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		axios.get(`http://apiklikfood.herokuapp.com/mitra?kota=`+this.state.kota)
+		axios.get(`http://35.243.170.33/index.php/mitra?kota=`+this.state.kota)
 	      .then(res => {
 	      	console.log(res);
 	      	this.setState({

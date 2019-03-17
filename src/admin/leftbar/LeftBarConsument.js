@@ -32,12 +32,13 @@ class LeftBarConsument extends Component {
 				              <span>Pembelian</span>
 				            </Link>
 				          </li>
-				          {/*<li>
-				            <Link to="#">
-				              <span>Infobox</span>
-				            </Link>
-				          </li>*/}
 				        </ul>
+				      </li>
+				      <li>
+				        <Link to="/admin/sayembara">
+				          <i className="material-icons">widgets</i>
+				          <span>Sayembara Log</span>
+				        </Link>
 				      </li>
 				      
 				    </ul>

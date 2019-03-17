@@ -15,7 +15,7 @@ class SupplyerBill extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/listuser/pemasok`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/listuser/pemasok`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		users: response.data.data
@@ -34,7 +34,7 @@ class SupplyerBill extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.get(`http://apiklikfood.herokuapp.com/pembayaran/bayar/`+e.target.value)
+  			axios.get(`http://35.243.170.33/index.php/pembayaran/bayar/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Berhasil Dibayar !");
   		      	setTimeout(() => {

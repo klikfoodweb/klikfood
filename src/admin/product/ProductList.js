@@ -16,7 +16,7 @@ class ProductList extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/produksupplyer`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -26,7 +26,7 @@ class ProductList extends Component {
 		  	toast.error("Something Went Wrong :(");
 		  })
 
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -46,14 +46,14 @@ class ProductList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://apiklikfood.herokuapp.com/produksupplyer/destroy/`+e.target.value)
+  			axios.delete(`http://35.243.170.33/index.php/produksupplyer/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Produk Terhapus !");
   		      	setTimeout(() => {
   		      		window.location.href='/admin/products';
   		      	}, 3000)
   		      }).catch(err => {
-  		      	toast.error("Something Went Wrong :( ");
+  		      	toast.error("Tidak Bisa Menghapus Produk :( ");
   		      });	  		
 	  	} } value={row._id} className="btn btn-danger"> Delete </button>;
 	}

@@ -15,7 +15,7 @@ class UserList extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/user`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/user`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		users: response.data.data.data
@@ -34,7 +34,7 @@ class UserList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://apiklikfood.herokuapp.com/user/destroy/`+e.target.value)
+  			axios.delete(`http://35.243.170.33/index.php/user/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("User Terhapus !");
   		      	setTimeout(() => {

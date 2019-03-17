@@ -83,12 +83,15 @@ import SupplyerBill from './bill/SupplyerBill';
 
 import RiwayatTransfer from './CFO/RiwayatTransfer';
 
+import SayembaraLog from './sayembara/SayembaraLog';
+import BuktiSayembara from './sayembara/BuktiSayembara';
+
 class AdminLayout extends Component {
 	componentWillMount() {
 		document.body.classList.add('theme-red');
 
         setInterval(() => {
-            axios.get(`http://apiklikfood.herokuapp.com/token/`+sessionStorage.api_token)
+            axios.get(`http://35.243.170.33/index.php/token/`+sessionStorage.api_token)
               .then((response) => {
               }).catch((error) => {
                 if(sessionStorage.api_token !== undefined){
@@ -221,6 +224,9 @@ class AdminLayout extends Component {
 	            	<Route path="/admin/transactions/:id" component={ShowTransaction} />     
 	            	
 	            	<Route path="/admin/pilih-paket" component={PilihPaket} />
+
+	            	<Route path="/admin/sayembara/upload_bukti" component={BuktiSayembara} />
+	            	<Route path="/admin/sayembara" component={SayembaraLog} />
 
 	            	<Route path="/admin/riwayat-transfer" component={RiwayatTransfer} /> 
 

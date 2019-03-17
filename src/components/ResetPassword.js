@@ -14,7 +14,7 @@ class ResetPassword extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/cekforgotpassword?forgot_password=`+this.props.match.params.kode)
+		axios.get(`http://35.243.170.33/index.php/cekforgotpassword?forgot_password=`+this.props.match.params.kode)
 		  .then((response) => {
 		  	
 		  }).catch((error) => {
@@ -40,7 +40,7 @@ class ResetPassword extends Component {
 		bodyFormData.set('password', this.state.password);
 		bodyFormData.set('forgot_password', this.props.match.params.kode);
 
-		axios.post(`http://apiklikfood.herokuapp.com/resetpassword`, bodyFormData)
+		axios.post(`http://35.243.170.33/index.php/resetpassword`, bodyFormData)
 	      .then((response) => {
 	      	toast.success("Password Berhasil Diganti");
 	      	setTimeout(() => {

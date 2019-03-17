@@ -26,7 +26,7 @@ class UserCreate extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+		axios.get(`http://35.243.170.33/index.php/ongkir/provinsi`)
 		  .then((response) => {
 			this.setState({ 
 				provinsis: response.data.data
@@ -37,7 +37,7 @@ class UserCreate extends Component {
 	}
 
 	changeProvinsi = (e) => {
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+e.target.value)
 		  .then((response) => {
 		  	console.log(response)
 			this.setState({ 
@@ -77,7 +77,7 @@ class UserCreate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://apiklikfood.herokuapp.com/user/store`, bodyFormData)
+		axios.post(`http://35.243.170.33/index.php/user/store`, bodyFormData)
 	      .then(response => {
 	      	console.log(response);
 	      	toast.success("Menambah User Sukses !");

@@ -15,7 +15,7 @@ class RiwayatTransfer extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/pembayaran/show/`+sessionStorage.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/pembayaran/show/`+sessionStorage.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response);
 		  	this.setState({

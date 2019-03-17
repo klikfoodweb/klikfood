@@ -8,8 +8,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import ContentLoader from "react-content-loader";
+import { Jumbotron, Breadcrumb } from 'react-bootstrap';
 
-class SearchProduct extends Component {
+class SearchProductMitra extends Component {
 	constructor() {
 	    super();
 
@@ -32,20 +33,38 @@ class SearchProduct extends Component {
 	    this.setState({ pageOfItems: pageOfItems });
 	}
 
+	componentWillMount() {
+		axios.get(`http://35.243.170.33/index.php/header/`+this.props.match.params.mitra)
+	      .then((response) => {
+	      	this.setState({
+	      		header: response.data.data.header,
+	      		mitraId: response.data.data._id
+	      	})
+	      	console.log(response.data.data);
+	      }).catch((error) => {
+	      	toast.error("Gagal Mengambil Banner Toko :(");
+	      })
+
+	    if(localStorage.getItem('cart') !== null)
+	    	this.setState({
+	    		carts: JSON.parse(localStorage.getItem('cart'))
+	    	})
+	}
+
 	componentDidMount() {
-		var query = this.props.location.search.split('=');
-		if( query.length !== 0 ){
-			axios.get(`http://35.243.170.33/index.php/mitra/produk?verify=1&name=`+query[1], { 'headers': { 'Authorization': sessionStorage.api_token } })
-		      .then((response) => {
-		      	console.log(response);
-		      	this.setState({
-		      		products: response.data.data,
-		      		loader: false
-		      	})
-		      }).catch((error) => {
-		      	toast.error("Gagal Mendapatkan Info Produk :(");
-		      })
-		}
+		// var query = this.props.location.search.split('=');
+		// if( query.length !== 0 ){
+		axios.get(`http://35.243.170.33/index.php/mitra/produk/`+this.props.match.params.mitra+"?name="+this.props.match.params.query, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	      .then((response) => {
+	      	console.log(response);
+	      	this.setState({
+	      		products: response.data.data,
+	      		loader: false
+	      	})
+	      }).catch((error) => {
+	      	toast.error("Gagal Mendapatkan Info Produk :(");
+	      })
+		// }
 		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
@@ -85,17 +104,32 @@ class SearchProduct extends Component {
 		return (
 			<div>
 			<ToastContainer />
-				<section id="advertisement">
-		          <div className="container">
-		            <img src="/images/shop/advertisement.jpg" alt="advertisement" />
-		          </div>
-		        </section>
 		        <section>
 		          <div className="container">
+      			    <div className="row">
+      			    	<div className="col-sm-12">
+      			    		<Jumbotron>
+      			    		  <img style={{maxHeight: '256px', maxWidth: '1024px', width: '100%'}} src={ "http://35.243.170.33/uploads/header/" + this.state.mitraId + "/" + this.state.header } alt="header-toko"/>
+      			    		</Jumbotron>
+      			    		<Breadcrumb>
+							  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+							  <Breadcrumb.Item href={"/"+this.props.match.params.mitra}>
+							    List Produk
+							  </Breadcrumb.Item>
+							  <Breadcrumb.Item active>Cari Produk</Breadcrumb.Item>
+							</Breadcrumb>
+      	            	</div>
+      	            </div>
 		            <div className="row">
 		              <div className="col-sm-3">
 		                <div className="left-sidebar">
-		                  <h2>KATEGORI</h2>
+		                  <div className="price-range">{/*New-Product*/}
+			                    <h2>Cari Produk Di Mitra</h2>
+				                  <div className="search_box">
+				                    <center><input type="text" placeholder="Cari Produk" onKeyDown={this.keyPress} /></center>	
+				                  </div>
+			            	</div><br />
+		                  <h2>KATEGORI</	h2>
 		                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
 		                 	{ this.state.categories.map((category,i) =>
 		                 	<div class="panel panel-default" key={category.kategori.id}>
@@ -127,7 +161,7 @@ class SearchProduct extends Component {
 		              </div>
 		              <div className="col-sm-9 padding-right">
 		                <div className="features_items">{/*features_items*/}
-		                  <h2 className="title text-center">Hasil Pencarian</h2>
+		                  <h2 className="title text-center">Hasil Pencarian di {this.props.match.params.mitra}</h2>
 
 		                  { this.state.loader ?
 		                  <React.Fragment>
@@ -195,4 +229,4 @@ class SearchProduct extends Component {
 		);
 	}
 }
-export default SearchProduct;
+export default SearchProductMitra;

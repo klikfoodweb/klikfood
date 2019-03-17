@@ -31,7 +31,7 @@ class CategoryUpdate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(this.props.match.params.sub);
-		axios.patch(`http://apiklikfood.herokuapp.com/subkategori/update/`+this.props.match.params.sub+"?"+qs.stringify(data))
+		axios.patch(`http://35.243.170.33/index.php/subkategori/update/`+this.props.match.params.sub+"?"+qs.stringify(data))
 	      .then(res => {
 	      	toast.success("Update Kategori Sukses !");
 	      	setTimeout(() => {

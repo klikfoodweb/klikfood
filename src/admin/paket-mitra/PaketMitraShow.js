@@ -64,7 +64,7 @@ class PaketMitraShow extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.patch(`http://apiklikfood.herokuapp.com/paketmitra/update/`+this.props.match.params.id+"?"+qs.stringify(obj, {encode: false}))
+		axios.patch(`http://35.243.170.33/index.php/paketmitra/update/`+this.props.match.params.id+"?"+qs.stringify(obj, {encode: false}))
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success('Update Paket Sukses');
@@ -78,7 +78,7 @@ class PaketMitraShow extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -96,7 +96,7 @@ class PaketMitraShow extends Component {
 			// }
 			// const newInitiateItem = initiateItem.slice();
 			
-		  axios.get(`http://apiklikfood.herokuapp.com/paketmitra/show/`+this.props.match.params.id)
+		  axios.get(`http://35.243.170.33/index.php/paketmitra/show/`+this.props.match.params.id)
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({

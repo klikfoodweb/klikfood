@@ -15,7 +15,7 @@ class ProductList extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data);
 		  	this.setState({
@@ -35,7 +35,7 @@ class ProductList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://apiklikfood.herokuapp.com/produksupplyer/destroy/`+e.target.value)
+  			axios.delete(`http://35.243.170.33/index.php/produksupplyer/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Produk Terhapus !");
   		      	setTimeout(() => {

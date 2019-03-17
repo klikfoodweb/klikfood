@@ -14,7 +14,7 @@ class Permissions extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/role/permission`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/role/permission`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({

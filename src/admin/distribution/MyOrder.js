@@ -31,7 +31,7 @@ class MyOrder extends Component {
 		const bodyFormData = {
 			produk: this.state.produk
 		}
-		axios.post(`http://apiklikfood.herokuapp.com/distribusi/store`, JSON.stringify(localStorage.getItem('dataObject')))
+		axios.post(`http://35.243.170.33/index.php/distribusi/store`, JSON.stringify(localStorage.getItem('dataObject')))
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success("Berhasil Dipesan !");
@@ -45,7 +45,7 @@ class MyOrder extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/distribusi/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/distribusi/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -72,7 +72,7 @@ class MyOrder extends Component {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`http://35.243.170.33/index.php/distribusi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Terima Kasih !");
 	  			      	setTimeout(() => {
@@ -92,7 +92,7 @@ class MyOrder extends Component {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://apiklikfood.herokuapp.com/distribusi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`http://35.243.170.33/index.php/distribusi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Berhasil Dibayar !");
 	  			      	setTimeout(() => {
@@ -123,12 +123,12 @@ class MyOrder extends Component {
 				        <div className="table-responsive">
 				        	<BootstrapTable data={this.state.products} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='_id' dataSort={true}>ID Distribusi</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='jumlah_keseluruhan' dataSort={true}>Total Harga</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='created_at' dataSort={true}>Created_at</TableHeaderColumn>
-		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout }> </TableHeaderColumn>
-		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.confirmLayout }> </TableHeaderColumn>
+				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='50'>No</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='_id' dataSort={true} width='100'>ID Distribusi</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='jumlah_keseluruhan' dataSort={true} width='80'>Total Harga</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='created_at' dataSort={true} width='80'>Created_at</TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width='80'> </TableHeaderColumn>
+		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.confirmLayout } width='80'> </TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        	{/*<button className="btn btn-primary" onClick={this.handleSubmit}> Pesan Sekarang ! </button>*/}
 				        </div>

@@ -29,7 +29,7 @@ class DetailProduct extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -42,7 +42,7 @@ class DetailProduct extends Component {
 			'Authorization': sessionStorage.api_token 
 			}
 
-		 axios.get(`http://apiklikfood.herokuapp.com/produksupplyer/show/`+this.props.match.params.id)
+		 axios.get(`http://35.243.170.33/index.php/produksupplyer/show/`+this.props.match.params.id)
 		  .then((response) => {
 		  	console.log(response);
 		  	this.setState({

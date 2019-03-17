@@ -4,16 +4,24 @@ import Loadable from 'react-loadable';
 import axios from 'axios';
 import Header from './Header';
 import Home from './Home';
-import Products from './Products';
 import Cart from './Cart';
 import Contact from './Contact';
 import CatalogMitra from './CatalogMitra';
 import SearchMitra from './SearchMitra';
 import SearchByKategori from './SearchByKategori';
 import SearchProduct from './SearchProduct';
+import SearchProductMitra from './SearchProductMitra';
 import Support from './Support';
 import Profile from './Profile';
+
 import Privacy from '../pages/Privacy';
+import FaqsMitra from '../pages/FaqsMitra';
+import BudayaKerja from '../pages/BudayaKerja';
+import Disclaimer from '../pages/Disclaimer';
+import FormulirMitra from '../pages/FormulirMitra';
+import KetentuanPenggunaanWebsite from '../pages/KetentuanPenggunaanWebsite';
+import VisiMisi from '../pages/VisiMisi';
+
 import DetailProductMitra from './DetailProductMitra';
 import Forget from './Forget';
 import ResetToken from './ResetToken';
@@ -28,9 +36,9 @@ const Login = Loadable({
 });
 
 class DefaultLayout extends Component {
-    componentDidMount() {
+    componentWillMount() {
         setInterval(() => {
-            axios.get(`http://apiklikfood.herokuapp.com/token/`+sessionStorage.api_token)
+            axios.get(`http://35.243.170.33/index.php/token/`+sessionStorage.api_token)
               .then((response) => {
               }).catch((error) => {
                 if(sessionStorage.api_token !== undefined){
@@ -56,19 +64,27 @@ class DefaultLayout extends Component {
             <main>
             <Switch>
             	<Route path="/" exact component={Home} />
-            	<Route path="/products" exact component={Products} />
             	<Route path="/login" name="Login" exact component={Login} />
             	<Route path="/cart" name="Cart" component={Cart} />
             	<Route path="/contact" name="Contact" component={Contact} />
                 <Route path="/search-mitra" name="SearchMitra" component={SearchMitra} />
                 <Route path="/support" name="Support" component={Support} />
                 <Route path="/profile" name="Profile" component={Profile} />
+
                 <Route path="/privacy" name="Privacy" component={Privacy} />
-            	<Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />
+                <Route path="/faqs-mitra" name="FaqsMitra" component={FaqsMitra} />
+            	<Route path="/budaya-kerja" name="BudayaKerja" component={BudayaKerja} />
+                <Route path="/disclaimer" name="Disclaimer" component={Disclaimer} />
+                <Route path="/formulir-mitra" name="FormulirMitra" component={FormulirMitra} />
+                <Route path="/ketentuan-penggunaan-website" name="KetentuanPenggunaanWebsite" component={KetentuanPenggunaanWebsite} />
+                <Route path="/visi-misi" name="VisiMisi" component={VisiMisi} />
+                
+                <Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />
                 <Route path="/search" name="SearchProduct" component={SearchProduct} />
                 <Route path="/reset" name="ResetToken" component={ResetToken} />
                 <Route path="/forget" name="Forget" component={Forget} />
                 <Route path="/reset-password/:kode" name="ResetPassword" component={ResetPassword} />
+                <Route path="/:mitra/search/:query" name="SearchProductMitra" component={SearchProductMitra} />
                 <Route path="/:mitra/:product" name="DetailProductMitra" component={DetailProductMitra} />
                 <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
             </Switch>

@@ -29,7 +29,7 @@ class CategoryCreate extends Component {
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-		axios.post(`http://apiklikfood.herokuapp.com/subkategori/store/`+this.props.match.params.id, bodyFormData )
+		axios.post(`http://35.243.170.33/index.php/subkategori/store/`+this.props.match.params.id, bodyFormData )
 	      .then(res => {
 	      	toast.success("Tambah Sub Kategori Sukses !");
 	      	setTimeout(() => {

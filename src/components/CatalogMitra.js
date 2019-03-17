@@ -35,7 +35,7 @@ class CatalogMitra extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/header/`+this.props.match.params.mitra)
+		axios.get(`http://35.243.170.33/index.php/header/`+this.props.match.params.mitra)
 	      .then((response) => {
 	      	this.setState({
 	      		header: response.data.data.header,
@@ -53,7 +53,7 @@ class CatalogMitra extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -63,7 +63,7 @@ class CatalogMitra extends Component {
 		  })		
 
       	console.log(this.props.match.params.mitra);
-		  axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra)
+		  axios.get(`http://35.243.170.33/index.php/mitra/produk/`+this.props.match.params.mitra)
 	      .then((response) => {
 	      	this.setState({
 	      		products: response.data.data,
@@ -73,7 +73,7 @@ class CatalogMitra extends Component {
 	      	toast.error("Gagal Mendapatkan Info Produk :(");
 	      })
 
-	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?promo=1")
+	      axios.get(`http://35.243.170.33/index.php/mitra/produk/`+this.props.match.params.mitra+"?promo=1&type=verify")
 	      .then((response) => {
 	      	this.setState({
 	      		promoProducts: response.data.data,
@@ -83,7 +83,7 @@ class CatalogMitra extends Component {
 	      	toast.error("Gagal Mendapatkan Info Promo Produk :(");
 	      })
 
-	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/`+this.props.match.params.mitra+"?orderby=terjual&limit=3")
+	      axios.get(`http://35.243.170.33/index.php/mitra/produk/`+this.props.match.params.mitra+"?orderby=terjual&limit=3&type=verify")
 	      .then((response) => {
 	      	this.setState({
 	      		popularProducts: response.data.data,
@@ -93,7 +93,7 @@ class CatalogMitra extends Component {
 	      	toast.error("Gagal Mendapatkan Info Produk Populer :(");
 	      })
 
-	      axios.get(`http://apiklikfood.herokuapp.com/mitra/produk?orderby=terbaru&limit=2`)
+	      axios.get(`http://35.243.170.33/index.php/mitra/produk/`+this.props.match.params.mitra+`?orderby=terbaru&limit=2&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -119,6 +119,12 @@ class CatalogMitra extends Component {
 	    }
 	}
 
+	keyPress = (e) => {
+	  	if(e.keyCode == 13){
+	  		window.location.href='/'+this.props.match.params.mitra+'/search/'+e.target.value;		
+	    }
+	  }
+
 	render() {
 		const MyLoader = props => (
 			<ContentLoader 
@@ -143,13 +149,18 @@ class CatalogMitra extends Component {
 				    <div className="row">
 				    	<div className="col-sm-12">
 				    		<Jumbotron>
-				    		  <img style={{maxHeight: '256px', maxWidth: '1024px', width: '100%'}} src={ "http://bajax.0hi.me/header/" + this.state.mitraId + "/" + this.state.header } alt="header-toko"/>
+				    		  <img style={{maxHeight: '256px', maxWidth: '1024px', width: '100%'}} src={ "http://35.243.170.33/uploads/header/" + this.state.mitraId + "/" + this.state.header } alt="header-toko"/>
 				    		</Jumbotron>;
 		            	</div>
 		            </div>
 		            <div className="row">
 		              <div className="col-sm-3">
 		                <div className="left-sidebar">
+		                    <h2>Cari Produk Di Mitra</h2>
+			                  <div className="search_box">
+			                    <center><input type="text" placeholder="Cari Produk" onKeyDown={this.keyPress} /></center>	
+			                  </div>
+			            	<br />
 		                  <h2>Kategori</h2>
 		                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
 	                    	
@@ -186,7 +197,7 @@ class CatalogMitra extends Component {
 		                  			    <div className="product-image-wrapper">
 		                  			      	<div className="single-products">
 		                  			        	<div className="productinfo text-center">
-		                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+		                  			          		<img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
 		                  			          		<h2>Rp. { item.harga_jual }</h2>
 		                  			          		<p>{ item.name }</p>
 		                  			          		<Link to={"/"+this.props.match.params.mitra+"/"+item._id} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -214,11 +225,11 @@ class CatalogMitra extends Component {
 		                  {
 	                  	this.state.promoProducts.map( (item, i) => 
 	                  		<React.Fragment>
-	                  			<div className="col-sm-4" key={i}>
+	                  			<div className="col-sm-4 col-xs-6" key={i}>
 	                  			    <div className="product-image-wrapper">
 	                  			      	<div className="single-products">
 	                  			        	<div className="productinfo text-center">
-	                  			          		<img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
+	                  			          		<img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt />
 	                  			          		<h2>Rp. { item.harga_jual }</h2>
 	                  			          		<p>{ item.name }</p>
 	                  			          		<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
@@ -246,11 +257,11 @@ class CatalogMitra extends Component {
 	                      	this.state.popularProducts.map((item,i) => 
 		                    <React.Fragment>
 		                        
-		                        <div className="col-sm-4">
+		                        <div className="col-sm-4 col-xs-6">
 		                          <div className="product-image-wrapper">
 		                            <div className="single-products">
 		                              <div className="productinfo text-center">
-		                                <a href="#"><img src={"http://bajax.0hi.me/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+		                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 		                                <h2>Rp { item.harga_jual }</h2>
 		                                <p>{ item.name }</p>
 		                                <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
@@ -278,7 +289,7 @@ class CatalogMitra extends Component {
 		                  <React.Fragment>
 		                  {[...Array(9)].map((x, i) =>
 						  	<div>
-		                      	<div className="col-sm-4">
+		                      	<div className="col-sm-4 col-xs-6">
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <MyLoader key={i} />
@@ -297,11 +308,11 @@ class CatalogMitra extends Component {
 						  <React.Fragment>
 		                  {this.state.pageOfItems.map(item =>
 		                      <div>
-		                      	<div className="col-sm-4" key={item.id}>
+		                      	<div className="col-sm-4 col-xs-6" key={item.id}>
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
-		                      	        <Link to={"/"+this.props.match.params.mitra+"/"+item._id}><img src={ "http://bajax.0hi.me/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
+		                      	        <Link to={"/"+this.props.match.params.mitra+"/"+item._id}><img src={ "http://35.243.170.33/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
 		                      	        <h2>Rp {item.harga_jual}</h2>
 		                      	        <p>{ item.name }</p>
 		                      	        {/*<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>*/}

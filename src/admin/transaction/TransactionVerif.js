@@ -16,7 +16,7 @@ class TransactionVerif extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/distribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/distribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data);
 		  	this.setState({
@@ -50,7 +50,7 @@ class TransactionVerif extends Component {
 				return (
 					<button onClick={ (e) => {
 						e.preventDefault();
-						axios.get(`http://apiklikfood.herokuapp.com/distribusi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+						axios.get(`http://35.243.170.33/index.php/distribusi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 						  .then((response) => {
 						  	toast.success("Berhasil Dikirim !");
 					      	setTimeout(() => {
@@ -66,7 +66,7 @@ class TransactionVerif extends Component {
 				return (
 					<button onClick={ (e) => {
 						e.preventDefault();
-						axios.get(`http://apiklikfood.herokuapp.com/distribusi/konfirmasi_bayar/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+						axios.get(`http://35.243.170.33/index.php/distribusi/konfirmasi_bayar/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 						  .then((response) => {
 						  	toast.success("Berhasil Di Verifikasi !");
 					      	setTimeout(() => {
@@ -94,7 +94,7 @@ class TransactionVerif extends Component {
 				return (
 					<button onClick={ (e) => {
 						e.preventDefault();
-						axios.get(`http://apiklikfood.herokuapp.com/distribusi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+						axios.get(`http://35.243.170.33/index.php/distribusi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 						  .then((response) => {
 						  	toast.success("Berhasil Dikirim !");
 					      	setTimeout(() => {
@@ -130,7 +130,7 @@ class TransactionVerif extends Component {
 				return (
 					<button onClick={ (e) => {
 						e.preventDefault();
-						axios.get(`http://apiklikfood.herokuapp.com/distribusi/konfirmasi_bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+						axios.get(`http://35.243.170.33/index.php/distribusi/konfirmasi_bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 						  .then((response) => {
 						  	toast.success("Berhasil Di Verifikasi !");
 					      	setTimeout(() => {

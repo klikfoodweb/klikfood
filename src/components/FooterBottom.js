@@ -2,6 +2,24 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class FooterBottom extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			email_sayembara: ''
+		}
+	}
+
+	handleChange = (event) => {
+		this.setState({ 
+			[event.target.name]: event.target.value
+		})
+	}
+
+	sayembaraEmail = (e) => {
+		e.preventDefault();
+		window.location.href='/login?email_sayembara='+this.state.email_sayembara;
+	}
+
 	render() {
 		return (
 			<div>
@@ -14,11 +32,11 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN MITRA</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="bemitra.html">Daftar Jadi Mitra</Link></li>
+				              <li><Link to="/formulir-mitra">Daftar Jadi Mitra</Link></li>
 				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
 				              <li><Link to="downloadapp.html">Dowload Aplikasi</Link></li>
-				              <li><Link to="aturan-sayembara.html">Ikut Sayembara</Link></li>
-				              <li><Link to="faqs.html">FAQs</Link></li>
+				              <li><Link to="/login">Ikut Sayembara</Link></li>
+				              <li><Link to="/faqs-mitra">FAQs</Link></li>
 				              <li><Link to="/login">Login</Link></li>
 				            </ul>
 				          </div>
@@ -41,13 +59,13 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>KEBIJAKAN</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="tou.html">Kebijakan Layanan</Link></li>
+				              <li><Link to="/ketentuan-penggunaan-website">Kebijakan Layanan</Link></li>
 				              <li><Link to="retur.html">Kebijakan Retur Produk</Link></li>
 				              <li><Link to="aturan-sayembara.html">Cara Mengikuti Sayembara</Link></li>
 				              <li><Link to="point.html">tentang Point</Link></li>
 				              <li><Link to="rewards.html">Tentang Rewards</Link></li>
 				              <li><Link to="/privacy">Kebijakan Privacy</Link></li>
-				              <li><Link to="disclaimer.html">Disclaimer</Link></li>
+				              <li><Link to="/disclaimer">Disclaimer</Link></li>
 				            </ul>
 				          </div>
 				        </div>{/*Footer--/End--Kebijakan*/}
@@ -57,8 +75,8 @@ class FooterBottom extends Component {
 				            <h2>TENTANG KAMI</h2>
 				            <ul className="nav nav-pills nav-stacked">
 				              <li><Link to="info.html">Informasi Perusahaan</Link></li>
-				              <li><Link to="budaya.html">Budaya Perusahaan</Link></li>
-				              <li><Link to="visi-misi.html">Visi &amp; Misi</Link></li>
+				              <li><Link to="/budaya-kerja">Budaya Perusahaan</Link></li>
+				              <li><Link to="/visi-misi">Visi &amp; Misi</Link></li>
 				              <li><Link to="lokasi-mitra.html">Mitra &amp; Lokasi</Link></li>
 				              <li><Link to="investor.html">Hubungan Investor</Link></li>
 				              <li><Link to="haki.html">Hak Cipta</Link></li>
@@ -69,8 +87,8 @@ class FooterBottom extends Component {
 				        <div className="col-sm-3 col-sm-offset-1">
 				          <div className="single-widget">
 				            <h2>Ikut Sayembara?</h2>
-				            <form action="#" className="searchform">
-				              <input type="text" placeholder="Your email address" />
+				            <form onSubmit={this.sayembaraEmail} className="searchform">
+				              <input type="email" name="email_sayembara" value={this.state.email_sayembara} placeholder="Your email address" onChange={this.handleChange} />
 				              <button type="submit" className="btn btn-success"><i className="fa fa-arrow-circle-o-right" /></button>
 				              <p>Anda berhak mengikuti sayembara yang kami adakan dengan merekomendasikan link kami.</p>
 				            </form>

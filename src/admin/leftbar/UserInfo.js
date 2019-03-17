@@ -6,8 +6,9 @@ class UserInfo extends Component {
 	componentDidMount() {
 		console.log(sessionStorage);
 	}
+	
 	logout = () => {
-  	axios.get(`http://apiklikfood.herokuapp.com/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+  	axios.get(`http://35.243.170.33/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
 		sessionStorage.clear();
 		localStorage.clear();
@@ -20,7 +21,7 @@ class UserInfo extends Component {
 	  		window.location.href='/';
 	  	}, 3000)
 	  }).catch((error) => {
-	  	toast.error("Something Went Wrong :(");
+	  	toast.error("Tidak Bisa Logout :(");
 	  })
   	}
 

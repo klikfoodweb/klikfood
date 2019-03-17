@@ -16,7 +16,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -27,7 +27,7 @@ class Header extends Component {
 	}
 
   logout = () => {
-  	axios.get(`http://apiklikfood.herokuapp.com/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+  	axios.get(`http://35.243.170.33/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
 		sessionStorage.clear();
 		localStorage.clear();
@@ -135,18 +135,21 @@ class Header extends Component {
 	                  <div className="mainmenu pull-left">
 	                    <ul className="nav navbar-nav collapse navbar-collapse">
 	                      <li><Link to="/" className="active">Home</Link></li>
-	                      <li className="dropdown"><a href="#">Kategori<i className="fa fa-angle-down" /></a>
-	                        <ul role="menu" className="sub-menu">
-	                        { this.state.categories.map((category,i) => 
-	                        <div>
-	                        {/*{"/search?kategori=" + category.kategori._id}*/}
-	                          <li><Link to="#">{ category.kategori.name } <i className="fa fa-angle-down" /></Link></li>	
-	                        	{ category.subkategori.map((subcategory,i) =>
-                					<li key={ subcategory._id }><a href={"/search/"+subcategory._id} style={{fontSize: '12px', paddingLeft: '10px'}}>{ subcategory.name } </a></li>
-                				) }
-                			</div>
-	                        ) }
-	                        </ul>								
+	                      <li className="dropdown">
+	                      	<a href="#">Kategori<i className="fa fa-angle-down" /></a>
+		                        <ul role="menu" className="sub-menu" id="nav-primary">
+			                        { this.state.categories.map((category,i) => 
+			                        <React.Fragment>
+			                          <li><a href="#">{ category.kategori.name } <i className="fa fa-angle-down" /></a>	
+				                        	<ul className="subnav">
+				                        	{ category.subkategori.map((subcategory,i) =>
+			                					<li key={ subcategory._id }><a href={"/search/"+subcategory._id} style={{fontSize: '12px', paddingLeft: '10px'}}>{ subcategory.name } </a></li>
+			                				) }
+			                				</ul>
+		                			  </li>
+		                			</React.Fragment>
+			                        ) }
+		                        </ul>								
 	                      </li> 								
 	                      <li><Link to="/contact">Kontak</Link></li>
 	                      <li><a href="http://blogklikfood.000webhostapp.com" target="_blank" rel="noopener noreferrer">Blog</a></li>

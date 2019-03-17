@@ -20,7 +20,7 @@ class ShowTransactionConsument extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/transaksi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`http://35.243.170.33/index.php/transaksi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data.transaksi);
 		  	this.setState({

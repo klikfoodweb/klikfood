@@ -36,7 +36,14 @@ class Login extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/provinsi`)
+		var email_sayembara = this.props.location.search.split('=');
+		if( email_sayembara.length !== 0 ){
+			this.setState({
+				registEmail: email_sayembara[1]
+			})
+		}
+
+		axios.get(`http://35.243.170.33/index.php/ongkir/provinsi`)
 		  .then((response) => {
 			this.setState({ 
 				provinsis: response.data.data
@@ -53,7 +60,7 @@ class Login extends Component {
 	}
 
 	changeProvinsi = (e) => {
-		axios.get(`http://apiklikfood.herokuapp.com/ongkir/kota/`+e.target.value)
+		axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+e.target.value)
 		  .then((response) => {
 		  	console.log(response)
 			this.setState({ 
@@ -76,7 +83,7 @@ class Login extends Component {
 			email: this.state.email,
 			password: this.state.password
 		}
-		axios.post(`http://apiklikfood.herokuapp.com/login`, qs.stringify( data ))
+		axios.post(`http://35.243.170.33/index.php/login`, qs.stringify( data ))
 	      .then((response) => {
 	      	let responseJSON = response;
 	      	if(responseJSON.data.success) {
@@ -126,11 +133,11 @@ class Login extends Component {
 		console.log(qs.stringify( data ));
 		let url = '';
 		if (this.state.registType === 'supplyer'){
-			url = 'http://apiklikfood.herokuapp.com/register/supplyer';
+			url = 'http://35.243.170.33/index.php/register/supplyer';
 		}else if(this.state.registType === 'mitra'){
-			url = 'http://apiklikfood.herokuapp.com/register/mitra';
+			url = 'http://35.243.170.33/index.php/register/mitra';
 		}else{
-			url = 'http://apiklikfood.herokuapp.com/register/konsumen';
+			url = 'http://35.243.170.33/index.php/register/konsumen';
 		}
 		axios.post(url, qs.stringify( data ))
 	      .then((response) => {

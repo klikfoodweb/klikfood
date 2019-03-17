@@ -11,7 +11,7 @@ class Banner extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/slider`)
+		axios.get(`http://35.243.170.33/index.php/slider`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -63,7 +63,7 @@ class Banner extends Component {
 							                <center><Link to="/search-mitra"><button type="button" className="btn btn-default get">Beli Sekarang</button></Link></center><br />
 							              </div>
 							              <div className="col-sm-6">
-							                <Link to="/search-mitra"><img src={"http://bajax.0hi.me/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt /></Link>
+							                <Link to="/search-mitra"><img src={"http://35.243.170.33/uploads/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt /></Link>
 							              </div>
 							            </div>
 						        	</React.Fragment>
@@ -78,7 +78,7 @@ class Banner extends Component {
 							                <center><Link to="/search-mitra"><button type="button" className="btn btn-default get">Beli Sekarang</button></Link></center><br />
 							              </div>
 							              <div className="col-sm-6">
-							                <Link to="/search-mitra"><img src={"http://bajax.0hi.me/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt /></Link>
+							                <Link to="/search-mitra"><img src={"http://35.243.170.33/uploads/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt /></Link>
 							              </div>
 							            </div>
 						       		</React.Fragment>

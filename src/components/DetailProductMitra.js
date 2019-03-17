@@ -28,7 +28,7 @@ class DetailProductMitra extends Component {
 	}	
 
 	componentDidMount() {
-		axios.get(`http://apiklikfood.herokuapp.com/kategori`)
+		axios.get(`http://35.243.170.33/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -41,7 +41,7 @@ class DetailProductMitra extends Component {
 			'Authorization': sessionStorage.api_token 
 			}
 
-		 axios.get(`http://apiklikfood.herokuapp.com/mitra/produk/show/`+this.props.match.params.product)
+		 axios.get(`http://35.243.170.33/index.php/mitra/produk/show/`+this.props.match.params.product)
 		  .then((response) => {
 		  	console.log(response);
 		  	this.setState({
@@ -135,7 +135,7 @@ class DetailProductMitra extends Component {
 							          			<React.Fragment>
 										            <div className="item active">
 										              <div className="col-sm-12">
-										                <img src={"http://bajax.0hi.me/produk/"+this.state.id+"/"+this.state.foto_1} className="girl img-responsive" alt />
+										                <img src={"http://35.243.170.33/uploads/produk/"+this.state.id+"/"+this.state.foto_1} className="girl img-responsive" alt />
 										              </div>
 										            </div>
 									        	</React.Fragment> : null
@@ -144,7 +144,7 @@ class DetailProductMitra extends Component {
 									        	<React.Fragment>
 									        		<div className="item">
 										              <div className="col-sm-12">
-										                <img src={"http://bajax.0hi.me/produk/"+this.state.id+"/"+this.state.foto_2} className="girl img-responsive" alt />
+										                <img src={"http://35.243.170.33/uploads/produk/"+this.state.id+"/"+this.state.foto_2} className="girl img-responsive" alt />
 										              </div>
 										            </div>
 									       		</React.Fragment> : null
@@ -153,7 +153,7 @@ class DetailProductMitra extends Component {
 									        	<React.Fragment>
 									        		<div className="item">
 										              <div className="col-sm-12">
-										                <img src={"http://bajax.0hi.me/produk/"+this.state.id+"/"+this.state.foto_3} className="girl img-responsive" alt />
+										                <img src={"http://35.243.170.33/uploads/produk/"+this.state.id+"/"+this.state.foto_3} className="girl img-responsive" alt />
 										              </div>
 										            </div>
 									       		</React.Fragment> : null
