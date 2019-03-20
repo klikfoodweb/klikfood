@@ -24,7 +24,7 @@ class Home extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://35.243.170.33/index.php/mitra/produk?orderby=expire&limit=6&type=verify`)
+		axios.get(`https://api.klikfood.id/index.php/mitra/produk?orderby=expire&limit=6&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -34,7 +34,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Promo Produk :(");
 		  })
 
-		  axios.get(`http://35.243.170.33/index.php/mitra/produk?orderby=terjual&limit=6&type=verify`)
+		  axios.get(`https://api.klikfood.id/index.php/mitra/produk?orderby=terjual&limit=6&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -44,7 +44,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Produk Populer :(");
 		  })
 
-		  axios.get(`http://35.243.170.33/index.php/mitra/produk?orderby=terbaru&limit=6&type=verify`)
+		  axios.get(`https://api.klikfood.id/index.php/mitra/produk?orderby=terbaru&limit=6&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -54,7 +54,7 @@ class Home extends Component {
 		  	toast.error("Gagal Mendapatkan Info Produk Terbaru :(");
 		  })
 
-		  axios.get(`http://35.243.170.33/index.php/testimoni`)
+		  axios.get(`https://api.klikfood.id/index.php/testimoni`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -66,7 +66,7 @@ class Home extends Component {
 	}
 
 	componentDidMount() {
-	  axios.get(`http://35.243.170.33/index.php/kategori`)
+	  axios.get(`https://api.klikfood.id/index.php/kategori`)
 	  .then((response) => {
 	  		console.log(response.data.data);
 		  	this.setState({
@@ -74,7 +74,7 @@ class Home extends Component {
 		  	})
 		  	let produkToKategori = [];
 		  	this.state.categories.map((category,i) => 
-		  		axios.get(`http://35.243.170.33/mitra/produk?xkategori=`+category.kategori._id+`&limit=6&type=verify`)
+		  		axios.get(`https://api.klikfood.id/mitra/produk?xkategori=`+category.kategori._id+`&limit=6&type=verify`)
 		  		  .then((response) => {
 		  		  	
 		  		  	produkToKategori.push([category.kategori.name, response.data.data])
@@ -104,7 +104,7 @@ class Home extends Component {
 		const bodyFormData = {
 			email: this.state.emailSubscribe
 		}
-		axios.post(`http://35.243.170.33/index.php/subscribe`, qs.stringify(bodyFormData))
+		axios.post(`https://api.klikfood.id/index.php/subscribe`, qs.stringify(bodyFormData))
 	      .then(res => {
 	      	toast.success("Terimakasih Sudah Subscribe !");
 	      }).catch(err => {
@@ -171,7 +171,7 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -195,7 +195,7 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -234,7 +234,7 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -258,7 +258,7 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -296,7 +296,7 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -320,7 +320,7 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -360,7 +360,7 @@ class Home extends Component {
 							                          <div className="product-image-wrapper">
 							                            <div className="single-products">
 							                              <div className="productinfo text-center">
-							                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+							                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 							                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 							                                <p className="homeNameProduk">{ item.name }</p>
 							                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -384,7 +384,7 @@ class Home extends Component {
 							                          <div className="product-image-wrapper">
 							                            <div className="single-products">
 							                              <div className="productinfo text-center">
-							                                <a href="#"><img src={"http://35.243.170.33/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+							                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
 							                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
 							                                <p className="homeNameProduk">{ item.name }</p>
 							                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
@@ -418,7 +418,7 @@ class Home extends Component {
 	          <div className="row">
 	            <div className="col-sm-12">
 	              <h2 className="title text-center">AYO SEGERA BERGABUNG</h2>	
-	              <h1 className="title text-center">JADILAH BAGIAN DARI <br />SOCIOPRENEUR INDONESIA</h1>							
+	              <h1 className="title text-center">JADILAH BAGIAN DARI <br />ENTREPRENEUR INDONESIA</h1>							
 	              <center><p>Indonesia merupakan pasar besar yang belum sepenuhnya digarap oleh para pelaku bisnis, peluang masih terbuka sangat lebar.</p> 
 	                <p><b>Ecommerce Technology Platform</b> yang kami kembangkan ini, memberikan Anda kesempatan dan peluang berbisnis di era Teknologi Informasi.</p> 
 	                <p>Segera ambil keputusan untuk menjadi <b>Sosial Entrepreneur Baru</b> dengan <b>Platform Teknologi Perdagangan Digital</b> yang mendukung sepenuhnya bisnis Anda.</p> <p><b>APA AJA ITU?  &nbsp;MAU TAHU?</b></p>
@@ -537,7 +537,7 @@ class Home extends Component {
 	                <div className="price-range">{/*Telah-Bergabung #1*/}
 	                  <h3>{item.judul}</h3>
 	                  <center><p>{ item.subjudul }</p></center>
-	                  <a href="#"><img src={"http://35.243.170.33/uploads/testimoni/"+item._id+"/"+item.image} style={{maxHeight: '330px'}} alt /></a>
+	                  <a href="#"><img src={"https://api.klikfood.id/uploads/testimoni/"+item._id+"/"+item.image} style={{maxHeight: '330px'}} alt /></a>
 	                </div>{/*/End-Telah Bergabung #1*/}</center>
 	            </div>
 	            </React.Fragment>

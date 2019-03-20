@@ -8,7 +8,7 @@ class UserInfo extends Component {
 	}
 	
 	logout = () => {
-  	axios.get(`http://35.243.170.33/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+  	axios.get(`https://api.klikfood.id/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
 		sessionStorage.clear();
 		localStorage.clear();

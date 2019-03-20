@@ -15,7 +15,7 @@ class SliderList extends Component {
 	}
 	
 	componentWillMount() {
-		axios.get(`http://35.243.170.33/index.php/slider`)
+		axios.get(`https://api.klikfood.id/index.php/slider`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -36,7 +36,7 @@ class SliderList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://35.243.170.33/index.php/slider/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/slider/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Slider Terhapus !");
   		      	setTimeout(() => {

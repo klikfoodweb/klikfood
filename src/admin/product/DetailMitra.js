@@ -15,7 +15,7 @@ class DetailMitra extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/mitra/produk/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/mitra/produk/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data);
 		  	this.setState({

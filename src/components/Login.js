@@ -43,7 +43,7 @@ class Login extends Component {
 			})
 		}
 
-		axios.get(`http://35.243.170.33/index.php/ongkir/provinsi`)
+		axios.get(`https://api.klikfood.id/index.php/ongkir/provinsi`)
 		  .then((response) => {
 			this.setState({ 
 				provinsis: response.data.data
@@ -60,7 +60,7 @@ class Login extends Component {
 	}
 
 	changeProvinsi = (e) => {
-		axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+e.target.value)
+		axios.get(`https://api.klikfood.id/index.php/ongkir/kota/`+e.target.value)
 		  .then((response) => {
 		  	console.log(response)
 			this.setState({ 
@@ -83,7 +83,7 @@ class Login extends Component {
 			email: this.state.email,
 			password: this.state.password
 		}
-		axios.post(`http://35.243.170.33/index.php/login`, qs.stringify( data ))
+		axios.post(`https://api.klikfood.id/index.php/login`, qs.stringify( data ))
 	      .then((response) => {
 	      	let responseJSON = response;
 	      	if(responseJSON.data.success) {
@@ -133,11 +133,11 @@ class Login extends Component {
 		console.log(qs.stringify( data ));
 		let url = '';
 		if (this.state.registType === 'supplyer'){
-			url = 'http://35.243.170.33/index.php/register/supplyer';
+			url = 'https://api.klikfood.id/index.php/register/supplyer';
 		}else if(this.state.registType === 'mitra'){
-			url = 'http://35.243.170.33/index.php/register/mitra';
+			url = 'https://api.klikfood.id/index.php/register/mitra';
 		}else{
-			url = 'http://35.243.170.33/index.php/register/konsumen';
+			url = 'https://api.klikfood.id/index.php/register/konsumen';
 		}
 		axios.post(url, qs.stringify( data ))
 	      .then((response) => {

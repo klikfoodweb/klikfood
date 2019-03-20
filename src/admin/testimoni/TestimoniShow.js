@@ -21,7 +21,7 @@ class SliderShow extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		
-		axios.get(`http://35.243.170.33/index.php/testimoni/show/`+this.props.match.params.id)
+		axios.get(`https://api.klikfood.id/index.php/testimoni/show/`+this.props.match.params.id)
 	  .then((response) => {
 	  	console.log(response.data.data);
 	  	this.setState({
@@ -61,7 +61,7 @@ class SliderShow extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(bodyFormData);
-		axios.post(`http://35.243.170.33/index.php/testimoni/update/`+this.props.match.params.id, bodyFormData)
+		axios.post(`https://api.klikfood.id/index.php/testimoni/update/`+this.props.match.params.id, bodyFormData)
 	      .then(response => {
 	      	this.setState({
 				submitting: true

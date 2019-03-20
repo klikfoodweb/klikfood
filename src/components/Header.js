@@ -16,7 +16,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/kategori`)
+		axios.get(`https://api.klikfood.id/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -27,7 +27,7 @@ class Header extends Component {
 	}
 
   logout = () => {
-  	axios.get(`http://35.243.170.33/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+  	axios.get(`https://api.klikfood.id/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
 		sessionStorage.clear();
 		localStorage.clear();

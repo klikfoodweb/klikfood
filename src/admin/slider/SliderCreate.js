@@ -44,7 +44,7 @@ class SliderCreate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(bodyFormData);
-		axios.post(`http://35.243.170.33/index.php/slider/store`, bodyFormData)
+		axios.post(`https://api.klikfood.id/index.php/slider/store`, bodyFormData)
 	      .then(response => {
 	      	this.setState({
 				submitting: true

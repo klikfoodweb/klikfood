@@ -15,7 +15,7 @@ class ListMitra extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/listuser/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/listuser/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		users: response.data.data

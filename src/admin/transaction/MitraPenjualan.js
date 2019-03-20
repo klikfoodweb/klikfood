@@ -16,7 +16,7 @@ class MitraPenjualan extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/transaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/transaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data);
 		  	this.setState({
@@ -48,7 +48,7 @@ class MitraPenjualan extends Component {
 			return (
 				<button onClick={ (e) => {
 					e.preventDefault();
-					axios.get(`http://35.243.170.33/index.php/transaksi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+					axios.get(`https://api.klikfood.id/index.php/transaksi/kirim/`+id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 					  .then((response) => {	
 					  	toast.success("Berhasil Dikirim !");
 				      	setTimeout(() => {

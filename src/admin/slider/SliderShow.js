@@ -22,7 +22,7 @@ class SliderShow extends Component {
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-		axios.get(`http://35.243.170.33/index.php/slider/show/`+this.props.match.params.id)
+		axios.get(`https://api.klikfood.id/index.php/slider/show/`+this.props.match.params.id)
 	  .then((response) => {
 	  	console.log(response.data.data);
 	  	this.setState({
@@ -64,7 +64,7 @@ class SliderShow extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(bodyFormData);
-		axios.post(`http://35.243.170.33/index.php/slider/update/`+this.props.match.params.id, bodyFormData)
+		axios.post(`https://api.klikfood.id/index.php/slider/update/`+this.props.match.params.id, bodyFormData)
 	      .then(response => {
 	      	this.setState({
 				submitting: true

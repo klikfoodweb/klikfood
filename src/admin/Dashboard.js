@@ -22,7 +22,7 @@ class Dashboard extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://35.243.170.33/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	if(response.data.data.belanja_pertama !== true && sessionStorage.role === 'Mitra'){
 		  		window.location.href='/admin/pilih-paket';
@@ -33,7 +33,7 @@ class Dashboard extends Component {
 		  	toast.error("Gagal Mendapatkan Info Akun Anda :(");
 		  })
 
-		// axios.get(`http://35.243.170.33/index.php/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		// axios.get(`https://api.klikfood.id/index.php/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		//   .then((response) => {
 		//   	this.setState({
 		//   		verifiedproducts: response.data.data

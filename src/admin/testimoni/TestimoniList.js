@@ -15,7 +15,7 @@ class TestimoniList extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/testimoni`)
+		axios.get(`https://api.klikfood.id/index.php/testimoni`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -35,7 +35,7 @@ class TestimoniList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://35.243.170.33/index.php/testimoni/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/testimoni/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Testimoni Terhapus !");
   		      	setTimeout(() => {

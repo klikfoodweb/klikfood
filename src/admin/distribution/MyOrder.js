@@ -31,7 +31,7 @@ class MyOrder extends Component {
 		const bodyFormData = {
 			produk: this.state.produk
 		}
-		axios.post(`http://35.243.170.33/index.php/distribusi/store`, JSON.stringify(localStorage.getItem('dataObject')))
+		axios.post(`https://api.klikfood.id/index.php/distribusi/store`, JSON.stringify(localStorage.getItem('dataObject')))
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success("Berhasil Dipesan !");
@@ -45,7 +45,7 @@ class MyOrder extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/distribusi/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/distribusi/mitra`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -72,7 +72,7 @@ class MyOrder extends Component {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://35.243.170.33/index.php/distribusi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`https://api.klikfood.id/index.php/distribusi/terima/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Terima Kasih !");
 	  			      	setTimeout(() => {
@@ -92,7 +92,7 @@ class MyOrder extends Component {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
-	  				axios.get(`http://35.243.170.33/index.php/distribusi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  				axios.get(`https://api.klikfood.id/index.php/distribusi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  				  .then((response) => {
 	  				  	toast.success("Berhasil Dibayar !");
 	  			      	setTimeout(() => {

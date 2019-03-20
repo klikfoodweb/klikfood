@@ -25,7 +25,7 @@ class Forget extends Component {
 		this.setState({
 			submitting: true
 		})
-		axios.post(`http://35.243.170.33/index.php/forgotpassword?email=`+this.state.email)
+		axios.post(`https://api.klikfood.id/index.php/forgotpassword?email=`+this.state.email)
 	      .then((response) => {
 	      	toast.success("Kode Verifikasi Terkirim Ke Email!");
 	      	setTimeout(() => {

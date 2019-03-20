@@ -38,7 +38,7 @@ const Login = Loadable({
 class DefaultLayout extends Component {
     componentWillMount() {
         setInterval(() => {
-            axios.get(`http://35.243.170.33/index.php/token/`+sessionStorage.api_token)
+            axios.get(`https://api.klikfood.id/index.php/token/`+sessionStorage.api_token)
               .then((response) => {
               }).catch((error) => {
                 if(sessionStorage.api_token !== undefined){

@@ -30,7 +30,7 @@ class Contact extends Component {
 		Contact.set('email', this.state.email);
 		Contact.set('message', this.state.message);
 		
-		axios.post(`http://35.243.170.33/index.php/contact`, Contact)
+		axios.post(`https://api.klikfood.id/index.php/contact`, Contact)
 	      .then(res => {
 	      	console.log(res);
 		  	toast.success("Pesan Terkirim");

@@ -56,7 +56,7 @@ class Cart extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		
-		axios.post(`http://35.243.170.33/index.php/ongkir/harga`, cekOngkir)
+		axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
 	      .then(res => {
 	      	console.log(res);
 	      	this.setState({
@@ -119,7 +119,7 @@ class Cart extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://35.243.170.33/index.php/transaksi/store`, obj)
+		axios.post(`https://api.klikfood.id/index.php/transaksi/store`, obj)
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success(res.data.messages);
@@ -172,7 +172,7 @@ class Cart extends Component {
 		                { this.state.carts.map( (cart, index) => 
 		                  <tr>
 		                    <td className="cart_product">
-		                      <a href><img src={ "http://35.243.170.33/uploads/produk/"+ cart[2] } alt="cart" width="150" /></a>
+		                      <a href><img src={ "https://api.klikfood.id/uploads/produk/"+ cart[2] } alt="cart" width="150" /></a>
 		                    </td>
 		                    <td className="cart_description">
 		                      <h4><a href>{ cart[0] }</a></h4>
@@ -205,7 +205,7 @@ class Cart extends Component {
 										'Authorization': sessionStorage.api_token 
 									}
 									
-									axios.post(`http://35.243.170.33/index.php/ongkir/harga`, cekOngkir)
+									axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
 								      .then(res => {
 								      	console.log(res.data.data);
 								      	this.setState({
@@ -240,7 +240,7 @@ class Cart extends Component {
 											'Authorization': sessionStorage.api_token 
 										}
 										
-										axios.post(`http://35.243.170.33/index.php/ongkir/harga`, cekOngkir)
+										axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
 									      .then(res => {
 									      	this.setState({
 									      		listOngkir: res.data.data,

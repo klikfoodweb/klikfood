@@ -16,7 +16,7 @@ class ProductList extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/produksupplyer`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/produksupplyer`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -26,7 +26,7 @@ class ProductList extends Component {
 		  	toast.error("Something Went Wrong :(");
 		  })
 
-		axios.get(`http://35.243.170.33/index.php/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/produksupplyer?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -46,7 +46,7 @@ class ProductList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://35.243.170.33/index.php/produksupplyer/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/produksupplyer/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Produk Terhapus !");
   		      	setTimeout(() => {

@@ -26,7 +26,7 @@ class UserCreate extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/ongkir/provinsi`)
+		axios.get(`https://api.klikfood.id/index.php/ongkir/provinsi`)
 		  .then((response) => {
 			this.setState({ 
 				provinsis: response.data.data
@@ -37,7 +37,7 @@ class UserCreate extends Component {
 	}
 
 	changeProvinsi = (e) => {
-		axios.get(`http://35.243.170.33/index.php/ongkir/kota/`+e.target.value)
+		axios.get(`https://api.klikfood.id/index.php/ongkir/kota/`+e.target.value)
 		  .then((response) => {
 		  	console.log(response)
 			this.setState({ 
@@ -77,7 +77,7 @@ class UserCreate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://35.243.170.33/index.php/user/store`, bodyFormData)
+		axios.post(`https://api.klikfood.id/index.php/user/store`, bodyFormData)
 	      .then(response => {
 	      	console.log(response);
 	      	toast.success("Menambah User Sukses !");

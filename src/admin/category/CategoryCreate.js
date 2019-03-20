@@ -29,7 +29,7 @@ class CategoryCreate extends Component {
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
-		axios.post(`http://35.243.170.33/index.php/kategori/store`, bodyFormData )
+		axios.post(`https://api.klikfood.id/index.php/kategori/store`, bodyFormData )
 	      .then(res => {
 	      	toast.success("Tambah Kategori Sukses !");
 	      	setTimeout(() => {

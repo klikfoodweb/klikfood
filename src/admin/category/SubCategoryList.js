@@ -19,7 +19,7 @@ class CategoryList extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.get(`http://35.243.170.33/index.php/kategori/show/`+this.props.match.params.id)
+		axios.get(`https://api.klikfood.id/index.php/kategori/show/`+this.props.match.params.id)
 		  .then((response) => {
 		  	this.setState({
 		  		subCategories: response.data.data.subkategori
@@ -38,7 +38,7 @@ class CategoryList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://35.243.170.33/index.php/subkategori/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/subkategori/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Sub Kategori Terhapus !");
   		      	setTimeout(() => {

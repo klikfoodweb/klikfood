@@ -12,7 +12,7 @@ class GraphMitra extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://35.243.170.33/index.php/grafik/transaksi/`+sessionStorage.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/grafik/transaksi/`+sessionStorage.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		transaksiBulanan : response.data.data

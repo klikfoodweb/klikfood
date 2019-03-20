@@ -25,7 +25,7 @@ class ProductShow extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/kategori`)
+		axios.get(`https://api.klikfood.id/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -38,7 +38,7 @@ class ProductShow extends Component {
 			'Authorization': sessionStorage.api_token 
 			}
 
-		 axios.get(`http://35.243.170.33/index.php/produksupplyer/show/`+this.props.match.params.id)
+		 axios.get(`https://api.klikfood.id/index.php/produksupplyer/show/`+this.props.match.params.id)
 		  .then((response) => {
 		  	console.log(response);
 		  	this.setState({

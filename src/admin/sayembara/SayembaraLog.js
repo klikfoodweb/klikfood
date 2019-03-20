@@ -29,7 +29,7 @@ class SayembaraLog extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		
-		axios.get(`http://35.243.170.33/index.php/point/tukar`)
+		axios.get(`https://api.klikfood.id/index.php/point/tukar`)
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success("Poin Berhasil Ditukar !");
@@ -43,7 +43,7 @@ class SayembaraLog extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -54,7 +54,7 @@ class SayembaraLog extends Component {
 		  	toast.error("Gagal Mengambil Info User :(");
 		  })
 
-		axios.get(`http://35.243.170.33/index.php/point`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/point`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({

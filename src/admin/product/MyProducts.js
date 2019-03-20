@@ -15,7 +15,7 @@ class MyProducts extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/mitra/produk/`+sessionStorage.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/mitra/produk/`+sessionStorage.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -38,7 +38,7 @@ class MyProducts extends Component {
 	  			axios.defaults.headers = {  
 	  				'Authorization': sessionStorage.api_token 
 	  			}
-	  			axios.get(`http://35.243.170.33/index.php/mitra/produk/${id}/1`)
+	  			axios.get(`https://api.klikfood.id/index.php/mitra/produk/${id}/1`)
 	  		      .then(res => {
 	  		      	toast.success("Produk Berhasil Dipromokan !");
 	  		      	setTimeout(() => {
@@ -53,7 +53,7 @@ class MyProducts extends Component {
 	  			axios.defaults.headers = {  
 	  				'Authorization': sessionStorage.api_token 
 	  			}
-	  			axios.get(`http://35.243.170.33/index.php/mitra/produk/${id}/0`)
+	  			axios.get(`https://api.klikfood.id/index.php/mitra/produk/${id}/0`)
 	  		      .then(res => {
 	  		      	toast.success("Promo Dicabut !");
 	  		      	setTimeout(() => {

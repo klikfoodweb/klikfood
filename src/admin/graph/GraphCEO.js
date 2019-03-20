@@ -16,7 +16,7 @@ class GraphCEO extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://35.243.170.33/index.php/grafik/uangtransaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/grafik/uangtransaksi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		transaksiBulanan : response.data.data
@@ -25,7 +25,7 @@ class GraphCEO extends Component {
 		  	toast.error("Gagal Membuat Grafik :(");
 		  });
 
-		  axios.get(`http://35.243.170.33/index.php/grafik/uangdistribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		  axios.get(`https://api.klikfood.id/index.php/grafik/uangdistribusi`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	this.setState({
 		  		distribusiBulanan : response.data.data
@@ -34,7 +34,7 @@ class GraphCEO extends Component {
 		  	toast.error("Gagal Membuat Grafik :(");
 		  });
 
-		  axios.get(`http://35.243.170.33/index.php/grafik/pendaftaran`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		  axios.get(`https://api.klikfood.id/index.php/grafik/pendaftaran`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({

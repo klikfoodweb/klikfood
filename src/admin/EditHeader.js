@@ -22,7 +22,7 @@ export default class EditHeader extends Component {
 			fd.append('header', this.state.header);
 
 		  axios.post(
-		    `http://35.243.170.33/index.php/header`,
+		    `https://api.klikfood.id/index.php/header`,
 		    fd,
 		    { headers: { 'Authorization': sessionStorage.api_token, 'Content-Type': 'application/x-www-form-urlencoded' } }
 		  ).then(response => {

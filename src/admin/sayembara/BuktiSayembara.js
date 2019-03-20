@@ -31,7 +31,7 @@ class BuktiSayembara extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://35.243.170.33/index.php/buktiinstall`, bodyFormData )
+		axios.post(`https://api.klikfood.id/index.php/buktiinstall`, bodyFormData )
 	      .then(res => {
 	      	this.setState({
 				submitting: true

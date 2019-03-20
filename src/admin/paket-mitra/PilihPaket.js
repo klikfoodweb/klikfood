@@ -17,7 +17,7 @@ class PilihPaket extends Component {
 	}
 
 	componentWillMount() {
-		axios.get(`http://35.243.170.33/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/myaccount`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	if(response.data.data.belanja_pertama === true || sessionStorage.role !== 'Mitra'){
 		  		window.location.href='/admin';
@@ -30,7 +30,7 @@ class PilihPaket extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/paketmitra`)
+		axios.get(`https://api.klikfood.id/index.php/paketmitra`)
 		.then((response) => {
 			console.log(response.data.data);
 			this.setState({
@@ -65,7 +65,7 @@ class PilihPaket extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://35.243.170.33/index.php/ongkir/harga`, cekOngkir)
+		axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
 	      .then(res => {
 	      	console.log(res);
 	      	this.setState({
@@ -90,7 +90,7 @@ class PilihPaket extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		console.log(this.state.servis);
-		axios.post(`http://35.243.170.33/index.php/distribusi/paket/`+this.state.idpaket, bodyFormData)
+		axios.post(`https://api.klikfood.id/index.php/distribusi/paket/`+this.state.idpaket, bodyFormData)
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success('Cek Pesanan Di "Pesanan Saya"');

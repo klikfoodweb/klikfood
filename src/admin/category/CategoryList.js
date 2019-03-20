@@ -15,7 +15,7 @@ class CategoryList extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/kategori`)
+		axios.get(`https://api.klikfood.id/index.php/kategori`)
 		  .then((response) => {
 		  	console.log(response.data.data)
 		  	this.setState({
@@ -35,7 +35,7 @@ class CategoryList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://35.243.170.33/index.php/kategori/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/kategori/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Kategori Terhapus !");
   		      	setTimeout(() => {

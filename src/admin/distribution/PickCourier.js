@@ -18,7 +18,7 @@ class PickCourier extends Component {
 		}
 
 		cartNya.map( (item, i) => {
-			axios.get(`http://35.243.170.33/index.php/produksupplyer/show/`+item[0], { 'headers': { 'Authorization': sessionStorage.api_token } })
+			axios.get(`https://api.klikfood.id/index.php/produksupplyer/show/`+item[0], { 'headers': { 'Authorization': sessionStorage.api_token } })
 		      .then((response) => {
 		      	console.log(response);
 		      	localStorage.setItem('hargaProduk'+i, response.data.data.harga_supplyer);
@@ -52,7 +52,7 @@ class PickCourier extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 		
-		axios.post(`http://35.243.170.33/index.php/ongkir/harga`, cekOngkir)
+		axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
 	      .then(res => {
 	      	console.log(res);
 	      	this.setState({
@@ -89,7 +89,7 @@ class PickCourier extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://35.243.170.33/index.php/distribusi/store`, obj)
+		axios.post(`https://api.klikfood.id/index.php/distribusi/store`, obj)
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success(res.data.messages);

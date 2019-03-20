@@ -16,7 +16,7 @@ class PaketMitraList extends Component {
 	}
 	
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/paketmitra`)
+		axios.get(`https://api.klikfood.id/index.php/paketmitra`)
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({
@@ -46,7 +46,7 @@ class PaketMitraList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`http://35.243.170.33/index.php/paketmitra/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/paketmitra/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Paket Terhapus !");
   		      	setTimeout(() => {

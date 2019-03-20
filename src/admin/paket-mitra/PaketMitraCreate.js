@@ -52,7 +52,7 @@ class PaketMitraCreate extends Component {
 			'Authorization': sessionStorage.api_token 
 		}
 
-		axios.post(`http://35.243.170.33/index.php/paketmitra/store`, obj)
+		axios.post(`https://api.klikfood.id/index.php/paketmitra/store`, obj)
 	      .then(res => {
 	      	console.log(res);
 	      	toast.success(res.data.messages);
@@ -66,7 +66,7 @@ class PaketMitraCreate extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/produksupplyer/all?type=verify`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
 		  	this.setState({

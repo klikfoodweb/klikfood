@@ -24,7 +24,7 @@ class SearchByKategori extends Component {
 
 	    this.onChangePage = this.onChangePage.bind(this);
 
-    	// http://35.243.170.33/index.php//mitra/produk/5c7ba01c2cb8710944005d39
+    	// https://api.klikfood.id/index.php//mitra/produk/5c7ba01c2cb8710944005d39
 	}
 
 	onChangePage(pageOfItems) {
@@ -33,7 +33,7 @@ class SearchByKategori extends Component {
 	}
 
 	componentDidMount() {
-		axios.get(`http://35.243.170.33/index.php/kategori`)
+		axios.get(`https://api.klikfood.id/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
 		  		categories: response.data.data
@@ -42,7 +42,7 @@ class SearchByKategori extends Component {
 		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })		
 
-		axios.get(`http://35.243.170.33/index.php/mitra/produk?verify=1&kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/mitra/produk?verify=1&kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	      .then((response) => {
 	      	console.log(response);
 	      	this.setState({
@@ -157,7 +157,7 @@ class SearchByKategori extends Component {
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
-		                      	        <img src={ "http://35.243.170.33/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
+		                      	        <img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
 		                      	        <h2>Rp {item.harga_jual}</h2>
 		                      	        <p>{ item.name }</p>
 		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
