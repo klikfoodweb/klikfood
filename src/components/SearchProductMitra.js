@@ -4,7 +4,7 @@ import FooterBottom from './FooterBottom';
 import 'react-input-range/lib/css/index.css';
 import axios from 'axios';
 import qs from 'qs';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import ContentLoader from "react-content-loader";
@@ -108,7 +108,6 @@ class SearchProductMitra extends Component {
 		
 		return (
 			<div>
-			<ToastContainer />
 		        <section>
 		          <div className="container">
       			    <div className="row">

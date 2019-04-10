@@ -3,6 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class Header extends Component {
@@ -57,7 +58,16 @@ class Header extends Component {
   render() {
     return (
     	<div>
-    		<ToastContainer />
+    		<ToastContainer
+    		position="top-right"
+			autoClose={2000}
+			hideProgressBar={false}
+			newestOnTop={false}
+			closeOnClick
+			rtl={false}
+			pauseOnVisibilityChange
+			draggable
+			pauseOnHover />
 			<header id="header">{/*header*/}
 	          <div className="header_top">{/*header_top*/}
 	            <div className="container">
@@ -152,6 +162,7 @@ class Header extends Component {
 		                        </ul>								
 	                      </li> 								
 	                      <li><Link to="/contact">Kontak</Link></li>
+	                      <li><Link to="/mitra-supplyer">Jadi Mitra / Pemasok</Link></li>
 	                      <li><a href="http://blogklikfood.000webhostapp.com" target="_blank" rel="noopener noreferrer">Blog</a></li>
 	                      <li><a href="https://tawk.to/chat/5c8407f1c37db86fcfcce4bc/1d5hs5ip0" target="_blank" rel="noopener noreferrer">Support</a></li>
 	                    </ul>

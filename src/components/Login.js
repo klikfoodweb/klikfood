@@ -18,14 +18,9 @@ class Login extends Component {
 			registName: '',
 			registEmail: '',
 			registPassword: '',
-			registBirthplace: '',
-			registDateOfBirth: '',
 			registAddress: '',
-			registProvinsi: '',
 			registKota: '',
 			registHp: '',
-			registReff: '',
-			registType: '',
 			submitting: false,
 			registrating: false,
 			redirect: false,
@@ -123,23 +118,13 @@ class Login extends Component {
 			username: this.state.registUsername,
 			email: this.state.registEmail,
 			password: this.state.registPassword,
-			birthplace: this.state.registBirthplace,
-			dateofbirth: this.state.registDateOfBirth,
 			address: this.state.registAddress,
-			provinsi: this.state.registProvinsi,
 			kota: this.state.registKota,
-			no_tlp: this.state.registHp,
-			referall_id: this.state.registReff
+			no_tlp: this.state.registHp
 		}
 		console.log(qs.stringify( data ));
-		let url = '';
-		if (this.state.registType === 'supplyer'){
-			url = 'https://api.klikfood.id/index.php/register/supplyer';
-		}else if(this.state.registType === 'mitra'){
-			url = 'https://api.klikfood.id/index.php/register/mitra';
-		}else{
-			url = 'https://api.klikfood.id/index.php/register/konsumen';
-		}
+		let url = 'https://api.klikfood.id/index.php/register/konsumen';
+
 		axios.post(url, qs.stringify( data ))
 	      .then((response) => {
 	      	toast.success("Silahkan Cek Email Verifikasi !");
@@ -173,7 +158,6 @@ class Login extends Component {
 	    }
 		return (
 			<div> 
-				<ToastContainer />
 				<section style={{ marginBottom: '80px' }}>{/*form*/}
 			        <div className="container">
 			          <div className="row">
@@ -209,21 +193,8 @@ class Login extends Component {
 			                  <input type="text" name="registUsername" placeholder="Username" value={this.state.registUsername} onChange={this.handleChange} required />
 			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />
 			                  <input type="password" name="registPassword" placeholder="Password" value={this.state.registPassword} onChange={this.handleChange} required />
-			                  <input type="text" name="registBirthplace" placeholder="Tempat Lahir" value={this.state.registBirthplace} onChange={this.handleChange} required />
-			                  <input type="date" name="registDateOfBirth" placeholder="Tanggal Lahir" value={this.state.registDateOfBirth} onChange={this.handleChange} required />
 			                  <input type="text" name="registAddress" placeholder="Alamat" value={this.state.registAddress} onChange={this.handleChange} required />
-			                  <label> Pilih Provinsi : </label>
-			                    <select name="registProvinsi" style={{marginBottom: '20px'}} onChange={this.changeProvinsi} required>
-			                    <option value="#">Pilih Provinsi</option>
-								  { 
-								  	this.state.provinsis.map( provinsi =>
-								  		<React.Fragment>
-								  		<option key={provinsi.province_id} value={provinsi.province_id}>{ provinsi.province }</option>
-								  		</React.Fragment>
-								  	)
-								  }
-								</select>
-							  <label> Pilih Kota : </label>
+			                  <label> Pilih Kota : </label>
 			                    <select name="registKota" style={{marginBottom: '20px'}} onChange={this.handleChange} required>
 								  { 
 								  	this.state.kotas.map( kota =>
@@ -234,13 +205,7 @@ class Login extends Component {
 								  }
 								</select>
 			                  <input type="text" name="registHp" placeholder="No Telp" value={this.state.registHp} onChange={this.handleChange} required />
-			                  <input type="text" name="registReff" placeholder="Refferal" value={this.state.registReff} onChange={this.handleChange} />
-			                  <label> Daftar Sebagai : </label>
-			                    <select name="registType" style={{marginBottom: '20px'}} onChange={this.handleChange} required>
-								  <option value="konsumen">Konsumen</option>
-								  <option value="mitra">Mitra</option>
-								  <option value="supplyer">Pemasok</option>
-								</select>
+			                  
 								{this.state.registrating ?
 								<div>
 									<b>Mendaftar...</b>

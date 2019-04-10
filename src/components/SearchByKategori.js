@@ -4,7 +4,7 @@ import FooterBottom from './FooterBottom';
 import 'react-input-range/lib/css/index.css';
 import axios from 'axios';
 import qs from 'qs';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import ContentLoader from "react-content-loader";
@@ -24,7 +24,8 @@ class SearchByKategori extends Component {
 	 		verifiedproducts: [],
 	 		carts: [],
 	 		products: [],
-	 		loader: true
+	 		loader: true,
+	 		modePenjualan: ''
 	    };
 
 	    this.onChangePage = this.onChangePage.bind(this);
@@ -38,6 +39,15 @@ class SearchByKategori extends Component {
 	}
 
 	componentDidMount() {
+		axios.get(`https://api.klikfood.id/config/mode`)
+		  .then((response) => {
+		  	this.setState({
+		  		modePenjualan: response.data.data.value
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan mode Penjualan :(");
+		  })
+
 		axios.get(`https://api.klikfood.id/index.php/kategori`)
 		  .then((response) => {
 		  	this.setState({
@@ -62,14 +72,15 @@ class SearchByKategori extends Component {
 	    // localStorage.clear();
 	}
 
-	// handleAddToCart = (e) => {
-	// 	e.preventDefault();
-	// 	this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1]);
-	//     localStorage.setItem('cart', JSON.stringify(this.state.carts));
-	//     console.log(JSON.stringify(this.state.carts));
-	//     console.log(JSON.parse(localStorage.getItem('cart')));
-	// 	toast.success("Berhasil Dimasukkan Keranjang !");
-	// }
+	handleAddToCart = (e) => {
+    	e.preventDefault();
+		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+	    
+	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	    console.log(JSON.stringify(this.state.carts));
+	    console.log(JSON.parse(localStorage.getItem('cart')));
+		toast.success("Berhasil Dimasukkan Keranjang !");
+	}
 	
 	render() {
 		const MyLoader = props => (
@@ -90,56 +101,26 @@ class SearchByKategori extends Component {
 		
 		return (
 			<div>
-			<ToastContainer />
-				<section id="advertisement">
+				{/*<section id="advertisement">
 		          <div className="container">
 		            <img src="/images/shop/advertisement.jpg" alt="advertisement" />
 		          </div>
-		        </section>
+		        </section>*/}
+		        <br />
+		        <br />
 		        <section>
 		          <div className="container">
 		            <div className="row">
-		              <div className="col-sm-3">
-		                <div className="left-sidebar">
-		                  <h2>KATEGORI</h2>
-		                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
-		                 	{ this.state.categories.map((category,i) =>
-		                 	<div class="panel panel-default" key={category.kategori.id}>
-		                 		<div class="panel-heading">
-		                 			<h4 class="panel-title">
-		                 				<a data-toggle="collapse" data-parent="#accordian" href={"#"+category.kategori._id}>
-		                 					<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-		                 					{category.kategori.name}
-		                 				</a>
-		                 			</h4>
-		                 		</div>
-		                 		<div id={category.kategori._id} class="panel-collapse collapse">
-		                 			<div class="panel-body">
-		                 				<ul>
-		                 				{ category.subkategori.map((subcategory,i) =>
-		                 					<li key={ subcategory._id }><a href={"/search?kategori="+subcategory._id}>{ subcategory.name } </a></li>
-		                 				) }
-		                 				</ul>
-		                 			</div>
-		                 		</div>
-		                 	</div>
-		                 	) }
-		                  </div>{/*/category-productsr*/}
-		                  
-		                  <div className="shipping text-center">{/*shipping*/}
-		                    <Link to="/login"><img src="/images/home/shipping.jpg" alt="shipping" /></Link>
-		                  </div>{/*/shipping*/}
-		                </div>
-		              </div>
-		              <div className="col-sm-9 padding-right">
+		              
+		              <div className="col-sm-12 padding-right">
 		                <div className="features_items">{/*features_items*/}
 		                  <h2 className="title text-center">Hasil Pencarian</h2>
 
 		                  { this.state.loader ?
 		                  <React.Fragment>
-		                  {[...Array(9)].map((x, i) =>
+		                  {[...Array(12)].map((x, i) =>
 						  	<div>
-		                      	<div className="col-sm-4">
+		                      	<div className="col-sm-3 col-xs-6">
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <MyLoader key={i} />
@@ -158,22 +139,32 @@ class SearchByKategori extends Component {
 						  <React.Fragment>
 		                  {this.state.pageOfItems.map(item =>
 		                      <div>
-		                      	<div className="col-sm-4" key={item.id}>
+		                      	<div className="col-sm-3 col-xs-6" key={item.id}>
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
 		                      	        <img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
 		                      	        <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	        <p>{ item.name }</p>
-		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	      	{
+		                                	(this.state.modePenjualan.value === 1) ?
+		                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+		                                	: 
+		                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+		                                }
 		                      	      </div>
 		                      	      <div className="product-overlay">
 		                      	        <div className="overlay-content">
 		                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
-		                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
-		                      	        </div>
+		                      	            {
+			                                	(this.state.modePenjualan.value === 1) ?
+			                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+			                                	: 
+			                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+			                                }
+		                      	          </div>
 		                      	      </div>
 		                      	    </div>
 		                      	    <div className="choose">

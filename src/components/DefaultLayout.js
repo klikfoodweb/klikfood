@@ -22,11 +22,14 @@ import FormulirMitra from '../pages/FormulirMitra';
 import KetentuanPenggunaanWebsite from '../pages/KetentuanPenggunaanWebsite';
 import VisiMisi from '../pages/VisiMisi';
 
+import MitraSupplyer from './MitraSupplyer';
 import DetailProductMitra from './DetailProductMitra';
 import DetailProduct from './DetailProduct';
 import Forget from './Forget';
 import ResetToken from './ResetToken';
 import ResetPassword from './ResetPassword';
+
+import {geolocated} from 'react-geolocated';
 
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -57,9 +60,25 @@ class DefaultLayout extends Component {
 	  this.props.history.push('/login')
 	}
 
-	render() {
-	  return (
-	    <div className="app">
+    // {
+    //     (!this.props.isGeolocationAvailable)
+    //       ? <div>Your browser does not support Geolocation</div>
+    //       : (!this.props.isGeolocationEnabled) ? <div>Geolocation is not enabled</div>
+    //         : (this.props.coords) ? 
+    //         <table>
+    //             <tbody>
+    //               <tr><td>latitude</td><td>{this.props.coords.latitude}</td></tr>
+    //               <tr><td>longitude</td><td>{this.props.coords.longitude}</td></tr>
+    //               <tr><td>altitude</td><td>{this.props.coords.altitude}</td></tr>
+    //               <tr><td>heading</td><td>{this.props.coords.heading}</td></tr>
+    //               <tr><td>speed</td><td>{this.props.coords.speed}</td></tr>
+    //             </tbody>
+    //         </table>
+    //       : <div>Getting the location data&hellip; </div>
+    // }
+    render() {
+      return (
+        <div className="app">
 	    <Header />
 	      <div className="app-body">
             <main>
@@ -75,6 +94,7 @@ class DefaultLayout extends Component {
                 <Route path="/privacy" name="Privacy" component={Privacy} />
                 <Route path="/faqs-mitra" name="FaqsMitra" component={FaqsMitra} />
             	<Route path="/budaya-kerja" name="BudayaKerja" component={BudayaKerja} />
+                <Route path="/mitra-supplyer" name="MitraSupplyer" component={MitraSupplyer} />
                 <Route path="/disclaimer" name="Disclaimer" component={Disclaimer} />
                 <Route path="/formulir-mitra" name="FormulirMitra" component={FormulirMitra} />
                 <Route path="/ketentuan-penggunaan-website" name="KetentuanPenggunaanWebsite" component={KetentuanPenggunaanWebsite} />
@@ -99,4 +119,10 @@ class DefaultLayout extends Component {
 		);
 	}
 }
-export default DefaultLayout;
+
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: true,
+  },
+  userDecisionTimeout: 5000,
+})(DefaultLayout);

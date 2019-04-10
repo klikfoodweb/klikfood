@@ -28,7 +28,7 @@ class FooterBottom extends Component {
 				    <div className="container">
 				      <div className="row">
 				        {/*Footer--/--Join-Mitra*/}					
-				        <div className="col-sm-2">
+				        <div className="col-md-2 col-xs-6">
 				          <div className="single-widget">
 				            <h2>JOIN MITRA</h2>
 				            <ul className="nav nav-pills nav-stacked">
@@ -42,7 +42,7 @@ class FooterBottom extends Component {
 				          </div>
 				        </div>{/*Footer--/End--Join-Mitra*/}
 				        {/*Footer--/--Join-Rekan*/}
-				        <div className="col-sm-2">
+				        <div className="col-md-2 col-xs-6">
 				          <div className="single-widget">
 				            <h2>JOIN PEMASOK</h2>
 				            <ul className="nav nav-pills nav-stacked">
@@ -55,7 +55,7 @@ class FooterBottom extends Component {
 				          </div>
 				        </div>{/*Footer--/End--Join-Rekan*/}
 				        {/*Footer--/--Kebijakan*/}
-				        <div className="col-sm-2">
+				        <div className="col-md-2 col-xs-7">
 				          <div className="single-widget">
 				            <h2>KEBIJAKAN</h2>
 				            <ul className="nav nav-pills nav-stacked">
@@ -70,7 +70,7 @@ class FooterBottom extends Component {
 				          </div>
 				        </div>{/*Footer--/End--Kebijakan*/}
 				        {/*Footer--/--Tentang-Kami*/}
-				        <div className="col-sm-2">
+				        <div className="col-md-2 col-xs-5">
 				          <div className="single-widget">
 				            <h2>TENTANG KAMI</h2>
 				            <ul className="nav nav-pills nav-stacked">
@@ -84,7 +84,7 @@ class FooterBottom extends Component {
 				          </div>
 				        </div>{/*Footer--/End--Tentang-Kami*/}
 				        {/*Footer--/--Sayembara*/}					
-				        <div className="col-sm-3 col-sm-offset-1">
+				        <div className="col-md-3 col-md-offset-1 col-xs-12">
 				          <div className="single-widget">
 				            <h2>Ikut Sayembara?</h2>
 				            <form onSubmit={this.sayembaraEmail} className="searchform">
@@ -101,6 +101,7 @@ class FooterBottom extends Component {
 				              </ul>
 				            </div>
 				          </div>
+				          <img src={ window.location.origin + "/thaiaddict.jpg" } className="img-responsive" style={{height: '80px'}}/>
 				        </div>{/*Footer--/End--Sayembara*/}
 				      </div>
 				    </div>

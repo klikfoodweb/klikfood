@@ -28,7 +28,9 @@ class DetailProductMitra extends Component {
 			kategori_id: '',
 			foto_1: null,
 			foto_2: null,
-			foto_3: null
+			foto_3: null,
+			productsByCategory: [],
+			modePenjualan: ''
 		}
 
 		window.scrollTo(0,0);
@@ -73,6 +75,16 @@ class DetailProductMitra extends Component {
 		  		foto_2: response.data.data.foto_2,
 		  		foto_3: response.data.data.foto_3
 		  	})
+		  	axios.get(`https://api.klikfood.id/mitra/produk/`+this.props.match.params.mitra)
+	  		  .then((response) => {
+	  		  	console.log(response.data.data)
+	  		  	console.log(this.state.kategori_id)
+	  		  	this.setState({
+	  		  		productsByCategory: response.data.data
+	  		  	})
+	  		  }).catch((error) => {
+	  		  	toast.error("Gagal Mendapatkan Info Produk :(");
+	  		  })
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
 		  })
@@ -104,6 +116,16 @@ class DetailProductMitra extends Component {
 			toast.success("Berhasil Dimasukkan Keranjang !");
 	    	window.location.href='/cart';
 	    }
+	}
+
+	handleAddToCartProductCategory = (e) => {
+    	e.preventDefault();
+		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+	    
+	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	    console.log(JSON.stringify(this.state.carts));
+	    console.log(JSON.parse(localStorage.getItem('cart')));
+		toast.success("Berhasil Dimasukkan Keranjang !");
 	}
 
 	render() {
@@ -191,6 +213,30 @@ class DetailProductMitra extends Component {
 							</Row>
 						  </Card.Header>
 						</Card>
+						<h2 className="title text-center">Produk Lainnya</h2>
+						  {this.state.productsByCategory.map((product,i) =>
+		                	<React.Fragment>
+	    		                      		                
+	                            <div className="col-xs-6 col-sm-3">
+		                          <div className="product-image-wrapper">
+		                            <div className="single-products">
+		                              <div className="productinfo text-center">
+		                                <a href={"/"+this.props.match.params.mitra+"/"+product._id}><img src={"https://api.klikfood.id/uploads/produk/"+product._id+"/"+product.foto_1} style={{maxHeight: '150px'}} alt /></a>											
+		                                <h2 className="homePriceProduk">{ formatter.format(product.harga_jual) }</h2>
+		                                <p className="homeNameProduk">{ product.name }</p>
+		                              	{
+		                                	(this.state.modePenjualan.value === 1) ?
+		                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+		                                	: 
+		                                	<a href="#" accesskey={product.berat_kemasan} onClick={this.handleAddToCartProductCategory} id={product._id + "/" + product.foto_1} title={product.name} lang={product.harga_jual} className="btn btn-default add-to-cart"><i accesskey={product.berat_kemasan} className="fa fa-shopping-cart" id={product._id + "/" + product.foto_1} title={product.name} lang={product.harga_jual} />Add to cart</a>	
+		                                }
+		                              </div>
+		                            </div>
+		                          </div>
+		                        </div>
+
+		                	</React.Fragment>
+						)}
 					  </div>
 				</section>
 				<FooterTop />

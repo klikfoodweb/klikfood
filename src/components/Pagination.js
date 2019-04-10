@@ -46,7 +46,7 @@ class Pagination extends React.Component {
         currentPage = currentPage || 1;
 
         // default page size is 10
-        pageSize = pageSize || 9;
+        pageSize = pageSize || 12;
 
         // calculate total pages
         var totalPages = Math.ceil(totalItems / pageSize);
@@ -62,7 +62,7 @@ class Pagination extends React.Component {
                 startPage = 1;
                 endPage = 10;
             } else if (currentPage + 4 >= totalPages) {
-                startPage = totalPages - 9;
+                startPage = totalPages - 12;
                 endPage = totalPages;
             } else {
                 startPage = currentPage - 5;

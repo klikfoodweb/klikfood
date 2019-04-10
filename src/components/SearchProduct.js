@@ -4,7 +4,7 @@ import FooterBottom from './FooterBottom';
 import 'react-input-range/lib/css/index.css';
 import axios from 'axios';
 import qs from 'qs';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import ContentLoader from "react-content-loader";
@@ -89,48 +89,18 @@ class SearchProduct extends Component {
 		
 		return (
 			<div>
-			<ToastContainer />
-				<section id="advertisement">
+				{/*<section id="advertisement">
 		          <div className="container">
 		            <img src="/images/shop/advertisement.jpg" alt="advertisement" />
 		          </div>
-		        </section>
+		        </section>*/}
+		        <br />
+		        <br />
 		        <section>
 		          <div className="container">
 		            <div className="row">
-		              <div className="col-sm-3">
-		                <div className="left-sidebar">
-		                  <h2>KATEGORI</h2>
-		                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
-		                 	{ this.state.categories.map((category,i) =>
-		                 	<div class="panel panel-default" key={category.kategori.id}>
-		                 		<div class="panel-heading">
-		                 			<h4 class="panel-title">
-		                 				<a data-toggle="collapse" data-parent="#accordian" href={"#"+category.kategori._id}>
-		                 					<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-		                 					{category.kategori.name}
-		                 				</a>
-		                 			</h4>
-		                 		</div>
-		                 		<div id={category.kategori._id} class="panel-collapse collapse">
-		                 			<div class="panel-body">
-		                 				<ul>
-		                 				{ category.subkategori.map((subcategory,i) =>
-		                 					<li key={ subcategory._id }><a href={"/search/"+subcategory._id}>{ subcategory.name } </a></li>
-		                 				) }
-		                 				</ul>
-		                 			</div>
-		                 		</div>
-		                 	</div>
-		                 	) }
-		                  </div>{/*/category-productsr*/}
-		                  
-		                  <div className="shipping text-center">{/*shipping*/}
-		                    <Link to="/login"><img src="/images/home/shipping.jpg" alt="shipping" /></Link>
-		                  </div>{/*/shipping*/}
-		                </div>
-		              </div>
-		              <div className="col-sm-9 padding-right">
+		              
+		              <div className="col-sm-12 padding-right">
 		                <div className="features_items">{/*features_items*/}
 		                  <h2 className="title text-center">Hasil Pencarian</h2>
 

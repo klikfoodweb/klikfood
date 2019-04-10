@@ -40,6 +40,17 @@ class CatalogMitra extends Component {
 	}
 
 	componentWillMount() {
+		axios.get(`https://api.klikfood.id/config/mode`)
+		  .then((response) => {
+			(response.data.data.value === 1) ?
+				true	
+			: 
+				window.location.href='/'
+		
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan mode Penjualan :(");
+		  })
+		
 		axios.get(`https://api.klikfood.id/index.php/header/`+this.props.match.params.mitra)
 	      .then((response) => {
 	      	this.setState({
@@ -161,32 +172,7 @@ class CatalogMitra extends Component {
 			                    <center><input type="text" placeholder="Cari Produk" onKeyDown={this.keyPress} /></center>	
 			                  </div>
 			            	<br />
-		                  <h2>Kategori</h2>
-		                  <div className="panel-group category-products" id="accordian">{/*category-productsr*/}
-	                    	
-	                    	{ this.state.categories.map((category,i) =>
-	                    	<div class="panel panel-default" key={category.kategori.id}>
-	                    		<div class="panel-heading">
-	                    			<h4 class="panel-title">
-	                    				<a data-toggle="collapse" data-parent="#accordian" href={"#"+category.kategori._id}>
-	                    					<span class="badge pull-right"><i class="fa fa-plus"></i></span>
-	                    					{category.kategori.name}
-	                    				</a>
-	                    			</h4>
-	                    		</div>
-	                    		<div id={category.kategori._id} class="panel-collapse collapse">
-	                    			<div class="panel-body">
-	                    				<ul>
-	                    				{ category.subkategori.map((subcategory,i) =>
-	                    					<li key={ subcategory._id }><a href={"/search/"+subcategory._id}>{ subcategory.name } </a></li>
-	                    				) }
-	                    				</ul>
-	                    			</div>
-	                    		</div>
-	                    	</div>
-	                    	) }
-
-		                  </div>{/*/category-products*/}
+		                  
 		                  <div className="price-range">{/*New-Product*/}
 		                    <h2>Produk Baru</h2>
 		                    <center><p>Produk Terbaru Kami</p>
