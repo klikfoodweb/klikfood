@@ -15,12 +15,14 @@ class ShowTransaction extends Component {
 		this.state = {
 			products: [],
 			transaksi: [],
-			details: []
+			details: [],
+			bukti: null,
+			submitting: false
 		}
 	}
 
 	componentWillMount() {
-		axios.get(`https://api.klikfood.id/index.php/distribusi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/transaksi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data.transaksi);
 		  	this.setState({
@@ -29,6 +31,7 @@ class ShowTransaction extends Component {
 		  		details: response.data.data.transaksi.detail
 		  	})
 		  }).catch((error) => {
+		  	console.log(error);
 		  	toast.error("Gagal Mendapatkan Informasi Produk :(");
 		  });
 	}
@@ -37,14 +40,40 @@ class ShowTransaction extends Component {
 	    return (<div>{index+1}</div>) 
 	}
 
-	// jumlahLayout(cell, row){
-	//   	console.log(row);
-	//   	return (
-	//   		<div>
-	//   		  1
-	//   		</div>
-	//   	)
-	// }
+	handleChangeBukti = (e) => {
+		this.setState({bukti:e.target.files[0]})
+	}
+
+	handleSubmit = (event) => {
+		event.preventDefault();
+		this.setState({
+			submitting: true
+		})
+		const bodyFormData = new FormData();
+		
+		bodyFormData.set('bukti', this.state.bukti);
+
+		axios.defaults.headers = {  
+			'Content-Type': 'multipart/form-data',  
+			'Authorization': sessionStorage.api_token 
+		}
+		
+		axios.post(`https://api.klikfood.id/transaksi/bayar/`+this.props.match.params.id, bodyFormData)
+	      .then(response => {
+	      	this.setState({
+				submitting: true
+			})
+	      	toast.success("Sukses Upload Bukti !");
+	      	setTimeout(() => {
+	      		window.location.href='/admin/transactions/pembelian';
+	      	}, 3000)
+	      }).catch(err => {
+	      	this.setState({
+				submitting: false
+			})
+	      	toast.error("Gagal Upload Bukti :( ");
+	      });
+	}
 
 	render() {
 		return (
@@ -72,6 +101,8 @@ class ShowTransaction extends Component {
 				        <br />
 				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
 				        <br />
+				        <img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        <br />
 				        <label>Detail Produk Yang Dipesan</label>
 				        {
 				        	this.state.details.map((item,i) => {
@@ -93,6 +124,23 @@ class ShowTransaction extends Component {
 				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Pemasok</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
+				        <p>Silahkan Transfer Sesuai Jumlah Harga Total yang Sudah Di Detail kan Diatas</p>
+				        <p>BNI</p>
+				        <p>PT. Distra Boga Sarana</p>
+				        <p>533 329 620</p>
+				        <label>Upload Bukti Pembayaran</label>
+			        	<form onSubmit={this.handleSubmit}>
+			        		<input type="file" name="bukti" onChange={this.handleChangeBukti} />
+			        		<br />
+			        		{this.state.submitting ?
+							<div>
+								<b><center>Sedang Upload...</center></b>
+							</div>
+							:
+								<button type="submit" className="btn btn-success">Kirim</button>
+							}
+			        	</form>
+			        
 				      </div>
 				    </div>
 				  </div>

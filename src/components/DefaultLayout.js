@@ -23,6 +23,7 @@ import KetentuanPenggunaanWebsite from '../pages/KetentuanPenggunaanWebsite';
 import VisiMisi from '../pages/VisiMisi';
 
 import DetailProductMitra from './DetailProductMitra';
+import DetailProduct from './DetailProduct';
 import Forget from './Forget';
 import ResetToken from './ResetToken';
 import ResetPassword from './ResetPassword';
@@ -79,6 +80,8 @@ class DefaultLayout extends Component {
                 <Route path="/ketentuan-penggunaan-website" name="KetentuanPenggunaanWebsite" component={KetentuanPenggunaanWebsite} />
                 <Route path="/visi-misi" name="VisiMisi" component={VisiMisi} />
                 
+                <Route path="/product/:id" name="DetailProduct" component={DetailProduct} />
+
                 <Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />
                 <Route path="/search" name="SearchProduct" component={SearchProduct} />
                 <Route path="/reset" name="ResetToken" component={ResetToken} />
@@ -87,6 +90,7 @@ class DefaultLayout extends Component {
                 <Route path="/:mitra/search/:query" name="SearchProductMitra" component={SearchProductMitra} />
                 <Route path="/:mitra/:product" name="DetailProductMitra" component={DetailProductMitra} />
                 <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
+
             </Switch>
             </main>
 	      </div>

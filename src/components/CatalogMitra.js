@@ -9,6 +9,11 @@ import { Link, Redirect } from 'react-router-dom';
 import { Jumbotron } from 'react-bootstrap';
 import ContentLoader from "react-content-loader";
 
+const formatter = new Intl.NumberFormat('id-ID', {
+  style: 'currency',
+  currency: 'IDR'
+})
+
 class CatalogMitra extends Component {
 	constructor(props) {
 	    super(props);
@@ -105,18 +110,13 @@ class CatalogMitra extends Component {
 	}
 
 	handleAddToCart = (e) => {
-		if (sessionStorage.length === 0) {
-			{toast.warning("Login Terlebih Dahulu !")}
-			window.location.href='/login';
-	    }else{
-	    	e.preventDefault();
-			this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
-		    
-		    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-		    console.log(JSON.stringify(this.state.carts));
-		    console.log(JSON.parse(localStorage.getItem('cart')));
-			toast.success("Berhasil Dimasukkan Keranjang !");
-	    }
+    	e.preventDefault();
+		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+	    
+	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	    console.log(JSON.stringify(this.state.carts));
+	    console.log(JSON.parse(localStorage.getItem('cart')));
+		toast.success("Berhasil Dimasukkan Keranjang !");
 	}
 
 	keyPress = (e) => {
@@ -262,7 +262,7 @@ class CatalogMitra extends Component {
 		                            <div className="single-products">
 		                              <div className="productinfo text-center">
 		                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-		                                <h2>Rp { item.harga_jual }</h2>
+		                                <h2>{ formatter.format(item.harga_jual) }</h2>
 		                                <p>{ item.name }</p>
 		                                <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                              </div>
@@ -313,13 +313,13 @@ class CatalogMitra extends Component {
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
 		                      	        <Link to={"/"+this.props.match.params.mitra+"/"+item._id}><img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
-		                      	        <h2>Rp {item.harga_jual}</h2>
+		                      	        <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	        <p>{ item.name }</p>
 		                      	        {/*<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>*/}
 		                      	      </div>
 		                      	      <div className="product-overlay">
 		                      	        <div className="overlay-content">
-		                      	          <h2>Rp {item.harga_jual}</h2>
+		                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
 		                      	          <Link to={"/"+this.props.match.params.mitra+"/"+item._id} className="btn btn-default add-to-cart"><i className="fa fa-eye" />Lihat</Link>

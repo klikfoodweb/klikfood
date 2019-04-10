@@ -4,9 +4,14 @@ import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
 import axios from 'axios';
 import qs from 'qs';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
+
+const formatter = new Intl.NumberFormat('id-ID', {
+  style: 'currency',
+  currency: 'IDR'
+})
 
 class Home extends Component {
 	constructor(props) {
@@ -18,12 +23,23 @@ class Home extends Component {
 			recommendProducts: [],
 			newProducts: [],
 			productsByCategory: [],
+			carts: [],
+			modePenjualan: '',
 			emailSubscribe: ''
 		}
 		this.handleChange = this.handleChange.bind(this);
 	}
 
 	componentWillMount() {
+		axios.get(`https://api.klikfood.id/config/mode`)
+		  .then((response) => {
+		  	this.setState({
+		  		modePenjualan: response.data.data
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan mode Penjualan :(");
+		  })
+		
 		axios.get(`https://api.klikfood.id/index.php/mitra/produk?orderby=expire&limit=6&type=verify`)
 		  .then((response) => {
 		  	console.log(response.data.data)
@@ -63,6 +79,11 @@ class Home extends Component {
 		  }).catch((error) => {
 		  	toast.error("Gagal Memuat Info Testimoni :(");
 		  })
+
+		  if(localStorage.getItem('cart') !== null)
+	    	this.setState({
+	    		carts: JSON.parse(localStorage.getItem('cart'))
+	    	})
 	}
 
 	componentDidMount() {
@@ -112,10 +133,21 @@ class Home extends Component {
 	      });
 	}
 
+	handleAddToCart = (e) => {
+    	e.preventDefault();
+		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+	    
+	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	    console.log(JSON.stringify(this.state.carts));
+	    console.log(JSON.parse(localStorage.getItem('cart')));
+		toast.success("Berhasil Dimasukkan Keranjang !");
+	}
+
 	render() {
 		return (
 			<div>
 	        <Banner />
+	        <ToastContainer />
 	        <section>
 	          <div className="container">
 	            <div className="row">
@@ -171,10 +203,15 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+				                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+				                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
-				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                {
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                }
 				                              </div>
 				                            </div>
 				                          </div>
@@ -195,10 +232,15 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+				                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+				                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
-				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                              	{
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                }
 				                              </div>
 				                            </div>
 				                          </div>
@@ -234,10 +276,15 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+				                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+				                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
-				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                              	{
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                }
 				                              </div>
 				                            </div>
 				                          </div>
@@ -258,10 +305,15 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+				                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+				                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
-				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                              	{
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                }
 				                              </div>
 				                            </div>
 				                          </div>
@@ -296,10 +348,15 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+				                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+				                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
-				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                              	{
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                }
 				                              </div>
 				                            </div>
 				                          </div>
@@ -320,10 +377,15 @@ class Home extends Component {
 				                          <div className="product-image-wrapper">
 				                            <div className="single-products">
 				                              <div className="productinfo text-center">
-				                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-				                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+				                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+				                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 				                                <p className="homeNameProduk">{ item.name }</p>
-				                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                              	{
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                }
 				                              </div>
 				                            </div>
 				                          </div>
@@ -360,10 +422,15 @@ class Home extends Component {
 							                          <div className="product-image-wrapper">
 							                            <div className="single-products">
 							                              <div className="productinfo text-center">
-							                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-							                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+							                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+							                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 							                                <p className="homeNameProduk">{ item.name }</p>
-							                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+							                              	{
+							                                	(this.state.modePenjualan.value === 1) ?
+							                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+							                                	: 
+							                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+							                                }
 							                              </div>
 							                            </div>
 							                          </div>
@@ -384,10 +451,15 @@ class Home extends Component {
 							                          <div className="product-image-wrapper">
 							                            <div className="single-products">
 							                              <div className="productinfo text-center">
-							                                <a href="#"><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></a>											
-							                                <h2 className="homePriceProduk">Rp { item.harga_jual }</h2>
+							                                <Link to={"/product/"+item._id}><img src={"https://api.klikfood.id/uploads/produk/"+item._id+"/"+item.foto_1} style={{maxHeight: '150px'}} alt /></Link>											
+							                                <h2 className="homePriceProduk">{ formatter.format(item.harga_jual) }</h2>
 							                                <p className="homeNameProduk">{ item.name }</p>
-							                                <Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+							                              	{
+							                                	(this.state.modePenjualan.value === 1) ?
+							                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+							                                	: 
+							                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+							                                }
 							                              </div>
 							                            </div>
 							                          </div>

@@ -9,6 +9,11 @@ import Pagination from './Pagination';
 import { Link } from 'react-router-dom';
 import ContentLoader from "react-content-loader";
 
+const formatter = new Intl.NumberFormat('id-ID', {
+  style: 'currency',
+  currency: 'IDR'
+})
+
 class SearchByKategori extends Component {
 	constructor() {
 	    super();
@@ -42,7 +47,7 @@ class SearchByKategori extends Component {
 		  	toast.error("Tidak Bisa Mendapatkan Kategori :(");
 		  })		
 
-		axios.get(`https://api.klikfood.id/index.php/mitra/produk?verify=1&kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
+		axios.get(`https://api.klikfood.id/index.php/mitra/produk?type=verify&kategori=`+this.props.match.params.kategori, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	      .then((response) => {
 	      	console.log(response);
 	      	this.setState({
@@ -158,13 +163,13 @@ class SearchByKategori extends Component {
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
 		                      	        <img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
-		                      	        <h2>Rp {item.harga_jual}</h2>
+		                      	        <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	        <p>{ item.name }</p>
 		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	      </div>
 		                      	      <div className="product-overlay">
 		                      	        <div className="overlay-content">
-		                      	          <h2>Rp {item.harga_jual}</h2>
+		                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
 		                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>

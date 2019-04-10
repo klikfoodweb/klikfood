@@ -65,7 +65,8 @@ class Login extends Component {
 		  	console.log(response)
 			this.setState({ 
 				registProvinsi: e.target.value,
-				kotas: response.data.data
+				kotas: response.data.data,
+				registKota: response.data.data[0].city_id
 	  		})	
 		  }).catch((error) => {
 		  	toast.error("Gagal Mendapatkan Info Ongkir :(");
@@ -94,7 +95,7 @@ class Login extends Component {
 	      		sessionStorage.setItem('id', responseJSON.data.data.user._id);
 	      		sessionStorage.setItem('role', responseJSON.data.data.role);
 	      	}  
-	      	toast.success("You Are Logged In !");
+	      	toast.success("Selamat Datang !");
 	      	setTimeout(() => {
 	      		this.setState({ 
 	      			submitting: true,

@@ -66,9 +66,9 @@ class KonsumenPembelian extends Component {
 	}
 
 	confirmLayout(cell, row){
-	  	if(row.bayar === 1 && row.konfirmasi_bayar === 1 && row.kirim === 1 && row.terima == 1) {
+	  	if(typeof row.bayar !== 'undefined' && row.konfirmasi_bayar === 1 && row.kirim === 1 && row.terima == 1) {
 	  		return <div className="btn btn-success">Transaksi Berhasil </div>
-	  	}else if(row.bayar === 1 && row.konfirmasi_bayar === 1 && row.kirim === 1) {
+	  	}else if(typeof row.bayar !== 'undefined' && row.konfirmasi_bayar === 1 && row.kirim === 1) {
 	  		return (
 	  			<button onClick={ (e) => {
 	  				e.preventDefault();
@@ -84,26 +84,28 @@ class KonsumenPembelian extends Component {
 	  				  })
 	  			} } className="btn btn-warning">Barang Diterima ?</button>
 	  		)
-	  	}else if(row.bayar === 1 && row.konfirmasi_bayar === 1) {
+	  	}else if(typeof row.bayar !== 'undefined' && row.konfirmasi_bayar === 1) {
 	  		return <div>Sedang Menunggu Barang Dikirim </div>	
-	  	}else if(row.bayar === 1){
+	  	}else if(typeof row.bayar !== 'undefined'){	
 	  		return <div className="btn btn-warning">Sedang Menunggu Konfirmasi </div>
 	  	}else{
-	  		return (
-	  			<button onClick={ (e) => {
-	  				e.preventDefault();
-	  				axios.get(`https://api.klikfood.id/index.php/transaksi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
-	  				  .then((response) => {
-	  				  	toast.success("Berhasil Dibayar !");
-	  			      	setTimeout(() => {
-	  			      		window.location.href='/admin/transactions/pembelian';
-	  			      	}, 3000)
-	  				  }).catch((error) => {
-	  				  	console.log(error)
-	  				  	toast.error("Something Went Wrong :(");
-	  				  })
-	  			} } className="btn btn-warning">Bayar</button>
-	  		)
+	  		// return (
+	  		// 	<button onClick={ (e) => {
+	  		// 		e.preventDefault();
+	  		// 		axios.get(`https://api.klikfood.id/index.php/transaksi/bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+	  		// 		  .then((response) => {
+	  		// 		  	toast.success("Berhasil Dibayar !");
+	  		// 	      	setTimeout(() => {
+	  		// 	      		window.location.href='/admin/transactions/pembelian';
+	  		// 	      	}, 3000)
+	  		// 		  }).catch((error) => {
+	  		// 		  	console.log(error)
+	  		// 		  	toast.error("Something Went Wrong :(");
+	  		// 		  })
+	  		// 	} } className="btn btn-warning">Bayar</button>
+	  		// )
+	  		const id = row._id;
+	  		return <Link className="btn btn-warning" to={`/admin/transactions/${id}`}> Bayar </Link>;
 	  	}
 	}
 

@@ -28,6 +28,12 @@ class LeftBarCOO extends Component {
 		      	        </Link>
 		      	      </li>
 		      	      <li>
+		      	        <Link to="/admin/transaction-central/verification">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>Transaksi Pusat</span>
+		      	        </Link>
+		      	      </li>
+		      	      <li>
 		      	        <Link to="/admin/products/verification">
 		      	          <i className="material-icons">widgets</i>
 		      	          <span>Verifikasi Produk</span>

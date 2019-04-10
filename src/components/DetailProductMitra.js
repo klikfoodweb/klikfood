@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Breadcrumb, Card, Row, Col } from 'react-bootstrap';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
 import {Link} from 'react-router-dom';
+
+const formatter = new Intl.NumberFormat('id-ID', {
+  style: 'currency',
+  currency: 'IDR'
+})
 
 class DetailProductMitra extends Component {
 	constructor(props) {
@@ -25,7 +30,16 @@ class DetailProductMitra extends Component {
 			foto_2: null,
 			foto_3: null
 		}
+
+		window.scrollTo(0,0);
 	}	
+
+	componentWillMount() {
+		if(localStorage.getItem('cart') !== null)
+	    	this.setState({
+	    		carts: JSON.parse(localStorage.getItem('cart'))
+	    	})
+	}
 
 	componentDidMount() {
 		axios.get(`https://api.klikfood.id/index.php/kategori`)
@@ -65,18 +79,15 @@ class DetailProductMitra extends Component {
 	}
 
 	handleAddToCart = (e) => {
-		if (sessionStorage.length === 0) {
-			{toast.warning("Login Terlebih Dahulu !")}
-			window.location.href='/login';
-	    }else{
-	    	e.preventDefault();
-			this.state.carts.push([this.state.name, this.state.harga_jual, this.state.id+"/"+this.state.foto_1, 1, this.state.berat_kemasan]);
-		    
-		    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-		    console.log(JSON.stringify(this.state.carts));
-		    console.log(JSON.parse(localStorage.getItem('cart')));
-			toast.success("Berhasil Dimasukkan Keranjang !");
-	    }
+		
+    	e.preventDefault();
+		this.state.carts.push([this.state.name, this.state.harga_jual, this.state.id+"/"+this.state.foto_1, 1, this.state.berat_kemasan]);
+	    
+	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	    console.log(JSON.stringify(this.state.carts));
+	    console.log(JSON.parse(localStorage.getItem('cart')));
+		toast.success("Berhasil Dimasukkan Keranjang !");
+    
 	}
 
 	handlePay = (e) => {
@@ -99,6 +110,7 @@ class DetailProductMitra extends Component {
 		return (
 			<div>
 				<section>
+				<ToastContainer />
 			          <div className="container">
 						<Breadcrumb>
 						  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -171,7 +183,7 @@ class DetailProductMitra extends Component {
 							    </Col>
 							    <Col md={6}>
 							    	<h2>{ this.state.name }</h2>
-							    	<h3 style={{color: 'red'}}>Rp. { this.state.harga_jual }</h3>
+							    	<h3 style={{color: 'red'}}>{ formatter.format(this.state.harga_jual) }</h3>
 							    	<p>{ this.state.deskripsi }</p>
 							    	<button className="btn btn-success" onClick={this.handleAddToCart}>Tambahkan Ke Keranjang </button>
 							    	<button className="btn btn-default" onClick={this.handlePay}>Pesan Sekarang </button>

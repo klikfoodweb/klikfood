@@ -29,6 +29,7 @@ class ShowTransactionConsument extends Component {
 		  		details: response.data.data.transaksi.detail
 		  	})
 		  }).catch((error) => {
+		  	console.log(error);
 		  	toast.error("Something Went Wrong :(");
 		  });
 	}
@@ -71,6 +72,8 @@ class ShowTransactionConsument extends Component {
 				        <label>Service Pengiriman = </label> JNE { this.state.transaksi.servis }
 				        <br />
 				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
+				        <br />
+				        <img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
 				        <br />
 				        <label>Detail Produk Yang Dipesan</label>
 				        {

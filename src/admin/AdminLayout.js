@@ -56,6 +56,9 @@ import KonsumenPembelian from './transaction/KonsumenPembelian';
 import ShowTransaction from './transaction/ShowTransaction';
 import ShowTransactionConsument from './transaction/ShowTransactionConsument';
 
+import TransactionCentral from './transaction-pusat/TransactionCentral';
+import ShowTransactionCentral from './transaction-pusat/ShowTransactionCentral';
+
 import Permissions from './Permissions';
 import Roles from './Roles';
 
@@ -85,6 +88,8 @@ import RiwayatTransfer from './CFO/RiwayatTransfer';
 
 import SayembaraLog from './sayembara/SayembaraLog';
 import BuktiSayembara from './sayembara/BuktiSayembara';
+
+import ConfigJual from './ConfigJual';
 
 class AdminLayout extends Component {
 	componentWillMount() {
@@ -218,12 +223,17 @@ class AdminLayout extends Component {
 	            	<Route path="/admin/transaction-consuments/verification" component={TransactionConsument} />
 	            	<Route path="/admin/transaction-consuments/:id" component={ShowTransactionConsument} />
 
+	            	<Route path="/admin/transaction-central/verification" component={TransactionCentral} />
+	            	<Route path="/admin/transaction-central/:id" component={ShowTransactionCentral} />
+
 	            	<Route path="/admin/transactions/verification" component={TransactionVerif} />
 	            	<Route path="/admin/transactions/penjualan" component={MitraPenjualan} />        	
 	            	<Route path="/admin/transactions/pembelian" component={KonsumenPembelian} />
 	            	<Route path="/admin/transactions/:id" component={ShowTransaction} />     
 	            	
 	            	<Route path="/admin/pilih-paket" component={PilihPaket} />
+
+	            	<Route path="/admin/config-jual" component={ConfigJual} />
 
 	            	<Route path="/admin/sayembara/upload_bukti" component={BuktiSayembara} />
 	            	<Route path="/admin/sayembara" component={SayembaraLog} />

@@ -34,6 +34,12 @@ class LeftBarCFO extends Component {
 		      	        </Link>
 		      	      </li>
 		      	      <li>
+		      	        <Link to="/admin/transaction-central/verification">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>Transaksi Pusat</span>
+		      	        </Link>
+		      	      </li>
+		      	      <li>
 		      	        <a href="#" className="menu-toggle">
 		      	          <i className="material-icons">widgets</i>
 		      	          <span>Tagihan</span>

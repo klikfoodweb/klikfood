@@ -127,21 +127,23 @@ class TransactionVerif extends Component {
 					<button className="btn btn-warning">Menunggu Kirim Barang</button>
 				)	
 			}else if(row.bayar === 1){
-				return (
-					<button onClick={ (e) => {
-						e.preventDefault();
-						axios.get(`https://api.klikfood.id/index.php/distribusi/konfirmasi_bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
-						  .then((response) => {
-						  	toast.success("Berhasil Di Verifikasi !");
-					      	setTimeout(() => {
-					      		window.location.href='/admin/transactions/verification';
-					      	}, 3000)
-						  }).catch((error) => {
-						  	console.log(error)
-						  	toast.error("Gagal Memverifikasi Pembayaran :(");
-						  })
-					} } className="btn btn-warning">Verifikasi Pembayaran</button>
-				)
+				// return (
+				// 	<button onClick={ (e) => {
+				// 		e.preventDefault();
+				// 		axios.get(`https://api.klikfood.id/index.php/distribusi/konfirmasi_bayar/`+row._id, { 'headers': { 'Authorization': sessionStorage.api_token } })
+				// 		  .then((response) => {
+				// 		  	toast.success("Berhasil Di Verifikasi !");
+				// 	      	setTimeout(() => {
+				// 	      		window.location.href='/admin/transactions/verification';
+				// 	      	}, 3000)
+				// 		  }).catch((error) => {
+				// 		  	console.log(error)
+				// 		  	toast.error("Gagal Memverifikasi Pembayaran :(");
+				// 		  })
+				// 	} } className="btn btn-warning">Verifikasi Pembayaran</button>
+				// )
+				const id = row._id;
+			  	return <Link className="btn btn-warning" to={`/admin/transaction-consuments/${id}`}> Verifikasi Pembayaran </Link>;
 			}else{
 				return (
 					<button className="btn btn-warning">Belum Dibayar</button>
