@@ -13,7 +13,6 @@ function requireHTTPS(req, res, next) {
   }
   next();
 }
-
 app.use(requireHTTPS);
 
 //Static file declaration
