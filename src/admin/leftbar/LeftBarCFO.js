@@ -40,6 +40,12 @@ class LeftBarCFO extends Component {
 		      	        </Link>
 		      	      </li>
 		      	      <li>
+		      	        <Link to="/admin/list-bank">
+		      	          <i className="material-icons">widgets</i>
+		      	          <span>Bank Akun</span>
+		      	        </Link>
+		      	      </li>
+		      	      <li>
 		      	        <a href="#" className="menu-toggle">
 		      	          <i className="material-icons">widgets</i>
 		      	          <span>Tagihan</span>

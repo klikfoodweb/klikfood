@@ -93,7 +93,7 @@ class ShowTransactionConsument extends Component {
 				        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Pemasok</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Jual</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
 				      </div>

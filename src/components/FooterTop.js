@@ -33,7 +33,7 @@ class FooterTop extends Component {
 				        {/*Footer---Sociopreneur-Info--Video*/}
 				        <div className="col-sm-3">
 				          <div className="video-gallery text-center">
-				            <a href="#">
+				            <a href="https://www.youtube.com/watch?v=WNeH4dhVFKg" target="_blank">
 				              <div className="iframe-img">
 				                <img src="/images/home/iframe2.png" alt />
 				              </div>
@@ -47,7 +47,7 @@ class FooterTop extends Component {
 				        {/*Footer--Start--Keuntungan-Mitra--Video*/}					
 				        <div className="col-sm-3">
 				          <div className="video-gallery text-center">
-				            <a href="#">
+				            <a href="https://www.youtube.com/watch?v=S826ZjE1xEg" target="_blank">
 				              <div className="iframe-img">
 				                <img src="/images/home/iframe3.png" alt />
 				              </div>
@@ -61,7 +61,7 @@ class FooterTop extends Component {
 				        {/*Footer---Testimonial-Mitra--Video*/}						
 				        <div className="col-sm-3">
 				          <div className="video-gallery text-center">
-				            <a href="#">
+				            <a href="https://www.youtube.com/watch?v=Q5bOi7b5dJQ" target="_blank">
 				              <div className="iframe-img">
 				                <img src="/images/home/iframe4.png" alt />
 				              </div>

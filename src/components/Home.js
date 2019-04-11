@@ -139,19 +139,15 @@ class Home extends Component {
 			  <div className="col-sm-6 col-xs-6">
 			    <center>
 			      <div className="price-range">{/*Jadi Mitra*/}
-			        <h3>MITRA</h3>
 			        
-			        <Link to="/login"><img src="images/home/mitra.png" class="img-responsive" alt /></Link>
-			        <center><Link to="/login"><button type="button" className="btn btn-default get">JADI MITRA KAMI</button></Link></center><br />
+			        <center><Link to="/login"><button type="button" className="btn btn-success get">JADI MITRA KAMI</button></Link></center><br />
 			      </div>{/*/New-Product*/}</center>
 			  </div>
 			  <div className="col-sm-6 col-xs-6">
 			    <center>
 			      <div className="price-range">{/*Jadi Rekan*/}
-			        <h3>PEMASOK</h3>
 			        
-			        <Link to="/login"><img src="images/home/shake-hands.png" class="img-responsive" alt /></Link>
-			        <center><Link to="/login"><button type="button" className="btn btn-default get">JADI PEMASOK</button></Link></center><br />
+			        <center><Link to="/login"><button type="button" className="btn btn-success get">JADI PEMASOK</button></Link></center><br />
 			      </div>{/*/New-Product*/}</center>
 			  </div>		
 			</div>			
