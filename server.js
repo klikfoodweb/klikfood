@@ -3,6 +3,9 @@ const app = express();
 const path = require('path');
 const port = process.env.PORT || 5000;
 
+//force https
+app.set('trust proxy', true);
+
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'build')));
 
