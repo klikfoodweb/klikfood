@@ -46,6 +46,12 @@ class LeftBarCFO extends Component {
 		      	        </Link>
 		      	      </li>
 		      	      <li>
+				        <Link to="/admin/update-ongkir">
+				          <i className="material-icons">text_fields</i>
+				          <span>Update Ongkir Per KM</span>
+				        </Link>
+				      </li>
+		      	      <li>
 		      	        <a href="#" className="menu-toggle">
 		      	          <i className="material-icons">widgets</i>
 		      	          <span>Tagihan</span>

@@ -16,6 +16,7 @@ class ShowTransaction extends Component {
 			products: [],
 			transaksi: [],
 			details: [],
+			pembayaran: '',
 			bukti: null,
 			submitting: false
 		}
@@ -34,6 +35,16 @@ class ShowTransaction extends Component {
 		  	console.log(error);
 		  	toast.error("Gagal Mendapatkan Informasi Produk :(");
 		  });
+
+		axios.get(`https://api.klikfood.id/config/pembayaran`)
+		  .then((response) => {
+		  	console.log(response);
+		  	this.setState({
+		  		pembayaran: response.data.data.value
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan Info pembayaran :(");
+		  })
 	}
 
 	indexN(cell, row, enumObject, index) {
@@ -95,9 +106,7 @@ class ShowTransaction extends Component {
 				        <br />
 				        <label>Harga Keseluruhan = </label> Rp. { this.state.transaksi.jumlah_keseluruhan }
 				        <br />
-				        <label>ID Kota Tujuan = </label> { this.state.transaksi.kota_tujuan }
-				        <br />
-				        <label>Service Pengiriman = </label> JNE { this.state.transaksi.servis }
+				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
 				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
 				        <br />
@@ -124,10 +133,8 @@ class ShowTransaction extends Component {
 				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Jual</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
-				        <p>Silahkan Transfer Sesuai Jumlah Harga Total yang Sudah Di Detail kan Diatas</p>
-				        <p>BNI</p>
-				        <p>PT. Distra Boga Sarana</p>
-				        <p>533 329 620</p>
+				        <h3> Silahkan Transfer Sejumlah <i> Rp. { this.state.transaksi.jumlah_keseluruhan } </i> </h3>
+				        <pre>{this.state.pembayaran}</pre>
 				        <label>Upload Bukti Pembayaran</label>
 			        	<form onSubmit={this.handleSubmit}>
 			        		<input type="file" name="bukti" onChange={this.handleChangeBukti} />

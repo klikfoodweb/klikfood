@@ -139,16 +139,34 @@ class Home extends Component {
 			  <div className="col-sm-6 col-xs-6">
 			    <center>
 			      <div className="price-range">{/*Jadi Mitra*/}
-			        
-			        <center><Link to="/login"><button type="button" className="btn btn-success get">JADI MITRA KAMI</button></Link></center><br />
-			      </div>{/*/New-Product*/}</center>
+			        {
+		                (sessionStorage.length === 0) ?
+		                <React.Fragment>
+			        		<center><Link to="/login"><button type="button" className="btn btn-success get">JADI MITRA KAMI</button></Link></center><br />
+			      		</React.Fragment>
+			      		: 
+			      		<React.Fragment>
+			        		<center><Link to="/register-mitra"><button type="button" className="btn btn-success get">JADI MITRA KAMI</button></Link></center><br />
+			      		</React.Fragment>
+			      	}
+			      </div>
+			    </center>
 			  </div>
 			  <div className="col-sm-6 col-xs-6">
 			    <center>
 			      <div className="price-range">{/*Jadi Rekan*/}
-			        
-			        <center><Link to="/login"><button type="button" className="btn btn-success get">JADI PEMASOK</button></Link></center><br />
-			      </div>{/*/New-Product*/}</center>
+			        {
+		                (sessionStorage.length === 0) ?
+		                <React.Fragment>
+			        		<center><Link to="/login"><button type="button" className="btn btn-success get">JADI PEMASOK</button></Link></center><br />
+			      		</React.Fragment>
+			      		:
+			      		<React.Fragment>
+			        		<center><Link to="/register-pemasok"><button type="button" className="btn btn-success get">JADI PEMASOK</button></Link></center><br />
+			      		</React.Fragment>
+			      	}
+			      </div>
+			    </center>
 			  </div>		
 			</div>			
 	        <Banner />

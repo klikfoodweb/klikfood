@@ -3,6 +3,10 @@ import FooterTop from '../components/FooterTop';
 import FooterBottom from '../components/FooterBottom';
 
 class FormulirMitra extends Component {
+  componentWillMount() {
+    window.scrollTo(0,0);
+  }
+  
   render() {
     return (
     <div>

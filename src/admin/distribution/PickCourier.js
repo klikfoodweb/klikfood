@@ -13,10 +13,9 @@ class PickCourier extends Component {
 			beratNya: [],
 			jumlahHarga: '',
 			jumlahBerat: '',
-			servis: '',
-			listOngkir: []
+			jumlahOngkir: ''
 		}
-
+		
 		cartNya.map( (item, i) => {
 			axios.get(`https://api.klikfood.id/index.php/produksupplyer/show/`+item[0], { 'headers': { 'Authorization': sessionStorage.api_token } })
 		      .then((response) => {
@@ -31,6 +30,19 @@ class PickCourier extends Component {
 	}
 
 	componentDidMount() {
+		const cekOngkir = new FormData();
+		console.log(sessionStorage);
+		cekOngkir.set('alamat_tujuan', sessionStorage.kota);
+
+		axios.post(`https://api.klikfood.id/jarak`, cekOngkir)
+		  .then((response) => {
+		  	this.setState({
+		  		jumlahOngkir: response.data.data.harga
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan Jumlah Ongkir :(");
+		  })
+
 		let jumlahHargaNya = 0;
 		let jumlahBeratNya = 0;
 		
@@ -42,30 +54,6 @@ class PickCourier extends Component {
 			jumlahHarga: jumlahHargaNya,
 			jumlahBerat: jumlahBeratNya
 		})
-
-		const cekOngkir = new FormData();
-		console.log(sessionStorage);
-		cekOngkir.set('tujuan', sessionStorage.kota);
-		cekOngkir.set('berat', jumlahBeratNya);
-
-		axios.defaults.headers = {  
-			'Authorization': sessionStorage.api_token 
-		}
-		
-		axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
-	      .then(res => {
-	      	console.log(res);
-	      	this.setState({
-	      		listOngkir: res.data.data
-	      	})
-	      }).catch(err => {
-	      	if(localStorage.getItem('redirectOnce')){
-				window.location.href='/admin/distribution/order/courier';
-				localStorage.removeItem('redirectOnce');
-			}
-	      });
-
-		console.log(this.state);
 	}
 
 	handleChange = (event) => {
@@ -80,8 +68,7 @@ class PickCourier extends Component {
 		const mitraCart = JSON.parse(localStorage.getItem('mitraCart'));
 		
 		var obj = {
-		    'produk' : mitraCart,
-		    'servis' : this.state.servis
+		    'produk' : mitraCart
 		};
 		console.log(obj);
 		
@@ -111,7 +98,7 @@ class PickCourier extends Component {
 				    <div className="card">
 				      <div className="header">
 				        <h2>
-				          Pilih Kurir
+				          Total Pembayaran
 				        </h2>
 				      </div>
 				      <div className="body">
@@ -121,34 +108,12 @@ class PickCourier extends Component {
 							    <li> {localStorage.getItem('namaProduk'+i)} {localStorage.getItem('hargaProduk'+i)} </li>
 							)}
 				      	</ul>
-				        <h2 onClick={e=> console.log(this.state)}>Total Berat : </h2> { this.state.jumlahBerat }
-				        <h2 onClick={e=> console.log(sessionStorage)}>Total Harga : </h2> { this.state.jumlahHarga }
+				        <h2>Total Berat : </h2> { this.state.jumlahBerat }
+				        <h2>Total Harga : </h2> { this.state.jumlahHarga }
+				        <h2>Total Ongkir : </h2> { this.state.jumlahOngkir }
+				        
 				        <form onSubmit={this.handleSubmit}>
-				        <table>
-				        	<thead>
-				        		<tr>
-					        		<th>No</th>
-					        		<th>Service</th>
-					        		<th>Deskripsi</th>
-					        		<th>Harga</th>
-					        		<th>Pilih</th>
-				        		</tr>
-				        	</thead>
-				        	<tbody>
-				        	{ this.state.listOngkir.map((item,i) => 
-					        	<React.Fragment>
-					        	<tr key={i}>
-					        		<td>{ i+1 }</td>
-					        		<td>{ item.service } { item.cost[0].etd } Hari</td>
-					        		<td>{ item.description }</td>
-					        		<td>{ item.cost[0].value }</td>
-				        			<td><input type="radio" name="servis" onChange={this.handleChange} value={item.service} /> { item.service } </td>
-				        		</tr>
-				        		</React.Fragment>
-				        	)}
-				        	</tbody>
-				        </table>
-				      	<button type="submit" className="btn btn-success">Checkout Sekarang</button>
+				      		<button type="submit" className="btn btn-success">Checkout Sekarang</button>
 				        <br />
 				        </form>
 				      </div>

@@ -76,8 +76,10 @@ class FooterTop extends Component {
 				      {/*Footer---Map*/}
 				      <div className="col-sm-3">
 				        <div className="address">
-				          <a href="#"><img src="/images/home/map.png" alt /></a>
-				          <p>Jl.Loka Indah No.1, Warung Buncit, Jakarta Selatan 12740</p>
+			                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15864.049256949356!2d106.8289609!3d-6.2621075!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x99f49453ea82efc4!2sGRAHA+ASA!5e0!3m2!1sid!2sid!4v1550600351150" frameBorder={0} style={{border: 0}} allowFullScreen />
+			              
+				          {/*<a href="#"><img src="/images/home/map.png" alt /></a>
+				          <p>Jl.Loka Indah No.1, Warung Buncit, Jakarta Selatan 12740</p>*/}
 				        </div>
 				      </div>
 				      {/*Footer--/End--Map*/}

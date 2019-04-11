@@ -3,13 +3,17 @@ import FooterTop from '../components/FooterTop';
 import FooterBottom from '../components/FooterBottom';
 
 class Disclaimer extends Component {
+  componentWillMount() {
+    window.scrollTo(0,0);
+  }
+  
   render() {
     return (
     <div>
       <section>
             <div className="container">
                   <div className="WordSection1">
-                          <p className="MsoNormal"><b><span style={{fontSize: '12.0pt', lineHeight: '115%'}}>Disclaime<br />
+                          <p className="MsoNormal"><b><span style={{fontSize: '12.0pt', lineHeight: '115%'}}>Disclaimer<br />
                               </span></b>(Pasal Sanggahan)</p>
                           <p className="MsoNormal">&nbsp;</p>
                           <p className="MsoNormal">Semua informasi di situs ini diterbitkan dengan itikad baik

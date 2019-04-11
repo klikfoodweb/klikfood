@@ -21,9 +21,7 @@ class Cart extends Component {
 			jumlahHarga: '',
 			jumlahBerat: '',
 			beratPerProduk: [],
-			servis: '',
 			jumlahOngkir: '',
-	 		listOngkir: [],
 	 		modePenjualan: '',
 	 		loadOngkir: false
 	    };
@@ -35,10 +33,23 @@ class Cart extends Component {
 		axios.get(`https://api.klikfood.id/config/mode`)
 		  .then((response) => {
 		  	this.setState({
-		  		modePenjualan: response.data.data
+		  		modePenjualan: response.data.data.value
 		  	})
 		  }).catch((error) => {
 		  	toast.error("Gagal Mendapatkan mode Penjualan :(");
+		  })
+
+		const cekOngkir = new FormData();
+		console.log(sessionStorage);
+		cekOngkir.set('alamat_tujuan', sessionStorage.kota);
+
+		axios.post(`https://api.klikfood.id/jarak`, cekOngkir)
+		  .then((response) => {
+		  	this.setState({
+		  		jumlahOngkir: response.data.data.harga
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan Jumlah Ongkir :(");
 		  })
 
 		var carts = JSON.parse(localStorage.getItem('cart'));
@@ -61,28 +72,28 @@ class Cart extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.state.jumlahHarga)
-		const cekOngkir = new FormData();
-		console.log(sessionStorage);
-		cekOngkir.set('tujuan', sessionStorage.kota);
-		cekOngkir.set('berat', this.state.jumlahBerat);
+		// console.log(this.state.jumlahHarga)
+		// const cekOngkir = new FormData();
+		// console.log(sessionStorage);
+		// cekOngkir.set('tujuan', sessionStorage.kota);
+		// cekOngkir.set('berat', this.state.jumlahBerat);
 
-		axios.defaults.headers = {  
-			'Authorization': sessionStorage.api_token 
-		}
+		// axios.defaults.headers = {  
+		// 	'Authorization': sessionStorage.api_token 
+		// }
 		
-		axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
-	      .then(res => {
-	      	console.log(res);
-	      	this.setState({
-	      		listOngkir: res.data.data
-	      	})
-	      }).catch(err => {
-	  //     	if(localStorage.getItem('redirectOnce')){
-			// 	window.location.href='/admin/distribution/order/courier';
-			// 	localStorage.removeItem('redirectOnce');
-			// }
-	      });
+		// axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
+	 //      .then(res => {
+	 //      	console.log(res);
+	 //      	this.setState({
+	 //      		listOngkir: res.data.data
+	 //      	})
+	 //      }).catch(err => {
+	 //  //     	if(localStorage.getItem('redirectOnce')){
+		// 	// 	window.location.href='/admin/distribution/order/courier';
+		// 	// 	localStorage.removeItem('redirectOnce');
+		// 	// }
+	 //      });
 
 	      // this.setState({
 	      // 	jumlahTotal: this.state.jumlahHarga + this.state.jumlahOngkir
@@ -97,18 +108,15 @@ class Cart extends Component {
 		// 		carts,
 		// 	}
 		// });
-		console.log(carts);
 		localStorage.setItem('cart', JSON.stringify(carts));
 		this.setState({
 			carts: JSON.parse(localStorage.getItem('cart'))
 		})
 		window.location.href='/cart';
-		console.log(this.state);
 	}
 
 	handleChange = (event) => {
 		this.setState({ 
-			servis: event.target.value,
 			jumlahOngkir: event.target.id
 		})
 	}
@@ -129,8 +137,7 @@ class Cart extends Component {
 			})
 			console.log(finalCart);
 			var obj = {
-			    'produk' : finalCart,
-			    'servis' : this.state.servis
+			    'produk' : finalCart
 			};
 			console.log(obj);
 			
@@ -140,11 +147,11 @@ class Cart extends Component {
 			if(this.state.modePenjualan.value === 1) {
 				axios.post(`https://api.klikfood.id/index.php/transaksi/store`, obj)
 			      .then(res => {
-			      	console.log(res);
-			      	toast.success('Silahkan lihat detail transaksi di Dashboard anda');
+			      	console.log(res.data.data);
+			      	toast.success(res.data.data.messages);
 			      	setTimeout(() => {
 			      		window.location.href='/admin/transactions/pembelian';
-			      	}, 3000)
+			      	}, 1000)
 			      }).catch(err => {
 			      	console.log(err);
 			      	toast.error("Tidak Bisa Diorder :( ");
@@ -152,11 +159,11 @@ class Cart extends Component {
 			}else{
 				axios.post(`https://api.klikfood.id/index.php/transaksipusat/store`, obj)
 			      .then(res => {
-			      	console.log(res);
-			      	toast.success('Silahkan lihat detail transaksi di Dashboard anda');
+			      	console.log(res.data);
+			      	toast.success(res.data.data.messages);
 			      	setTimeout(() => {
 			      		window.location.href='/admin/transactions/pembelian';
-			      	}, 3000)
+			      	}, 1000)
 			      }).catch(err => {
 			      	console.log(err);
 			      	toast.error("Tidak Bisa Diorder :( ");
@@ -224,13 +231,13 @@ class Cart extends Component {
 		                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) + this.state.beratPerProduk[index];
 		                        	this.setState({
 		                        		carts: newJumlah,
-		                        		jumlahBerat: jumlahBeratSekarang,
-		                        		loadOngkir: true
+		                        		jumlahBerat: jumlahBeratSekarang
+		                        		
 		                        	});
 
 		    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
 
-									const cekOngkir = new FormData();
+									{/*const cekOngkir = new FormData();
 									cekOngkir.set('tujuan', sessionStorage.kota);
 									cekOngkir.set('berat', this.state.jumlahBerat);
 
@@ -247,7 +254,7 @@ class Cart extends Component {
 								      	})
 								      }).catch(err => {
 								  			loadOngkir: false
-								      });
+								      });*/}
 		                        } } href> + </a>
 		                        <input className="cart_quantity_input" type="text" value={cart[3]} name="quantity" autoComplete="off" size={2} />
 		                        <a className="cart_quantity_down" onClick={e => {
@@ -259,13 +266,12 @@ class Cart extends Component {
 			                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) - this.state.beratPerProduk[index];
 			                        	this.setState({
 			                        		carts: newJumlah,
-			                        		jumlahBerat: jumlahBeratSekarang,
-			                        		loadOngkir: true
+			                        		jumlahBerat: jumlahBeratSekarang
 			                        	});
 
 			    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
 
-										const cekOngkir = new FormData();
+										{/*const cekOngkir = new FormData();
 										cekOngkir.set('tujuan', sessionStorage.kota);
 										cekOngkir.set('berat', this.state.jumlahBerat);
 
@@ -281,7 +287,7 @@ class Cart extends Component {
 									      	})
 									      }).catch(err => {
 									  			loadOngkir: false
-									      }); 
+									      });*/} 
 		                        	}
 		                        } }  href> - </a>
 		                      </div>
@@ -302,41 +308,22 @@ class Cart extends Component {
 		        <section id="do_action">
 		          <div className="container">
 		            <div className="heading">
-		              <h3>Silahkan Pilih Metode Pengiriman</h3>
-		              <p>Pengiriman Via JNE dan akan dikirim menurut Kota yang telah didaftarkan ketika register.</p>
+		              <h3>Total Pembayaran</h3>
 		            </div>
 		            <div className="row">
-		              <div className="col-sm-6">
+		              {/*<div className="col-sm-6">
 		                <div className="chose_area">
 		                  <ul className="user_option">
 		                  	{
 		                  	 (sessionStorage.length === 0) ?
 								<p>Silahkan <Link to="/login">Login</Link> Terlebih Dahulu</p>
-							 : null
+							 : 
+							 <React.Fragment>
+							 	{ formatter.format(this.state.jumlahOngkir) }
+							 </React.Fragment>
 						    }
-
-							{this.state.loadOngkir ?
-							<div>
-								<center><b>Sedang Kalkulasi Ongkir...</b></center>
-							</div>
-							:
-			                <div>
-			                  	{ 
-			                  		(this.state.listOngkir.length > 0) ?
-				                  	this.state.listOngkir.map((item,i) => 
-			                  		<React.Fragment>
-						        		<li key={i}>
-					                      <input style={{position: 'relative'}} type="radio" id={item.cost[0].value} name="servis" onChange={this.handleChange} value={item.service} /> { item.service }
-					                      <label>{ formatter.format(item.cost[0].value) } { item.service } { item.cost[0].etd } Hari</label>
-					                    </li>
-					        		</React.Fragment>
-					        		)
-					        		: null
-					        	}
-							</div>
-							}
 		                  </ul>
-		                  {/*<ul className="user_info">
+		                  <ul className="user_info">
 		                    <li className="single_field">
 		                      <label>Country:</label>	
 		                      <select>
@@ -367,12 +354,12 @@ class Cart extends Component {
 		                      <label>Zip Code:</label>
 		                      <input type="text" />
 		                    </li>
-		                  </ul>*/}
+		                  </ul>
 		                  {/*<a className="btn btn-default update" href>Get Quotes</a>
 		                  <a className="btn btn-default check_out" href>Continue</a>*/}
-		                </div>
-		              </div>
-		              <div className="col-sm-6">
+		                {/*</div>
+		              </div>*/}
+		              <div className="col-sm-12">
 		                <div className="total_area">
 		                  <ul>
 		                    <li>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></li>

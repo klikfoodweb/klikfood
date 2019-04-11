@@ -67,9 +67,7 @@ class ShowTransactionConsument extends Component {
 				        <br />
 				        <label>Harga Keseluruhan = </label> Rp. { this.state.transaksi.jumlah_keseluruhan }
 				        <br />
-				        <label>ID Kota Tujuan = </label> { this.state.transaksi.kota_tujuan }
-				        <br />
-				        <label>Service Pengiriman = </label> JNE { this.state.transaksi.servis }
+				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
 				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
 				        <br />

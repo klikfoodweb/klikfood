@@ -25,10 +25,11 @@ class ShowDistribution extends Component {
 		  	console.log(response.data.data);
 		  	this.setState({
 		  		products: response.data.data.produk,
-		  		transaksi: response.data.data.distribusi,
-		  		details: response.data.data.distribusi.detail
+		  		transaksi: response.data.data.transaksi,
+		  		details: response.data.data.transaksi.detail
 		  	})
 		  }).catch((error) => {
+		  	console.log(error)
 		  	toast.error("Something Went Wrong :(");
 		  });
 	}
@@ -66,9 +67,7 @@ class ShowDistribution extends Component {
 				        <br />
 				        <label>Harga Keseluruhan = </label> Rp. { this.state.transaksi.jumlah_keseluruhan }
 				        <br />
-				        <label>ID Kota Tujuan = </label> { this.state.transaksi.kota_tujuan }
-				        <br />
-				        <label>Service Pengiriman = </label> JNE { this.state.transaksi.servis }
+				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
 				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
 				        <br />

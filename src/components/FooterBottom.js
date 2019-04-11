@@ -74,7 +74,7 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>TENTANG KAMI</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="info.html">Informasi Perusahaan</Link></li>
+				              <li><Link to="/tentang-perusahaan">Informasi Perusahaan</Link></li>
 				              <li><Link to="/budaya-kerja">Budaya Perusahaan</Link></li>
 				              <li><Link to="/visi-misi">Visi &amp; Misi</Link></li>
 				              <li><Link to="lokasi-mitra.html">Mitra &amp; Lokasi</Link></li>

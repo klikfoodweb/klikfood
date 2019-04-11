@@ -58,6 +58,12 @@ class LeftBarAdmin extends Component {
 				        </Link>
 				      </li>
 				      <li>
+				        <Link to="/admin/our-address">
+				          <i className="material-icons">text_fields</i>
+				          <span>Alamat Gudang Kantor</span>
+				        </Link>
+				      </li>
+				      <li>
 				        <Link to="/admin/sliders">
 				          <i className="material-icons">layers</i>
 				          <span>Sliders</span>

@@ -21,6 +21,7 @@ import Disclaimer from '../pages/Disclaimer';
 import FormulirMitra from '../pages/FormulirMitra';
 import KetentuanPenggunaanWebsite from '../pages/KetentuanPenggunaanWebsite';
 import VisiMisi from '../pages/VisiMisi';
+import TentangPerusahaan from '../pages/TentangPerusahaan';
 
 import MitraSupplyer from './MitraSupplyer';
 import DetailProductMitra from './DetailProductMitra';
@@ -28,6 +29,12 @@ import DetailProduct from './DetailProduct';
 import Forget from './Forget';
 import ResetToken from './ResetToken';
 import ResetPassword from './ResetPassword';
+
+import EmailVerified from './EmailVerified';
+import EmailNotVerified from './EmailNotVerified';
+
+import RegisterMitra from './RegisterMitra';
+import RegisterPemasok from './RegisterPemasok';
 
 import {geolocated} from 'react-geolocated';
 
@@ -91,6 +98,7 @@ class DefaultLayout extends Component {
                 <Route path="/support" name="Support" component={Support} />
                 <Route path="/profile" name="Profile" component={Profile} />
 
+                <Route path="/tentang-perusahaan" name="TentangPerusahaan" component={TentangPerusahaan} />
                 <Route path="/privacy" name="Privacy" component={Privacy} />
                 <Route path="/faqs-mitra" name="FaqsMitra" component={FaqsMitra} />
             	<Route path="/budaya-kerja" name="BudayaKerja" component={BudayaKerja} />
@@ -99,6 +107,12 @@ class DefaultLayout extends Component {
                 <Route path="/formulir-mitra" name="FormulirMitra" component={FormulirMitra} />
                 <Route path="/ketentuan-penggunaan-website" name="KetentuanPenggunaanWebsite" component={KetentuanPenggunaanWebsite} />
                 <Route path="/visi-misi" name="VisiMisi" component={VisiMisi} />
+
+                <Route path="/verified" name="EmailVerified" component={EmailVerified} />
+                <Route path="/not-verified" name="EmailNotVerified" component={EmailNotVerified} />
+
+                <Route path="/register-mitra" name="RegisterMitra" component={RegisterMitra} />
+                <Route path="/register-pemasok" name="RegisterPemasok" component={RegisterPemasok} />
                 
                 <Route path="/product/:id" name="DetailProduct" component={DetailProduct} />
 

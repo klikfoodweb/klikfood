@@ -44,6 +44,8 @@ class Contact extends Component {
 		return (
 			<div>
 			<ToastContainer /> 
+			<br />
+			<br />
 				<div id="contact-page" className="container">
 			        <div className="bg">
 			          <div className="row">    		

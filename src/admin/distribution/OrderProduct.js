@@ -25,14 +25,18 @@ class OrderProduct extends Component {
 	
 	handleNextStep = (e) => {
 		e.preventDefault();
+		console.log(localStorage);
+		// console.log(localStorage.getItem('product0').indexOf(','));
 		let productSubmit = [];
 		let validProduct = [];
 		for(var i=0; i < this.state.products.length; i++) {
-			if (localStorage.getItem('product'+i).indexOf(',') > -1)
-			{
-				validProduct[i] = JSON.parse(localStorage.getItem('product'+i));
-				if(validProduct[i][1] !== '')
-					productSubmit[i] = JSON.parse(localStorage.getItem('product'+i));
+			if(localStorage.getItem('product'+i) !== null) {
+				if (localStorage.getItem('product'+i).indexOf(',') > -1)
+				{
+					validProduct[i] = JSON.parse(localStorage.getItem('product'+i));
+					if(validProduct[i][1] !== '')
+						productSubmit[i] = JSON.parse(localStorage.getItem('product'+i));
+				}
 			}
 		}
 		localStorage.setItem('mitraCart', JSON.stringify(productSubmit.filter(n => n)));
@@ -68,15 +72,15 @@ class OrderProduct extends Component {
 	jumlahLayout(cell, row){
 		const id = row._id;
 		
-		localStorage.setItem("product"+row.index, row._id);
+		// localStorage.setItem("product"+row.index, row._id);
 		
-		let initiateItem = [...Array(150)].map( x => Array(2).fill(0) );
+		// let initiateItem = [...Array(150)].map( x => Array(2).fill(0) );
 		
-		for(var i=0; i<=row.index; i++){
-			initiateItem[i][0] = localStorage.getItem("product"+i);
-			initiateItem[i][1] = 0;
-		}
-		const newInitiateItem = initiateItem.slice();
+		// for(var i=0; i<=row.index; i++){
+		// 	initiateItem[i][0] = localStorage.getItem("product"+i);
+		// 	initiateItem[i][1] = 0;
+		// }
+		// const newInitiateItem = initiateItem.slice();
 		
 	  	return (
 	  		<div className="cart_quantity_button">

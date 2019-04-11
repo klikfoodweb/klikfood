@@ -90,7 +90,9 @@ import SayembaraLog from './sayembara/SayembaraLog';
 import BuktiSayembara from './sayembara/BuktiSayembara';
 
 import ConfigJual from './ConfigJual';
+import OurAddress from './OurAddress';
 
+import UpdateOngkir from './CFO/UpdateOngkir';
 import ListBank from './CFO/ListBank';
 
 class AdminLayout extends Component {
@@ -237,12 +239,16 @@ class AdminLayout extends Component {
 
 	            	<Route path="/admin/config-jual" component={ConfigJual} />
 
+	            	<Route path="/admin/update-ongkir" component={UpdateOngkir} />
+
 	            	<Route path="/admin/sayembara/upload_bukti" component={BuktiSayembara} />
 	            	<Route path="/admin/sayembara" component={SayembaraLog} />
 
 	            	<Route path="/admin/riwayat-transfer" component={RiwayatTransfer} />
 
-	            	<Route path="/admin/list-bank" component={ListBank} />
+	            	<Route path="/admin/list-bank" name={ListBank} component={ListBank} />
+
+	            	<Route path="/admin/our-address" name={OurAddress} component={OurAddress} />
 
 	            	<Route path="/admin/bills/supplyer" component={SupplyerBill} />
 	            	<Route path="/admin/bills/mitra" component={MitraBill} /> 

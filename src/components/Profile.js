@@ -15,16 +15,11 @@ export default class Profile extends Component {
 			name: '',
 			email: '',
 			password: '',
-			birthplace: '',
-			dateofbirth: '',
 			address: '',
+			detail_address: '',
 			no_tlp: '',
 			roles: '',
 			username: '',
-			kota: '',
-			provinsi: '',
-			kotas: [],
-			provinsis: [],
 			user: [],
 			updating: false,
 			header: null
@@ -36,49 +31,25 @@ export default class Profile extends Component {
 
 		axios.get(`https://api.klikfood.id/index.php/myaccount`)
 	      .then(response => {
-
-	      	axios.get(`https://api.klikfood.id/index.php/ongkir/kota/`+response.data.data.provinsi)
-			  .then((res) => {
-				this.setState({ 
-					kotas: res.data.data
-		  		})	
-			  }).catch((error) => {
-			  	toast.error("Something Went Wrong :(");
-			  })
-	      	
+	      	console.log(response.data.data);
 	      	this.setState({
 	      		name: response.data.data.name,
 				email: response.data.data.email,
-				birthplace: response.data.data.birthplace,
-				dateofbirth: response.data.data.dateofbirth,
-				address: response.data.data.birthplace,
+				address: response.data.data.address,
+				detail_address: response.data.data.detail_address,
 				no_tlp: response.data.data.no_tlp,
 				roles: response.data.data.roles,
-				username: response.data.data.username,
-				provinsi: response.data.data.provinsi,
-				kota: response.data.data.kota,
+				username: response.data.data.username
 	      	})
 	      }).catch(err => {
 	      	toast.error("Gagal Mengambil Info :( ");
 	      });
-
-	      axios.get(`https://api.klikfood.id/index.php/ongkir/provinsi`)
-		  .then((response) => {
-			this.setState({ 
-				provinsis: response.data.data
-	  		})	
-		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
-		  })
 	}
 
 	handleChange = (event) => {
 		this.setState({ 
 			[event.target.name]: event.target.value
 		})
-	}
-
-	componentDidMount() {
 	}
 
 	handleSubmit = (event) => {
@@ -91,47 +62,33 @@ export default class Profile extends Component {
 			name: this.state.name,
 			email: this.state.email,
 			password: this.state.password,
-			birthplace: this.state.birthplace,
-			dateofbirth: this.state.dateofbirth,
-			address: this.state.address,
+			address: document.getElementById('origin').value,
+			detail_address: this.state.detail_address,
 			no_tlp: this.state.no_tlp,
 			username: this.state.username,
-			provinsi: this.state.provinsi,
-			kota: this.state.kota,
 			roles: sessionStorage.role
 		}
 
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
+		console.log(data);
 		axios.patch(`https://api.klikfood.id/index.php/account`+"?"+qs.stringify(data))
 	      .then(response => {
+	      	console.log(response);
 	      	this.setState({
 				updating: true
 			})
 	      	toast.success("Update Akun Sukses !");
-	      	setTimeout(() => {
-	      		window.location.href='/profile';
-	      	}, 3000)
+	      	// setTimeout(() => {
+	      	// 	window.location.href='/profile';
+	      	// }, 3000)
 	      }).catch(err => {
 	      	this.setState({
 				updating: false
 			})
 	      	toast.error("Gagal Update Akun :( ");
 	      });
-	}
-
-	changeProvinsi = (e) => {
-		axios.get(`https://api.klikfood.id/index.php/ongkir/kota/`+e.target.value)
-		  .then((response) => {
-		  	this.setState({ 
-				provinsi: e.target.value,
-				kotas: response.data.data
-	  		})	
-		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
-		  })
-		  e.persist();
 	}
 
 	render() {
@@ -153,7 +110,7 @@ export default class Profile extends Component {
 				              </h2></center>
 				            </div>
 				            <div classname="body">
-				        		<Form onSubmit={this.handleSubmit} >
+				        		<Form onSubmit={this.handleSubmit} id="distance_form">
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
 				        		      Name
@@ -180,26 +137,19 @@ export default class Profile extends Component {
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      Tempat Lahir
-				        		    </Form.Label>
-				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Tempat Lahir" name="birthplace" value={this.state.birthplace} onChange={this.handleChange} />
-				        		    </Col>
-				        		  </Form.Group>
-				        		  <Form.Group as={Row} controlId="formHorizontalName">
-				        		    <Form.Label column sm={2}>
-				        		      Tanggal Lahir
-				        		    </Form.Label>
-				        		    <Col sm={10}>
-				        		      <Form.Control type="date" placeholder="Tanggal Lahir" name="dateofbirth" value={this.state.dateofbirth} onChange={this.handleChange} />
-				        		    </Col>
-				        		  </Form.Group>
-				        		  <Form.Group as={Row} controlId="formHorizontalName">
-				        		    <Form.Label column sm={2}>
 				        		      Alamat
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Alamat" name="address" value={this.state.address} onChange={this.handleChange} />
+				        		      <Form.Control type="text" id="from_places" placeholder="Alamat" name="address" onChange={this.handleChange} />
+				        		      <input id="origin" name="address" onChange={this.handleChange} required="" type="hidden" />
+				        		    </Col>
+				        		  </Form.Group>
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Alamat Detail 
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="text" placeholder="Alamat" name="detail_address" value={this.state.detail_address} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -219,35 +169,6 @@ export default class Profile extends Component {
 				        		      <Form.Control type="password" placeholder="Password" name="password" value={this.state.password} onChange={this.handleChange} />
 				        		    </Col>
 				        		  </Form.Group>
-
-				        		  <label> Pilih Provinsi : </label>
-			                    <select name="provinsi" style={{marginBottom: '20px'}} onChange={this.changeProvinsi}>
-								  { 
-								  	this.state.provinsis.map( provinsi =>
-								  		<React.Fragment>
-								  		{ (provinsi.province_id === this.state.provinsi) ?
-								  			<option key={provinsi.province_id} value={provinsi.province_id} selected>{ provinsi.province }</option>
-								  		:
-								  			<option key={provinsi.province_id} value={provinsi.province_id}>{ provinsi.province }</option>
-								  		}
-								  		</React.Fragment>
-								  	)
-								  }
-								</select>
-							  <label> Pilih Kota : </label>
-			                    <select name="kota" style={{marginBottom: '20px'}} onChange={this.handleChange}>
-								  { 
-								  	this.state.kotas.map( kota =>
-								  		<React.Fragment>
-								  		{ (kota.city_id === this.state.kota) ?
-								  			<option key={kota.city_id} value={kota.city_id} selected>{kota.type} { kota.city_name }</option>
-								  		:
-								  			<option key={kota.city_id} value={kota.city_id}>{kota.type} { kota.city_name }</option>
-								  		}
-								  		</React.Fragment>
-								  	)
-								  }
-								</select>
 
 				        		  <Form.Group as={Row}>
 				        		    <Col sm={{ span: 10, offset: 2 }}>

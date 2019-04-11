@@ -3,35 +3,30 @@ import FooterTop from '../components/FooterTop';
 import FooterBottom from '../components/FooterBottom';
 
 class VisiMisi extends Component {
+  componentWillMount() {
+    window.scrollTo(0,0);
+  }
   render() {
     return (
     <div>
-      <section>
-            <div className="container">
-                  <div className="WordSection1">
-                          <p className="MsoNormal"><b>Misi: </b></p>
-                          <p className="MsoListParagraphCxSpFirst" style={{textIndent: '-18.0pt'}}><span style={{fontFamily: 'Symbol'}}>·<span style={{font: '7.0pt "Times New Roman"'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              </span></span>Selalu berbenah, evaluasi dan instrospeksi &nbsp;internal perusahaan
-                            secara konsisten.</p>
-                          <p className="MsoListParagraphCxSpMiddle" style={{textIndent: '-18.0pt'}}><span style={{fontFamily: 'Symbol'}}>·<span style={{font: '7.0pt "Times New Roman"'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              </span></span>Memberikan kemanfaatan teknologi pada masyarakat luas.</p>
-                          <p className="MsoListParagraphCxSpMiddle" style={{textIndent: '-18.0pt'}}><span style={{fontFamily: 'Symbol'}}>·<span style={{font: '7.0pt "Times New Roman"'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              </span></span>Memberikan usaha yang lebih menguntungkan mitra.</p>
-                          <p className="MsoListParagraphCxSpMiddle" style={{textIndent: '-18.0pt'}}><span style={{fontFamily: 'Symbol'}}>·<span style={{font: '7.0pt "Times New Roman"'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              </span></span>Memberikan kesempatan yang sama pada masyarakat &nbsp;agar usahanya
-                            berkembang.</p>
-                          <p className="MsoListParagraphCxSpLast" style={{textIndent: '-18.0pt'}}><span style={{fontFamily: 'Symbol'}}>·<span style={{font: '7.0pt "Times New Roman"'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              </span></span>Menjaga konsistensi mutu layanan terbaik sesuai dengan standar
-                            mutu dan nilai-nilai budaya perusahaan.</p>
-                          <p className="MsoNormal"><b>Visi:</b></p>
-                          <p className="MsoNormal">Menjadi perusahaan terbaik di Indonesia dalam bidang &nbsp;Pemesanan
-                            online produk pangan dan bahan pangan (Order online food and meals on demand)
-                            serta Online &nbsp;to Offline Business yang berdampak luas serta bermanfaat untuk
-                            seluruh masyarakat Indonesia.</p>
-                          <p className="MsoNormal">&nbsp;</p>
-                        </div>
+        <div className="container">
+            <div className="WordSection1">
+              <p className="MsoNormal"><b><span style={{fontSize: '16.0pt', lineHeight: '106%'}}>&nbsp;</span></b></p>
+              <h2 className="title text-center">VISI & MISI</h2>   
+              <p className="MsoNormal"><b><span style={{fontSize: '16.0pt', lineHeight: '107%'}}>&nbsp;</span></b></p>
+              <p className="MsoNormal"><b><span style={{fontSize: '14.0pt', lineHeight: '107%'}}>VISI</span></b></p>
+              <p className="MsoNormal">Menjadi perusahaan terbaik di Indonesia di bidang <b><i>Order
+                    Online Food and Meals On Demand</i> </b>serta <b><i>Online to Offline Business</i></b>
+                yang berdampak luas serta bermanfaat untuk seluruh masyarakat Indonesia. </p>
+              <p className="MsoNormal">&nbsp;</p>
+              <p className="MsoNormal"><b><span style={{fontSize: '14.0pt', lineHeight: '107%'}}>MISI</span></b></p>
+              <p className="MsoNormal">Memberikan solusi dalam hal kemudahan mendapatkan bahan
+                pangan dan makanan bagi masyarakat, yang juga merupakan solusi bagi khalayak
+                yang ingin berusaha / berwiraswasta mandiri dengan memiliki outlet sendiri
+                dalam jaringan kemitraan dan pemasok klikfood.id</p>
+              <p className="MsoNormal">&nbsp;</p>
             </div>
-      </section>
+        </div>
     <FooterTop />
     <FooterBottom />
     </div>
