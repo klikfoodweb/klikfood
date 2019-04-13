@@ -114,12 +114,6 @@ class RegisterPemasok extends Component {
 				<Redirect to={'/'}/>
 			)
 	    }
-	    if (sessionStorage.length === 0) {
-	      	{toast.success("Anda Harus Login Dahulu !")}
-			return (
-				<Redirect to={'/login'}/>
-			)
-	    }
 		return (
 			<div> 
 				<section style={{ marginBottom: '80px' }}>{/*form*/}
@@ -128,18 +122,12 @@ class RegisterPemasok extends Component {
 			            <div className="col-sm-12">
 			              <div className="signup-form">{/*sign up form*/}
 			                <h2>Daftar Jadi Pemasok!</h2>
-			                <p>Aturan Menjadi Pemasok</p>
-			                <ol>
-			                	<li>Taat Aturan</li>
-			                	<li>Taat Aturan</li>
-			                	<li>Taat Aturan</li>
-			                	<li>Taat Aturan</li>
-			                </ol>
+			                
 			                <form onSubmit={this.handleRegister} id="distance_form">
 			                  <input type="text" name="registName" placeholder="Nama" value={this.state.registName} onChange={this.handleChange} required />
-							  <input class="form-control" id="from_places" placeholder="Alamat" name="registAddress" onChange={this.handleChange} /> 
+							  <input class="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
 							  <input id="origin" name="registAddress" onChange={this.handleChange} required="" type="hidden" />
-			                  <input type="text" name="registDetailAddress" placeholder="Detail Alamat ( Jl. Bunter Sukadana RT03/04 )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
+			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jl. Bunter Sukadana RT03/04 )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
 			                  <input type="text" name="registUsername" placeholder="Username" value={this.state.registUsername} onChange={this.handleChange} required />
 			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />
 			                  <input type="password" name="registPassword" placeholder="Password" value={this.state.registPassword} onChange={this.handleChange} required />

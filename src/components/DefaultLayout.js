@@ -126,6 +126,23 @@ class DefaultLayout extends Component {
                 <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
 
             </Switch>
+            <a href="https://api.whatsapp.com/send?phone=081298904263&text=Bisa Bantu Saya?" style={{
+                position:'fixed',
+                width:'60px',
+                height:'60px',
+                bottom:'40px',
+                right:'40px',
+                backgroundColor:'#25d366',
+                color:'#FFF',
+                borderRadius:'50px',
+                textAlign:'center',
+                fontSize:'30px',
+                boxShadow: '2px 2px 3px #999',
+                zIndex:'100'
+            }} target="_blank">
+                {/*<i className="fa fa-phone" style={{marginTop:'16px'}}></i>*/}
+                <img src="/images/whatsapp-logo.png" className="img-responsive" style={{borderRadius:'50px'}}/>
+            </a>
             </main>
 	      </div>
 	     	

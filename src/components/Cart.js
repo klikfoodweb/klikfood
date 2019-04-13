@@ -23,7 +23,9 @@ class Cart extends Component {
 			beratPerProduk: [],
 			jumlahOngkir: '',
 	 		modePenjualan: '',
-	 		loadOngkir: false
+	 		loadOngkir: false,
+	 		submitting: false,
+	 		errorOngkir: false
 	    };
 
 		this.handleDeleteCart = this.handleDeleteCart.bind(this);
@@ -39,18 +41,23 @@ class Cart extends Component {
 		  	toast.error("Gagal Mendapatkan mode Penjualan :(");
 		  })
 
-		const cekOngkir = new FormData();
-		console.log(sessionStorage);
-		cekOngkir.set('alamat_tujuan', sessionStorage.kota);
+		if(sessionStorage.length !== 0) {
+			const cekOngkir = new FormData();
+			console.log(sessionStorage);
+			cekOngkir.set('alamat_tujuan', sessionStorage.kota);
 
-		axios.post(`https://api.klikfood.id/jarak`, cekOngkir)
-		  .then((response) => {
-		  	this.setState({
-		  		jumlahOngkir: response.data.data.harga
-		  	})
-		  }).catch((error) => {
-		  	toast.error("Gagal Mendapatkan Jumlah Ongkir :(");
-		  })
+			axios.post(`https://api.klikfood.id/jarak`, cekOngkir)
+			  .then((response) => {
+			  	this.setState({
+			  		jumlahOngkir: response.data.data.harga
+			  	})
+			  }).catch((error) => {
+			  	this.setState({
+			  		errorOngkir: true
+			  	})
+			  	toast.error("Gagal Mendapatkan Jumlah Ongkir :(");
+			  })
+		}
 
 		var carts = JSON.parse(localStorage.getItem('cart'));
 		let jumlahBeratNya = null;
@@ -127,7 +134,9 @@ class Cart extends Component {
 			window.location.href='/login';
 	    }else{
 			e.preventDefault();
-
+			this.setState({
+				submitting: true
+			})
 			const willParsedCart = JSON.parse(localStorage.getItem('cart'));
 			let finalCart = [...Array(willParsedCart.length)].map( x => Array(2).fill(0) );
 
@@ -147,24 +156,36 @@ class Cart extends Component {
 			if(this.state.modePenjualan.value === 1) {
 				axios.post(`https://api.klikfood.id/index.php/transaksi/store`, obj)
 			      .then(res => {
+			      	this.setState({
+			      		submitting: true
+			      	})
 			      	console.log(res.data.data);
-			      	toast.success(res.data.data.messages);
+			      	toast.success(res.data.messages);
 			      	setTimeout(() => {
-			      		window.location.href='/admin/transactions/pembelian';
-			      	}, 1000)
+			      		window.location.href='/admin/transactions/'+res.data.data._id;
+			      	}, 3000)
 			      }).catch(err => {
+			      	this.setState({
+			      		submitting: false
+			      	})
 			      	console.log(err);
 			      	toast.error("Tidak Bisa Diorder :( ");
 			      });
 			}else{
 				axios.post(`https://api.klikfood.id/index.php/transaksipusat/store`, obj)
 			      .then(res => {
+			      	this.setState({
+			      		submitting: true
+			      	})
 			      	console.log(res.data);
-			      	toast.success(res.data.data.messages);
+			      	toast.success(res.data.messages);
 			      	setTimeout(() => {
-			      		window.location.href='/admin/transactions/pembelian';
-			      	}, 1000)
+			      		window.location.href='/admin/transactions/'+res.data.data._id;
+			      	}, 3000)
 			      }).catch(err => {
+			      	this.setState({
+			      		submitting: false
+			      	})
 			      	console.log(err);
 			      	toast.error("Tidak Bisa Diorder :( ");
 			      });
@@ -361,13 +382,39 @@ class Cart extends Component {
 		              </div>*/}
 		              <div className="col-sm-12">
 		                <div className="total_area">
-		                  <ul>
-		                    <li>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></li>
-		                    <li>Biaya Pengiriman <span>{ formatter.format(this.state.jumlahOngkir) }</span></li>
-		                    <li>Total <span>{ formatter.format(Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir)) }</span></li>
-		                  </ul>
-		                  {/*<a className="btn btn-default update" href>Update</a>*/}
-		                  <button className="btn btn-default update" onClick={this.handleSubmitOrder} href>Pesan Sekarang !</button>
+		                  {
+		                  	(sessionStorage.length === 0) ?
+		                  		<React.Fragment>
+		                  			<center><h3>Silahkan <Link to="/login">Login</Link> Terlebih Dahulu</h3></center>
+		                  		</React.Fragment>
+		                  	:
+		                  		<React.Fragment>
+		                  		{
+		                  			(!this.state.errorOngkir) ? 
+		                  				<React.Fragment>
+		                  					  <ul>
+							                    <li>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></li>
+							                    <li>Biaya Pengiriman <span>{ formatter.format(this.state.jumlahOngkir) }</span></li>
+							                    <li>Total <span>{ formatter.format(Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir)) }</span></li>
+							                  </ul>
+							                  {this.state.submitting ?
+												<div>
+													<b>Sedang Memesan...</b>
+												</div>
+												:
+					                  		  		<button className="btn btn-default update" onClick={this.handleSubmitOrder} href>Pesan Sekarang !</button>
+												}
+		                  				</React.Fragment>
+		                  			:
+		                  				<React.Fragment>
+		                  					<center>
+		                  						<h3>Maaf, Kota Anda Diluar Jangkauan Pengiriman Kami.</h3>
+		                  						<p>Silahkan Ganti Kota Pengiriman di <Link to="/profile">Halaman Profil Anda</Link></p>
+		                  					</center>
+		                  				</React.Fragment>
+		                  		}
+		                  		</React.Fragment>
+		                  }
 		                </div>
 		              </div>
 		            </div>

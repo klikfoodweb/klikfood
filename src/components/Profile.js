@@ -62,7 +62,7 @@ export default class Profile extends Component {
 			name: this.state.name,
 			email: this.state.email,
 			password: this.state.password,
-			address: document.getElementById('origin').value,
+			address: document.getElementById('from_places').value,
 			detail_address: this.state.detail_address,
 			no_tlp: this.state.no_tlp,
 			username: this.state.username,
@@ -121,6 +121,23 @@ export default class Profile extends Component {
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
+				        		      Kota
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="text" id="from_places" placeholder="Kota" name="address" onChange={this.handleChange} />
+				        		      <input id="origin" name="address" onChange={this.handleChange} required="" type="hidden" />
+				        		    </Col>
+				        		  </Form.Group>
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
+				        		      Alamat Detail 
+				        		    </Form.Label>
+				        		    <Col sm={10}>
+				        		      <Form.Control type="text" placeholder="Alamat" name="detail_address" value={this.state.detail_address} onChange={this.handleChange} />
+				        		    </Col>
+				        		  </Form.Group>
+				        		  <Form.Group as={Row} controlId="formHorizontalName">
+				        		    <Form.Label column sm={2}>
 				        		      Username
 				        		    </Form.Label>
 				        		    <Col sm={10}>
@@ -137,24 +154,7 @@ export default class Profile extends Component {
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
 				        		    <Form.Label column sm={2}>
-				        		      Alamat
-				        		    </Form.Label>
-				        		    <Col sm={10}>
-				        		      <Form.Control type="text" id="from_places" placeholder="Alamat" name="address" onChange={this.handleChange} />
-				        		      <input id="origin" name="address" onChange={this.handleChange} required="" type="hidden" />
-				        		    </Col>
-				        		  </Form.Group>
-				        		  <Form.Group as={Row} controlId="formHorizontalName">
-				        		    <Form.Label column sm={2}>
-				        		      Alamat Detail 
-				        		    </Form.Label>
-				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Alamat" name="detail_address" value={this.state.detail_address} onChange={this.handleChange} />
-				        		    </Col>
-				        		  </Form.Group>
-				        		  <Form.Group as={Row} controlId="formHorizontalName">
-				        		    <Form.Label column sm={2}>
-				        		      No Telepon
+				        		      No Handphone
 				        		    </Form.Label>
 				        		    <Col sm={10}>
 				        		      <Form.Control type="text" placeholder="No Telepon" name="no_tlp" value={this.state.no_tlp} onChange={this.handleChange} />

@@ -9,6 +9,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 let jumlahProdukNya = 0;
 
+const formatter = new Intl.NumberFormat('id-ID', {
+  style: 'currency',
+  currency: 'IDR'
+})
+
 class ShowTransaction extends Component {
 	constructor(props) {
 		super(props);
@@ -133,7 +138,7 @@ class ShowTransaction extends Component {
 				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Jual</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
-				        <h3> Silahkan Transfer Sejumlah <i> Rp. { this.state.transaksi.jumlah_keseluruhan } </i> </h3>
+				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> { formatter.format(this.state.transaksi.jumlah_keseluruhan) } </i> </h3>
 				        <pre>{this.state.pembayaran}</pre>
 				        <label>Upload Bukti Pembayaran</label>
 			        	<form onSubmit={this.handleSubmit}>

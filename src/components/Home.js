@@ -139,32 +139,22 @@ class Home extends Component {
 			  <div className="col-sm-6 col-xs-6">
 			    <center>
 			      <div className="price-range">{/*Jadi Mitra*/}
-			        {
-		                (sessionStorage.length === 0) ?
-		                <React.Fragment>
-			        		<center><Link to="/login"><button type="button" className="btn btn-success get">JADI MITRA KAMI</button></Link></center><br />
-			      		</React.Fragment>
-			      		: 
-			      		<React.Fragment>
-			        		<center><Link to="/register-mitra"><button type="button" className="btn btn-success get">JADI MITRA KAMI</button></Link></center><br />
-			      		</React.Fragment>
-			      	}
+			        
+		      		<React.Fragment>
+		        		<center><Link to="/register-mitra"><button type="button" className="btn get" style={{backgroundColor: '#16e02e', padding: '20px', borderRadius: '50%'}}><b>JADI MITRA KAMI</b></button></Link></center><br />
+		      		</React.Fragment>
+		      	
 			      </div>
 			    </center>
 			  </div>
 			  <div className="col-sm-6 col-xs-6">
 			    <center>
 			      <div className="price-range">{/*Jadi Rekan*/}
-			        {
-		                (sessionStorage.length === 0) ?
-		                <React.Fragment>
-			        		<center><Link to="/login"><button type="button" className="btn btn-success get">JADI PEMASOK</button></Link></center><br />
-			      		</React.Fragment>
-			      		:
-			      		<React.Fragment>
-			        		<center><Link to="/register-pemasok"><button type="button" className="btn btn-success get">JADI PEMASOK</button></Link></center><br />
-			      		</React.Fragment>
-			      	}
+			        
+			        <React.Fragment>
+		        		<center><Link to="/register-pemasok"><button type="button" className="btn get" style={{backgroundColor: '#16e02e', padding: '20px', borderRadius: '50%'}}><b>JADI PEMASOK</b></button></Link></center><br />
+		      		</React.Fragment>
+
 			      </div>
 			    </center>
 			  </div>		
@@ -198,9 +188,9 @@ class Home extends Component {
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                                {
 				                                	(this.state.modePenjualan.value === 1) ?
-				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>
@@ -227,9 +217,9 @@ class Home extends Component {
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                              	{
 				                                	(this.state.modePenjualan.value === 1) ?
-				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>
@@ -271,9 +261,9 @@ class Home extends Component {
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                              	{
 				                                	(this.state.modePenjualan.value === 1) ?
-				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>
@@ -300,9 +290,9 @@ class Home extends Component {
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                              	{
 				                                	(this.state.modePenjualan.value === 1) ?
-				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>
@@ -343,9 +333,9 @@ class Home extends Component {
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                              	{
 				                                	(this.state.modePenjualan.value === 1) ?
-				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>
@@ -372,9 +362,9 @@ class Home extends Component {
 				                                <p className="homeNameProduk">{ item.name }</p>
 				                              	{
 				                                	(this.state.modePenjualan.value === 1) ?
-				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>
@@ -417,9 +407,9 @@ class Home extends Component {
 							                                <p className="homeNameProduk">{ item.name }</p>
 							                              	{
 							                                	(this.state.modePenjualan.value === 1) ?
-							                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+							                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 							                                	: 
-							                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+							                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 							                                }
 							                              </div>
 							                            </div>
@@ -446,9 +436,9 @@ class Home extends Component {
 							                                <p className="homeNameProduk">{ item.name }</p>
 							                              	{
 							                                	(this.state.modePenjualan.value === 1) ?
-							                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
+							                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 							                                	: 
-							                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>	
+							                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 							                                }
 							                              </div>
 							                            </div>

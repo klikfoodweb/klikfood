@@ -23,6 +23,7 @@ class DetailProduct extends Component {
 			stok: '',
 			berat_kemasan: '',
 			harga_supplyer: '',
+			harga_jual: '',
 			expire: '',
 			deskripsi: '',
 			type: '',

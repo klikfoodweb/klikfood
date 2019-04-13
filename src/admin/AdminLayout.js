@@ -43,6 +43,8 @@ import ProductVerified from './product/ProductVerified';
 import ProductMitra from './product/ProductMitra';
 import DetailMitra from './product/DetailMitra';
 
+import CreateProduct from './COO/CreateProduct';
+
 import OrderProduct from './distribution/OrderProduct';
 import MyOrder from './distribution/MyOrder';
 import DetailProduct from './distribution/DetailProduct';
@@ -196,7 +198,8 @@ class AdminLayout extends Component {
 	            	<Route path="/admin/products/:id/show" component={ProductShow} />
 	            	<Route path="/admin/products/create" component={ProductCreate} />
 	            	<Route path="/admin/list-produk-mitra/:id" component={DetailMitra} />	            
-	            	<Route path="/admin/list-produk-mitra" component={ProductMitra} />	
+	            	<Route path="/admin/list-produk-mitra" component={ProductMitra} />
+	            	<Route path="/admin/list-produk/create" component={CreateProduct} />	
 	            	<Route path="/admin/list-produk" component={ProductVerified} />
 	            	<Route path="/admin/products" component={ProductList} />	   
 	            	<Route path="/admin/myproducts" component={MyProducts} />

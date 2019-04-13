@@ -303,7 +303,7 @@ class CatalogMitra extends Component {
 		                      	        <p>{ item.name }</p>
 		                      	        {/*<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>*/}
 		                      	      </div>
-		                      	      <div className="product-overlay">
+		                      	      {/*<div className="product-overlay">
 		                      	        <div className="overlay-content">
 		                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	          <p>{ item.deskripsi }</p>
@@ -312,7 +312,7 @@ class CatalogMitra extends Component {
 		                      	          <br />
 		                      	          <a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
 		                      	        </div>
-		                      	      </div>
+		                      	      </div>*/}
 		                      	    </div>
 		                      	    <div className="choose">
 		                      	      <ul className="nav nav-pills nav-justified">

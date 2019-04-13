@@ -94,7 +94,7 @@ class Login extends Component {
 			username: this.state.registUsername,
 			email: this.state.registEmail,
 			password: this.state.registPassword,
-			address: document.getElementById('origin').value,
+			address: document.getElementById('from_places').value,
 			detail_address: this.state.registDetailAddress,
 			no_tlp: this.state.registHp
 		}
@@ -141,7 +141,7 @@ class Login extends Component {
 			              <div className="login-form">{/*login form*/}
 			                <h2>Masuk ke Akun Anda</h2>
 			                <form onSubmit={this.handleSubmit}>
-			                  <input type="email" name="email" placeholder="Alamat Email" value={this.state.email} onChange={this.handleChange} required />
+			                  <input type="text" name="email" placeholder="Username / Email" value={this.state.email} onChange={this.handleChange} required />
 			                  <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required />
 			                  <Link to="/forget">Lupa Kata Sandi?</Link>
 			                  {/*<span>
@@ -166,10 +166,10 @@ class Login extends Component {
 			                <h2>Daftar Baru!</h2>
 			                <form onSubmit={this.handleRegister} id="distance_form">
 			                  <input type="text" name="registName" placeholder="Nama" value={this.state.registName} onChange={this.handleChange} required />
-							  <input class="form-control" id="from_places" placeholder="Alamat" name="registAddress" onChange={this.handleChange} /> 
+							  <input class="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
 							  <input id="origin" name="registAddress" onChange={this.handleChange} required="" type="hidden" />
-			                  <input type="text" name="registDetailAddress" placeholder="Detail Alamat ( Jl. Bunter Sukadana RT03/04 )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
-			                  <input type="text" name="registUsername" placeholder="Username" value={this.state.registUsername} onChange={this.handleChange} required />
+			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jalan / RW / RT )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
+			                  <input type="text" name="registUsername" placeholder="Username (Harus Mengandung Angka)" value={this.state.registUsername} onChange={this.handleChange} required />
 			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />
 			                  <input type="password" name="registPassword" placeholder="Password" value={this.state.registPassword} onChange={this.handleChange} required />
 		                  
@@ -177,7 +177,7 @@ class Login extends Component {
 			                  {/*<input type="text" name="registAddress" id="from_places" placeholder="Alamat" value={this.state.registAddress} onChange={this.handleChange} required />
 			                  <input id="origin" name="origin" type="hidden" />*/}
 			                  
-			                  <input type="text" name="registHp" placeholder="No Telp" value={this.state.registHp} onChange={this.handleChange} required />
+			                  <input type="text" name="registHp" placeholder="No HP" value={this.state.registHp} onChange={this.handleChange} required />
 			                  
 								{this.state.registrating ?
 								<div>

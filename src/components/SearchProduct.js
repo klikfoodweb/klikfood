@@ -24,7 +24,8 @@ class SearchProduct extends Component {
 	 		verifiedproducts: [],
 	 		carts: [],
 	 		products: [],
-	 		loader: true
+	 		loader: true,
+	 		modePenjualan: ''
 	    };
 
 	    this.onChangePage = this.onChangePage.bind(this);
@@ -38,11 +39,20 @@ class SearchProduct extends Component {
 	}
 
 	componentDidMount() {
+		axios.get(`https://api.klikfood.id/config/mode`)
+		  .then((response) => {
+		  	this.setState({
+		  		modePenjualan: response.data.data.value
+		  	})
+		  }).catch((error) => {
+		  	toast.error("Gagal Mendapatkan mode Penjualan :(");
+		  })
+
 		var query = this.props.location.search.split('=');
 		if( query.length !== 0 ){
-			axios.get(`https://api.klikfood.id/index.php/mitra/produk?verify=1&name=`+query[1], { 'headers': { 'Authorization': sessionStorage.api_token } })
+			axios.get(`https://api.klikfood.id/index.php/mitra/produk?type=verify&name=`+query[1], { 'headers': { 'Authorization': sessionStorage.api_token } })
 		      .then((response) => {
-		      	console.log(response);
+		      	console.log(query);
 		      	this.setState({
 		      		products: response.data.data,
 		      		loader: false
@@ -69,6 +79,16 @@ class SearchProduct extends Component {
 	//     console.log(JSON.parse(localStorage.getItem('cart')));
 	// 	toast.success("Berhasil Dimasukkan Keranjang !");
 	// }
+
+	handleAddToCart = (e) => {
+    	e.preventDefault();
+		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+	    
+	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
+	    console.log(JSON.stringify(this.state.carts));
+	    console.log(JSON.parse(localStorage.getItem('cart')));
+		toast.success("Berhasil Dimasukkan Keranjang !");
+	}
 	
 	render() {
 		const MyLoader = props => (
@@ -106,9 +126,9 @@ class SearchProduct extends Component {
 
 		                  { this.state.loader ?
 		                  <React.Fragment>
-		                  {[...Array(9)].map((x, i) =>
+		                  {[...Array(12)].map((x, i) =>
 						  	<div>
-		                      	<div className="col-sm-4">
+		                      	<div className="col-sm-3">
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <MyLoader key={i} />
@@ -125,35 +145,47 @@ class SearchProduct extends Component {
 						  </React.Fragment>
 						  :
 						  <React.Fragment>
-		                  {this.state.pageOfItems.map(item =>
-		                      <div>
-		                      	<div className="col-sm-4" key={item.id}>
-		                      	  <div className="product-image-wrapper">
-		                      	    <div className="single-products">
-		                      	      <div className="productinfo text-center">
-		                      	        <img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
-		                      	        <h2>{ formatter.format(item.harga_jual) }</h2>
-		                      	        <p>{ item.name }</p>
-		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
-		                      	      </div>
-		                      	      <div className="product-overlay">
-		                      	        <div className="overlay-content">
-		                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
-		                      	          <p>{ item.deskripsi }</p>
-		                      	          <p>{item.name}</p>
-		                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
-		                      	        </div>
-		                      	      </div>
-		                      	    </div>
-		                      	    <div className="choose">
-		                      	      <ul className="nav nav-pills nav-justified">
-		                      	        
-		                      	      </ul>
-		                      	    </div>
-		                      	  </div>
-		                      	</div>
-		                      </div>
-		                  )}
+						  {
+			                	(this.state.products.length !== 0) ?
+					              <React.Fragment> 	
+				                  {this.state.pageOfItems.map(item =>
+				                      <div>
+				                      	<div className="col-sm-3" key={item.id}>
+				                      	  <div className="product-image-wrapper">
+				                      	    <div className="single-products">
+				                      	      <div className="productinfo text-center">
+				                      	        <Link to={"/product/"+item._id}><img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
+				                      	        <h2>{ formatter.format(item.harga_jual) }</h2>
+				                      	        <p>{ item.name }</p>
+				                      	      	{
+				                                	(this.state.modePenjualan.value === 1) ?
+				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
+				                                	: 
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
+				                                }
+				                      	      </div>
+				                      	      {/*<div className="product-overlay">
+				                      	        <div className="overlay-content">
+				                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
+				                      	          <p>{ item.deskripsi }</p>
+				                      	          <p>{item.name}</p>
+				                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>
+				                      	        </div>
+				                      	      </div>*/}
+				                      	    </div>
+				                      	    <div className="choose">
+				                      	      <ul className="nav nav-pills nav-justified">
+				                      	        
+				                      	      </ul>
+				                      	    </div>
+				                      	  </div>
+				                      	</div>
+				                      </div>
+				                  )}
+			                  </React.Fragment>
+			                  :
+			                  <center><h3>Produk Tidak Ditemukan :(</h3></center>
+			              }
 		                  </React.Fragment>
 		                  }
 		                </div>{/*features_items*/}

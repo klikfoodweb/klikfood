@@ -35,11 +35,11 @@ class ProductList extends Component {
   			axios.defaults.headers = {  
   				'Authorization': sessionStorage.api_token 
   			}
-  			axios.delete(`https://api.klikfood.id/index.php/produksupplyer/destroy/`+e.target.value)
+  			axios.delete(`https://api.klikfood.id/index.php/produkpusat/destroy/`+e.target.value)
   		      .then(res => {
   		      	toast.success("Produk Terhapus !");
   		      	setTimeout(() => {
-  		      		window.location.href='/admin/products';
+  		      		window.location.href='/admin/list-produk';
   		      	}, 3000)
   		      }).catch(err => {
   		      	toast.error("Something Went Wrong :( ");
@@ -66,13 +66,14 @@ class ProductList extends Component {
 				        
 				      </div>
 				      <div className="body">
+				      	<Link to="/admin/list-produk/create" className="btn btn-success"> Tambah Produk </Link>
     			        <div className="table-responsive">
     			        	<BootstrapTable data={this.state.verifiedproducts} striped search pagination hover>
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='stok' dataSort={true}>Stok</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Jumlah Kemasan</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.showLayout } width="150"> </TableHeaderColumn>
 		                  	  <TableHeaderColumn dataField='any' dataFormat={ this.deleteLayout } width="150"> </TableHeaderColumn>

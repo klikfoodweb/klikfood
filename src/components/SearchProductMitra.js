@@ -194,19 +194,19 @@ class SearchProductMitra extends Component {
 		                      	  <div className="product-image-wrapper">
 		                      	    <div className="single-products">
 		                      	      <div className="productinfo text-center">
-		                      	        <img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} />
+		                      	        <Link to={"/product/"+item._id}><img src={ "https://api.klikfood.id/uploads/produk/" + item._id + "/" + item.foto_1 + "?i=1" } alt="product12" style={{maxHeight: '150px'}} /></Link>
 		                      	        <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	        <p>{ item.name }</p>
-		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	        <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>
 		                      	      </div>
-		                      	      <div className="product-overlay">
+		                      	      {/*<div className="product-overlay">
 		                      	        <div className="overlay-content">
 		                      	          <h2>{ formatter.format(item.harga_jual) }</h2>
 		                      	          <p>{ item.deskripsi }</p>
 		                      	          <p>{item.name}</p>
-		                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Add to cart</a>
+		                      	          <a href="/search-mitra" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>
 		                      	        </div>
-		                      	      </div>
+		                      	      </div>*/}
 		                      	    </div>
 		                      	    <div className="choose">
 		                      	      <ul className="nav nav-pills nav-justified">

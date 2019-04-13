@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-class ProductUpdate extends Component {
+class CreateProduct extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,15 +13,16 @@ class ProductUpdate extends Component {
 			name: '',
 			stok: '',
 			berat_kemasan: '',
-			harga_supplyer: '',
 			harga_jual: '',
+			harga_supplyer: '',
 			expire: '',
 			deskripsi: '',
-			type: '',
+			type: 'distributor',
 			kategori_id: '',
 			foto_1: null,
 			foto_2: null,
 			foto_3: null,
+			submitting: false,
 			satuan: ''
 		}
 	}
@@ -29,33 +30,9 @@ class ProductUpdate extends Component {
 	componentDidMount() {
 		axios.get(`https://api.klikfood.id/index.php/kategori`)
 		  .then((response) => {
+		  	console.log(response);
 		  	this.setState({
 		  		categories: response.data.data
-		  	})
-		  }).catch((error) => {
-		  	toast.error("Something Went Wrong :(");
-		  })
-
-		  axios.defaults.headers = {  
-			'Authorization': sessionStorage.api_token 
-			}
-
-		 axios.get(`https://api.klikfood.id/index.php/produksupplyer/show/`+this.props.match.params.id)
-		  .then((response) => {
-		  	this.setState({
-		  		name: response.data.data.name,
-		  		stok: response.data.data.stok,
-		  		berat_kemasan: response.data.data.berat_kemasan,
-		  		harga_supplyer: response.data.data.harga_supplyer,
-		  		harga_jual: response.data.data.harga_jual,
-		  		expire: response.data.data.expire,
-		  		deskripsi: response.data.data.deskripsi,
-		  		type: response.data.data.type,
-		  		kategori_id: response.data.data.kategori_id,
-		  		foto_1: response.data.data.foto_1,
-		  		foto_2: response.data.data.foto_2,
-		  		foto_3: response.data.data.foto_3,
-		  		satuan: response.data.data.satuan
 		  	})
 		  }).catch((error) => {
 		  	toast.error("Something Went Wrong :(");
@@ -82,13 +59,16 @@ class ProductUpdate extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
+		this.setState({
+			submitting: true
+		})
 		const bodyFormData = new FormData();
 		
 		bodyFormData.set('name', this.state.name);
 		bodyFormData.set('stok', this.state.stok);
 		bodyFormData.set('berat_kemasan', this.state.berat_kemasan);
-		bodyFormData.set('harga_supplyer', this.state.harga_supplyer);
 		bodyFormData.set('harga_jual', this.state.harga_jual);
+		bodyFormData.set('harga_supplyer', this.state.harga_supplyer);
 		bodyFormData.set('expire', this.state.expire);
 		bodyFormData.set('deskripsi', this.state.deskripsi);
 		bodyFormData.set('type', this.state.type);
@@ -102,15 +82,20 @@ class ProductUpdate extends Component {
 			'Content-Type': 'multipart/form-data',  
 			'Authorization': sessionStorage.api_token 
 		}
-		console.log(bodyFormData);
-		axios.post(`https://api.klikfood.id/index.php/produksupplyer/update/`+this.props.match.params.id, bodyFormData)
+		
+		axios.post(`https://api.klikfood.id/index.php/produkpusat/store`, bodyFormData)
 	      .then(response => {
-	      	console.log(response)
-	      	toast.success("Produk Berhasil diUbah!");
+	      	this.setState({
+				submitting: true
+			})
+	      	toast.success("Menambah Produk Sukses !");
 	      	setTimeout(() => {
-	      		window.history.back();
-	      	}, 2000)
+	      		window.location.href='/admin/list-produk';
+	      	}, 3000)
 	      }).catch(err => {
+	      	this.setState({
+				submitting: false
+			})
 	      	toast.error("Something Went Wrong :( ");
 	      });
 	}
@@ -124,7 +109,7 @@ class ProductUpdate extends Component {
 				        <div classname="card">
 				            <div classname="header">
 				              <h2>
-				                Detail Produk
+				                Tambah Produk
 				              </h2>
 				            </div>
 				            <div classname="body">
@@ -134,7 +119,7 @@ class ProductUpdate extends Component {
 				        		      Nama Barang
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Name" name="name" value={this.state.name} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -142,7 +127,7 @@ class ProductUpdate extends Component {
 				        		      Stok
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Stok" name="stok" value={this.state.stok} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Stok" name="stok" value={this.state.stok} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -150,7 +135,7 @@ class ProductUpdate extends Component {
 				        		      Jumlah Kemasan
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Berat Kemasan" name="berat_kemasan" value={this.state.berat_kemasan} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Berat Kemasan" name="berat_kemasan" value={this.state.berat_kemasan} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -158,7 +143,7 @@ class ProductUpdate extends Component {
 				        		      Harga Supplyer
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Harga Supplyer" name="harga_supplyer" value={this.state.harga_supplyer} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Harga Supplyer" name="harga_supplyer" value={this.state.harga_supplyer} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -166,7 +151,7 @@ class ProductUpdate extends Component {
 				        		      Harga Jual
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="number" placeholder="Harga Jual" name="harga_jual" value={this.state.harga_jual} onChange={this.handleChange} />
+				        		      <Form.Control type="number" placeholder="Harga Jual" name="harga_jual" value={this.state.harga_jual} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -174,7 +159,7 @@ class ProductUpdate extends Component {
 				        		      Satuan
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Satuan" name="satuan" value={this.state.satuan} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Satuan (contoh: PACK/KG/dll)" name="satuan" value={this.state.satuan} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
@@ -182,7 +167,7 @@ class ProductUpdate extends Component {
 				        		      Tanggal Kadaluarsa
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="date" placeholder="Kadaluarsa" name="expire" value={this.state.expire} onChange={this.handleChange} />
+				        		      <Form.Control type="date" placeholder="Kadaluarsa" name="expire" value={this.state.expire} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 
@@ -191,7 +176,7 @@ class ProductUpdate extends Component {
 				        		      Deskripsi
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Deskripsi" name="deskripsi" value={this.state.deskripsi} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Deskripsi" name="deskripsi" value={this.state.deskripsi} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 
@@ -200,25 +185,13 @@ class ProductUpdate extends Component {
 				        		      Upload Gambar
 				        		    </Form.Label>
 				        		    <Col sm={3}>
-				        		    { (this.state.foto_1) ? 
-				        		    	<img src={ "https://api.klikfood.id/uploads/produk/" + this.props.match.params.id + "/" + this.state.foto_1 } height="150px" />
-				        		    	: null
-				        		    }
-				        		      <Form.Control type="file" name="foto_1" onChange={this.handleChangeFoto1} />
+				        		      <Form.Control type="file" name="foto_1" onChange={this.handleChangeFoto1} required />
 				        		    </Col>
 				        		    <Col sm={3}>
-				        		    { (this.state.foto_2) ? 
-				        		    	<img src={ "https://api.klikfood.id/uploads/produk/" + this.props.match.params.id + "/" + this.state.foto_2 } height="150px" />
-				        		    	: null
-				        		    }
-				        		      <Form.Control type="file" name="foto_2" onChange={this.handleChangeFoto2} />
+				        		      <Form.Control type="file" name="foto_2" onChange={this.handleChangeFoto2} required />
 				        		    </Col>
 				        		    <Col sm={3}>
-				        		    { (this.state.foto_3) ? 
-				        		    	<img src={ "https://api.klikfood.id/uploads/produk/" + this.props.match.params.id + "/" + this.state.foto_3 } height="150px" />
-				        		    	: null
-				        		    }
-				        		      <Form.Control type="file" name="foto_3" onChange={this.handleChangeFoto3} />
+				        		      <Form.Control type="file" name="foto_3" onChange={this.handleChangeFoto3} required />
 				        		    </Col>
 				        		  </Form.Group>
 
@@ -230,14 +203,11 @@ class ProductUpdate extends Component {
 				        		    <Col sm={2}>
 				        		    <label>{ category.kategori.name }</label>
 				        		    	{ category.subkategori.map((subkategori,i) =>
-			        		            <Form.Check
-			        		              type="radio"
-			        		              label={subkategori.name}
-			        		              name="kategori_id"
-			        		              id="formHorizontalRadios1"
-			        		              value={subkategori.kategori_id}
-			        		              onClick={this.handleChange}
-			        		            />
+			        		            	<React.Fragment>
+			        		            		<br />
+			        		            		<input type="radio" name="kategori_id" value={subkategori._id} onClick={this.handleChange} style={{position: 'relative'}} />{subkategori.name}
+			        		            		<br />
+			        		            	</React.Fragment>
 			        		            )}
 			        		        </Col>
 			        		        )}
@@ -245,7 +215,13 @@ class ProductUpdate extends Component {
 
 				        		  <Form.Group as={Row}>
 				        		    <Col sm={{ span: 10, offset: 2 }}>
-				        		      <Button type="submit">Update</Button>
+				        		      {this.state.submitting ?
+										<div>
+											<b><center>Sedang Upload...</center></b>
+										</div>
+										:
+											<Button type="submit" className="btn btn-success">Tambahkan</Button>
+										}
 				        		    </Col>
 				        		  </Form.Group>
 				        		</Form>;
@@ -257,4 +233,4 @@ class ProductUpdate extends Component {
 		);
 	}
 }
-export default ProductUpdate;
+export default CreateProduct;

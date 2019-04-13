@@ -32,7 +32,7 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN MITRA</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="/formulir-mitra">Daftar Jadi Mitra</Link></li>
+				              <li><Link to="/register-mitra">Daftar Jadi Mitra</Link></li>
 				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
 				              <li><Link to="downloadapp.html">Dowload Aplikasi</Link></li>
 				              <li><Link to="/login">Ikut Sayembara</Link></li>
@@ -46,11 +46,11 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN PEMASOK</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="bepemasok.html">Daftar Jadi Pemasok </Link></li>
+				              <li><Link to="/register-pemasok">Daftar Jadi Pemasok </Link></li>
 				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
 				              <li><Link to="downloadapp.html">Download Aplikasi</Link></li>
 				              <li><Link to="faqs.html">FAQs</Link></li>
-				              <li><Link to="login-pemasok.html">Login</Link></li>
+				              <li><Link to="/login">Login</Link></li>
 				            </ul>
 				          </div>
 				        </div>{/*Footer--/End--Join-Rekan*/}
@@ -94,10 +94,10 @@ class FooterBottom extends Component {
 				            </form>
 				            <div className="social-icons pull-right" style={{marginTop: '-20px'}}>
 				              <ul className="nav navbar-nav">
-				                <li><Link to="#"><i className="fa fa-facebook" /></Link></li>
-				                <li><Link to="#"><i className="fa fa-twitter" /></Link></li>
-				                <li><Link to="#"><i className="fa fa-linkedin" /></Link></li>
-				                <li><Link to="#"><i className="fa fa-google-plus" /></Link></li>
+				                <li><a target="_blank" href="https://facebook.com/klikfood.indonesia"><i className="fa fa-facebook" /></a></li>
+				                <li><a target="_blank" href="https://twitter.com/klikfood"><i className="fa fa-twitter" /></a></li>
+				                <li><a target="_blank" href="https://www.youtube.com/channel/UCWx0A1XIDTfNbrgFQa8ZJKA"><i className="fa fa-youtube" /></a></li>
+				                <li><a target="_blank" href="https://www.instagram.com/klikfood.indonesia"><i className="fa fa-instagram" /></a></li>
 				              </ul>
 				            </div>
 				          </div>
@@ -111,7 +111,7 @@ class FooterBottom extends Component {
 				    <div className="container">
 				      <div className="row">
 				        <p className="pull-left">Copyright © 2019 klikfood.id. All rights reserved.</p>
-				        <p className="pull-right">Powered By <span><a target="_blank" rel="noopener noreferrer" href="http://www.bap-group.co.id">PT. Distra Boga Sarana</a></span></p>
+				        <p className="pull-right">Powered By <span><a target="_blank" rel="noopener noreferrer" href="http://www.asa-group.co.id">PT. Distra Boga Sarana</a></span></p>
 				      </div>
 				    </div>
 				  </div>{/*Footer--/End--Copyrights*/}
