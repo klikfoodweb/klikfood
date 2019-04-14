@@ -97,10 +97,10 @@ class Header extends Component {
 	                <div className="col-sm-8">
 	                  <div className="shop-menu pull-right">
 	                    <ul className="nav navbar-nav">
-	                      <li><Link to="/login"><i className="fa fa-star" /> Daftar</Link></li>
+	                      <li><a href="/login"><i className="fa fa-star" /> Daftar</a></li>
 	                      <li><Link to="/cart"><i className="fa fa-shopping-cart" /> Keranjang</Link></li>
 	                    {(sessionStorage.length === 0) ?
-	                      <li><Link to="/login"><i className="fa fa-lock" /> Login</Link></li>
+	                      <li><a href="/login"><i className="fa fa-lock" /> Login</a></li>
 	                    	: null
 	                    }
 	    				{(sessionStorage.length !== 0) ?
@@ -162,8 +162,8 @@ class Header extends Component {
 		                        </ul>								
 	                      </li> 								
 	                      <li><Link to="/contact">Kontak</Link></li>
-	                      <li><Link to="/mitra-supplyer">Jadi Mitra / Pemasok</Link></li>
-	                      <li><a href="http://blogklikfood.000webhostapp.com" target="_blank" rel="noopener noreferrer">Blog</a></li>
+	                      <li><Link to="/mitra-pemasok">Jadi Mitra / Pemasok</Link></li>
+	                      <li><a href="https://blog.klikfood.id" target="_blank" rel="noopener noreferrer">Blog</a></li>
 	                      <li><a href="https://tawk.to/chat/5c8407f1c37db86fcfcce4bc/1d5hs5ip0" target="_blank" rel="noopener noreferrer">Support</a></li>
 	                    </ul>
 	                  </div>

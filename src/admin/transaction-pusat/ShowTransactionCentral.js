@@ -61,7 +61,16 @@ class ShowTransactionCentral extends Component {
 				        <br />
 				        <label>Bukti Bayar = </label>
 				        <br />
-				        <img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        {
+				        	(typeof this.state.transaksi.bayar !== 'undefined') ?
+				        		<React.Fragment>
+				        		<b>Sudah Dibayar</b>
+				        		<br/>
+				        		<img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        		</React.Fragment>
+				        	:
+				        		<b>Belum Dibayar</b>
+				        }
 				        <br />
 				        <label>Detail Produk Yang Dipesan</label>
 				        {

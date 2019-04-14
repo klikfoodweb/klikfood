@@ -4,7 +4,7 @@ import axios from 'axios';
 import {toast} from 'react-toastify';
 import {Link} from 'react-router-dom';
 
-class MitraSupplyer extends Component {
+class MitraSupplyer extends Component {	
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -48,8 +48,8 @@ class MitraSupplyer extends Component {
 				        <div className="price-range">{/*Jadi Mitra*/}
 				          <h3>Jadi MITRA</h3>
 				          <center><p>Menjadi mitra kami dengan membuka usaha mandiri. <br /><Link to="/privacy">Baca keterangan lebih lanjut disini</Link></p></center>
-				          <Link to="/login"><img src="images/home/mitra.png" class="img-responsive" alt /></Link>
-				          <center><Link to="/login"><button type="button" className="btn btn-default get">JADI MITRA KAMI</button></Link></center><br />
+				          <a href="/register-mitra"><img src="images/home/mitra.png" class="img-responsive" alt /></a>
+				          <center><a href="/register-mitra"><button type="button" className="btn btn-default get">JADI MITRA KAMI</button></a></center><br />
 				        </div>{/*/New-Product*/}</center>
 				    </div>
 				    <div className="col-sm-6 col-xs-6">
@@ -57,8 +57,8 @@ class MitraSupplyer extends Component {
 				        <div className="price-range">{/*Jadi Rekan*/}
 				          <h3>Jadi PEMASOK</h3>
 				          <center><p>Anda sudah punya usaha? Ayo maju bareng kami!<br /><Link to="/privacy">Baca keterangan lebih lanjut disini</Link></p></center>
-				          <Link to="/login"><img src="images/home/shake-hands.png" class="img-responsive" alt /></Link>
-				          <center><Link to="/login"><button type="button" className="btn btn-default get">JADI PEMASOK</button></Link></center><br />
+				          <a href="/register-pemasok"><img src="images/home/shake-hands.png" class="img-responsive" alt /></a>
+				          <center><a href="/register-pemasok"><button type="button" className="btn btn-default get">JADI PEMASOK</button></a></center><br />
 				        </div>{/*/New-Product*/}</center>
 				    </div>		
 				  </div>

@@ -13,8 +13,8 @@ class Privacy extends Component {
 		<section>
       	<div className="container">
 		<div className="WordSection1">
-        <p className="MsoNormal"><b><span style={{fontSize: '14.0pt', lineHeight: '115%'}}>Kebijakan
-              Privacy </span></b></p>
+        <p className="MsoNormal"><b><span style={{fontSize: '16.0pt', lineHeight: '106%'}}>&nbsp;</span></b></p>
+                          <h2 className="title text-center">Kebijakan Privasi</h2>
         <p className="MsoNormal"><b><span style={{fontSize: '14.0pt', lineHeight: '115%'}}>&nbsp;</span></b></p>
         <p className="MsoNormal"><b>1.Pengumpulan Informasi</b></p>
         <p className="MsoNormal">Kami mengumpulkan informasi dari Anda ketika Anda mendaftar

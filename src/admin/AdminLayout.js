@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import '../assets/css/node-waves/waves.css';
 import '../assets/css/animate-css/animate.css';
 import '../assets/css/morrisjs/morris.css';
@@ -113,6 +114,32 @@ class AdminLayout extends Component {
                 }
               })
         }, 60000);
+
+        if(sessionStorage.role === 'CFO') {
+        	setInterval(() => {
+	            axios.get(`https://api.klikfood.id/config/notif/cfo`)
+	              .then((response) => {
+	              	if(response.data.data === 1) {
+		  				toast.info("Ada Pesanan Baru !", { autoClose: 15000 });
+	              	}
+	              }).catch((error) => {
+	                console.log(error)
+	              })
+	        }, 10000);
+        }
+
+        if(sessionStorage.role === 'COO') {
+        	setInterval(() => {
+	            axios.get(`https://api.klikfood.id/config/notif/coo`)
+	              .then((response) => {
+		  			if(response.data.data === 1) {
+		  				toast.info("Ada Pesanan Baru !", { autoClose: 15000 });
+	              	}
+	              }).catch((error) => {
+	                console.log(error)
+	              })
+	        }, 10000);
+        }
 	}
 	render() {
 		if (sessionStorage.length === 0) {

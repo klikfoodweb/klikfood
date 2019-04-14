@@ -35,7 +35,7 @@ class GraphMitra extends Component {
 				      </div>
 				      <div className="body">
 				      	<h2> Jumlah Transaksi Perbulan </h2>
-				      	<ColumnChart data={this.state.transaksiBulanan} />      	
+				      	<ColumnChart thousands="," data={this.state.transaksiBulanan} />      	
 				      </div>
 				    </div>
 				  </div>

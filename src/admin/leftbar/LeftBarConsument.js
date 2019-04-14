@@ -34,12 +34,12 @@ class LeftBarConsument extends Component {
 				          </li>
 				        </ul>
 				      </li>
-				      <li>
+				      {/*<li>
 				        <Link to="/admin/sayembara">
 				          <i className="material-icons">widgets</i>
 				          <span>Sayembara Log</span>
 				        </Link>
-				      </li>
+				      </li>*/}
 				      
 				    </ul>
 				  </div>
@@ -47,7 +47,7 @@ class LeftBarConsument extends Component {
 				  {/* Footer */}
 				  <div className="legal">
 				    <div className="copyright">
-				      © 2019 <a href="#">Admin - ClickFood</a>.
+				      © 2019 <a href="#">{sessionStorage.username} - KlikFood</a>.
 				    </div>
 				    <div className="version">
 				      <b>Version: </b> 2.0.0

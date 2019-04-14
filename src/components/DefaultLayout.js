@@ -102,7 +102,7 @@ class DefaultLayout extends Component {
                 <Route path="/privacy" name="Privacy" component={Privacy} />
                 <Route path="/faqs-mitra" name="FaqsMitra" component={FaqsMitra} />
             	<Route path="/budaya-kerja" name="BudayaKerja" component={BudayaKerja} />
-                <Route path="/mitra-supplyer" name="MitraSupplyer" component={MitraSupplyer} />
+                <Route path="/mitra-pemasok" name="MitraSupplyer" component={MitraSupplyer} />
                 <Route path="/disclaimer" name="Disclaimer" component={Disclaimer} />
                 <Route path="/formulir-mitra" name="FormulirMitra" component={FormulirMitra} />
                 <Route path="/ketentuan-penggunaan-website" name="KetentuanPenggunaanWebsite" component={KetentuanPenggunaanWebsite} />
@@ -126,7 +126,7 @@ class DefaultLayout extends Component {
                 <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
 
             </Switch>
-            <a href="https://api.whatsapp.com/send?phone=081298904263&text=Bisa Bantu Saya?" style={{
+            <a href="https://api.whatsapp.com/send?phone=6281298904263&text=Bisa Bantu Saya?" style={{
                 position:'fixed',
                 width:'60px',
                 height:'60px',

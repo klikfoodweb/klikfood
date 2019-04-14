@@ -19,9 +19,15 @@ class RegisterPemasok extends Component {
 			registAddress: '',
 			registDetailAddress: '',
 			registHp: '',
+			registKtp: null,
+			registTempat: '',
+			registTanggalLahir: '',
+			registJK: '',
+			registNamaBadanUsaha: '',
 			registrating: false,
 			redirect: false
 		}
+		window.scrollTo(0,0);
 		this.handleChange = this.handleChange.bind(this);
 	}
 
@@ -69,6 +75,10 @@ class RegisterPemasok extends Component {
 	//       })
 	// }
 
+	handleChangeKtp = (e) => {
+		this.setState({registKtp:e.target.files[0]})
+	}
+
 	handleRegister = (event) => {
 		event.preventDefault();
 
@@ -76,21 +86,26 @@ class RegisterPemasok extends Component {
 			registrating: true
 		})
 
-		const data = { 
-			name: this.state.registName,
-			username: this.state.registUsername,
-			email: this.state.registEmail,
-			password: this.state.registPassword,
-			address: document.getElementById('origin').value,
-			detail_address: this.state.registDetailAddress,
-			no_tlp: this.state.registHp
-		}
-		console.log(qs.stringify( data ));
-		let url = 'https://api.klikfood.id/index.php/register/supplyer';
+		const bodyFormData = new FormData();
+		
+		bodyFormData.set('name', this.state.registName);
+		bodyFormData.set('username', this.state.registUsername);
+		bodyFormData.set('email', this.state.registEmail);
+		bodyFormData.set('password', this.state.registPassword);
+		bodyFormData.set('birthplace', this.state.registTempat);
+		bodyFormData.set('dateofbirth', this.state.registTanggalLahir);
+		bodyFormData.set('address', document.getElementById('from_places').value);
+		bodyFormData.set('detail_address', this.state.registDetailAddress);
+		bodyFormData.set('alamat_lain', this.state.registAnotherAddress);
+		bodyFormData.set('no_tlp', this.state.registHp);
+		bodyFormData.set('jenis_kelamin', this.state.registJK);
+		bodyFormData.set('badan_usaha', this.state.registNamaBadanUsaha);
+		bodyFormData.append('ktp', this.state.registKtp);
 
-		axios.post(url, qs.stringify( data ))
+		let url = 'https://api.klikfood.id/register/supplyer';
+
+		axios.post(url, bodyFormData)
 	      .then((response) => {
-	      	console.log(response)
 	      	toast.success("Silahkan Cek Email Verifikasi !");
 	      	setTimeout(() => {
 	      		this.setState({ 
@@ -121,32 +136,48 @@ class RegisterPemasok extends Component {
 			          <div className="row">
 			            <div className="col-sm-12">
 			              <div className="signup-form">{/*sign up form*/}
-			                <h2>Daftar Jadi Pemasok!</h2>
+			                <h2>Daftar Menjadi Pemasok !</h2>
 			                
 			                <form onSubmit={this.handleRegister} id="distance_form">
 			                  <input type="text" name="registName" placeholder="Nama" value={this.state.registName} onChange={this.handleChange} required />
-							  <input class="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
+							  <input className="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
 							  <input id="origin" name="registAddress" onChange={this.handleChange} required="" type="hidden" />
-			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jl. Bunter Sukadana RT03/04 )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
+			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jalan / RT / RW / Kode Pos )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
 			                  <input type="text" name="registUsername" placeholder="Username" value={this.state.registUsername} onChange={this.handleChange} required />
 			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />
 			                  <input type="password" name="registPassword" placeholder="Password" value={this.state.registPassword} onChange={this.handleChange} required />
-		                  
-
-			                  {/*<input type="text" name="registAddress" id="from_places" placeholder="Alamat" value={this.state.registAddress} onChange={this.handleChange} required />
-			                  <input id="origin" name="origin" type="hidden" />*/}
+		                  	  <input type="text" name="registTempat" placeholder="Tempat Lahir" value={this.state.registTempat} onChange={this.handleChange} required />
+			                  <p>Tanggal Lahir: </p>
+			                  <input type="date" name="registTanggalLahir" placeholder="Tanggal Lahir" value={this.state.registTanggalLahir} onChange={this.handleChange} required />
+		                  	  <input type="text" name="registHp" placeholder="No HP" value={this.state.registHp} onChange={this.handleChange} required />
+		                  	  <select name="registJK" onChange={this.handleChange} required>
+							    <option>Pilih Jenis Kelamin</option>
+							    <option value="Laki-Laki">Laki-Laki</option>
+							    <option value="Perempuan">Perempuan</option>
+							  </select>
+		                  	  <br/>
+		                  	  <br/>
+			                  <input type="text" name="registNamaBadanUsaha" placeholder="Nama Badan Usaha" value={this.state.registNamaBadanUsaha} onChange={this.handleChange} required />
+			                </form>
+			              </div>{/*/sign up form*/}
+		                  	  <p>Upload Foto KTP</p>
+		                  	  <input form="distance_form" type="file" name="registKtp" onChange={this.handleChangeKtp} required />
+			            	<br/>
+			            	<b>*Formulir pendaftaran hanya untuk 1 produk. Jika Anda memiliki produk lain, isi formulir pendaftaran baru lagi.  </b>
+			            	<br/>
+			            	<p>Dengan Mengisi Formulir Ini Saya Menyatakan :</p>
 			                  
-			                  <input type="text" name="registHp" placeholder="No Telp" value={this.state.registHp} onChange={this.handleChange} required />
-			                  
+		                      <input form="distance_form" type="checkbox" required style={{position: 'relative'}} />Bahwa data tersebut adalah benar adanya.
+		                      <br />
+			                  <input form="distance_form" type="checkbox" required style={{position: 'relative'}} />Bahwa saya sepakat dan bersedia mengikuti aturan perusahaan tentang menjadi Mitra.
+							  <br />
 								{this.state.registrating ?
 								<div>
 									<b>Mendaftar...</b>
 								</div>
 								:
-									<button type="submit" className="btn btn-success">Daftar</button>
+									<button form="distance_form" type="submit" className="btn btn-success">Daftar</button>
 								}
-			                </form>
-			              </div>{/*/sign up form*/}
 			            </div>
 			          </div>
 			        </div>

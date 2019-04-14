@@ -13,7 +13,8 @@ class FaqsMitra extends Component {
 			<section>
 		      	<div className="container">
 					<div className="WordSection1">
-					        <p className="MsoNormal" style={{marginTop: '0cm', marginRight: '0cm', marginBottom: '.0001pt', marginLeft: '180.0pt', textIndent: '36.0pt', lineHeight: '12.0pt', verticalAlign: 'baseline'}}><b><u><span lang="IN" style={{fontSize: '12.0pt'}}>FAQ Mitra</span></u></b></p>
+							<p className="MsoNormal"><b><span style={{fontSize: '16.0pt', lineHeight: '106%'}}>&nbsp;</span></b></p>
+                          <h2 className="title text-center">Faq Mitra</h2>
 					        <p className="MsoNormal" style={{marginBottom: '.0001pt', textAlign: 'justify', lineHeight: '12.0pt', verticalAlign: 'baseline'}}><b><span lang="IN" style={{fontSize: '12.0pt'}}>&nbsp;</span></b></p>
 					        <p className="MsoListParagraphCxSpFirst" style={{marginBottom: '.0001pt', textIndent: '-18.0pt', lineHeight: '12.0pt', verticalAlign: 'baseline'}}><b><span lang="IN" style={{fontSize: '12.0pt'}}>1.<span style={{font: '7.0pt "Times New Roman"'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					              </span></span></b><b><span lang="IN" style={{fontSize: '12.0pt'}}>Apakah Mitra itu?</span></b><b><span lang="EN-ID" style={{fontSize: '12.0pt'}}><br />

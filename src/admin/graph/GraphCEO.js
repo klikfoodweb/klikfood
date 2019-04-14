@@ -60,10 +60,10 @@ class GraphCEO extends Component {
 				      </div>
 				      <div className="body">
 				      	<h3> Transaksi Perbulan </h3>
-				      	<ColumnChart data={this.state.transaksiBulanan} />
+				      	<ColumnChart thousands="," data={this.state.transaksiBulanan} />
 				      	<hr />
 				      	<h3> Distribusi Perbulan </h3>
-				      	<ColumnChart data={this.state.distribusiBulanan} />      	
+				      	<ColumnChart thousands="," data={this.state.distribusiBulanan} />      	
 				      	<hr />
 				      	<h3> Pendaftar Konsumen </h3>
 			      		<ColumnChart data={this.state.pendaftarKonsumen}/>

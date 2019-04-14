@@ -137,6 +137,7 @@ class Login extends Component {
 				<section style={{ marginBottom: '80px' }}>{/*form*/}
 			        <div className="container">
 			          <div className="row">
+			          <center><h3>Untuk Sementara, Kami Hanya Melayani Wilayah Jabodetabek.</h3></center>
 			            <div className="col-sm-4 col-sm-offset-1">
 			              <div className="login-form">{/*login form*/}
 			                <h2>Masuk ke Akun Anda</h2>
@@ -163,12 +164,12 @@ class Login extends Component {
 			            </div>
 			            <div className="col-sm-4">
 			              <div className="signup-form">{/*sign up form*/}
-			                <h2>Daftar Baru!</h2>
+			                <h2>Pendaftar Baru</h2>
 			                <form onSubmit={this.handleRegister} id="distance_form">
 			                  <input type="text" name="registName" placeholder="Nama" value={this.state.registName} onChange={this.handleChange} required />
 							  <input class="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
 							  <input id="origin" name="registAddress" onChange={this.handleChange} required="" type="hidden" />
-			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jalan / RW / RT )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
+			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jalan / RT / RW )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
 			                  <input type="text" name="registUsername" placeholder="Username (Harus Mengandung Angka)" value={this.state.registUsername} onChange={this.handleChange} required />
 			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />
 			                  <input type="password" name="registPassword" placeholder="Password" value={this.state.registPassword} onChange={this.handleChange} required />

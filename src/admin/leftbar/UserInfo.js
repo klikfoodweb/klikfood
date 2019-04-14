@@ -3,10 +3,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 class UserInfo extends Component {
-	componentDidMount() {
-		console.log(sessionStorage);
-	}
-	
 	logout = () => {
   	axios.get(`https://api.klikfood.id/index.php/logout`, { 'headers': { 'Authorization': sessionStorage.api_token } })
 	  .then((response) => {
@@ -27,10 +23,8 @@ class UserInfo extends Component {
 
 	render() {
 		return (
-			<div><div className="user-info">
-				  <div className="image">
-				    <img src={process.env.PUBLIC_URL + '/admin/images/user.png'} width={48} height={48} alt="User" />
-				  </div>
+			<div>
+				<div className="user-info">
 				  <div className="info-container">
 				    <div className="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{ sessionStorage.username }</div>
 				    <div className="email">{ sessionStorage.email }</div>

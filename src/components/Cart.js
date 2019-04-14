@@ -25,7 +25,7 @@ class Cart extends Component {
 	 		modePenjualan: '',
 	 		loadOngkir: false,
 	 		submitting: false,
-	 		errorOngkir: false
+	 		errorOngkir: true
 	    };
 
 		this.handleDeleteCart = this.handleDeleteCart.bind(this);
@@ -48,13 +48,13 @@ class Cart extends Component {
 
 			axios.post(`https://api.klikfood.id/jarak`, cekOngkir)
 			  .then((response) => {
-			  	this.setState({
-			  		jumlahOngkir: response.data.data.harga
-			  	})
+			  	if(response.data.data.harga !== 0){
+				  	this.setState({
+				  		jumlahOngkir: response.data.data.harga,
+				  		errorOngkir: false
+				  	})
+			  	}
 			  }).catch((error) => {
-			  	this.setState({
-			  		errorOngkir: true
-			  	})
 			  	toast.error("Gagal Mendapatkan Jumlah Ongkir :(");
 			  })
 		}
@@ -161,6 +161,7 @@ class Cart extends Component {
 			      	})
 			      	console.log(res.data.data);
 			      	toast.success(res.data.messages);
+			      	localStorage.clear();
 			      	setTimeout(() => {
 			      		window.location.href='/admin/transactions/'+res.data.data._id;
 			      	}, 3000)
@@ -178,6 +179,7 @@ class Cart extends Component {
 			      		submitting: true
 			      	})
 			      	console.log(res.data);
+			      	localStorage.clear();
 			      	toast.success(res.data.messages);
 			      	setTimeout(() => {
 			      		window.location.href='/admin/transactions/'+res.data.data._id;
@@ -317,7 +319,7 @@ class Cart extends Component {
 		                      <p className="cart_total_price">{ formatter.format(cart[1] * cart[3]) }</p>
 		                    </td>
 		                    <td className="cart_delete">
-		                      <a className="cart_quantity_delete" id={cart[0]} onClick={() => this.handleDeleteCart(index) } href><i className="fa fa-times" id={index} /></a>
+		                      <a className="cart_quantity_delete" style={{ backgroundColor: 'black' }} id={cart[0]} onClick={() => this.handleDeleteCart(index) } href><i className="fa fa-times" id={index} /></a>
 		                    </td>
 		                  </tr>
 		                ) }
@@ -409,7 +411,7 @@ class Cart extends Component {
 		                  				<React.Fragment>
 		                  					<center>
 		                  						<h3>Maaf, Kota Anda Diluar Jangkauan Pengiriman Kami.</h3>
-		                  						<p>Silahkan Ganti Kota Pengiriman di <Link to="/profile">Halaman Profil Anda</Link></p>
+		                  						<p>Silahkan Ganti Kota Pengiriman di <a href="/profile">Halaman Profil Anda</a></p>
 		                  					</center>
 		                  				</React.Fragment>
 		                  		}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ReactChartkick, { ColumnChart } from 'react-chartkick';
 
 class GraphCOO extends Component {
@@ -35,6 +36,7 @@ class GraphCOO extends Component {
 	render() {
 		return (
 			<div>
+			<ToastContainer />
 				<div className="row clearfix">
 				  <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				    <div className="card">
@@ -44,11 +46,22 @@ class GraphCOO extends Component {
 				        </h2>
 				      </div>
 				      <div className="body">
+				      {/*<div className="col-md-12">
+                          <div className="info-box bg-pink hover-expand-effect">
+                              <div className="icon">
+                                  <i className="material-icons">playlist_add_check</i>
+                              </div>
+                              <div className="content">
+                                  <div className="text">TRANSAKSI BARU</div>
+                                  <div className="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                              </div>
+                          </div>
+                      </div>*/}
 				      	<h2> Transaksi Perbulan </h2>
-				      	<ColumnChart data={this.state.transaksiBulanan} />
+				      	<ColumnChart thousands="," data={this.state.transaksiBulanan} />
 				      	<hr />
 				      	<h2> Distribusi Perbulan </h2>
-				      	<ColumnChart data={this.state.distribusiBulanan} />      	
+				      	<ColumnChart thousands="," data={this.state.distribusiBulanan} />      	
 				      </div>
 				    </div>
 				  </div>

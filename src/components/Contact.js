@@ -94,18 +94,10 @@ class Contact extends Component {
 			                <div className="social-networks">
 			                  <h2 className="title text-center">Follow Kami</h2>
 			                  <ul>
-			                    <li>
-			                      <a href="#"><i className="fa fa-facebook" /></a>
-			                    </li>
-			                    <li>
-			                      <a href="#"><i className="fa fa-twitter" /></a>
-			                    </li>
-			                    <li>
-			                      <a href="#"><i className="fa fa-google-plus" /></a>
-			                    </li>
-			                    <li>
-			                      <a href="#"><i className="fa fa-youtube" /></a>
-			                    </li>
+			                    <li><a target="_blank" href="https://facebook.com/klikfood.indonesia"><i className="fa fa-facebook" /></a></li>
+				                <li><a target="_blank" href="https://twitter.com/klikfood"><i className="fa fa-twitter" /></a></li>
+				                <li><a target="_blank" href="https://www.youtube.com/channel/UCWx0A1XIDTfNbrgFQa8ZJKA"><i className="fa fa-youtube" /></a></li>
+				                <li><a target="_blank" href="https://www.instagram.com/klikfood.indonesia"><i className="fa fa-instagram" /></a></li>
 			                  </ul>
 			                </div>
 			              </div>

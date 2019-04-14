@@ -13,8 +13,8 @@ class Disclaimer extends Component {
       <section>
             <div className="container">
                   <div className="WordSection1">
-                          <p className="MsoNormal"><b><span style={{fontSize: '12.0pt', lineHeight: '115%'}}>Disclaimer<br />
-                              </span></b>(Pasal Sanggahan)</p>
+                          <p className="MsoNormal"><b><span style={{fontSize: '16.0pt', lineHeight: '106%'}}>&nbsp;</span></b></p>
+                          <h2 className="title text-center">Disclaimer</h2>
                           <p className="MsoNormal">&nbsp;</p>
                           <p className="MsoNormal">Semua informasi di situs ini diterbitkan dengan itikad baik
                             dan untuk tujuan informasi umum saja. Klikfood.id tidak membuat jaminan

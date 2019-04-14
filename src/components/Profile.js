@@ -32,6 +32,7 @@ export default class Profile extends Component {
 		axios.get(`https://api.klikfood.id/index.php/myaccount`)
 	      .then(response => {
 	      	console.log(response.data.data);
+	      	document.getElementById("from_places").defaultValue = response.data.data.address;
 	      	this.setState({
 	      		name: response.data.data.name,
 				email: response.data.data.email,
@@ -75,14 +76,14 @@ export default class Profile extends Component {
 		console.log(data);
 		axios.patch(`https://api.klikfood.id/index.php/account`+"?"+qs.stringify(data))
 	      .then(response => {
-	      	console.log(response);
+	      	sessionStorage.setItem('kota', data.address);
 	      	this.setState({
 				updating: true
 			})
 	      	toast.success("Update Akun Sukses !");
-	      	// setTimeout(() => {
-	      	// 	window.location.href='/profile';
-	      	// }, 3000)
+	      	setTimeout(() => {
+	      		window.location.href='/profile';
+	      	}, 2000)
 	      }).catch(err => {
 	      	this.setState({
 				updating: false
@@ -124,7 +125,7 @@ export default class Profile extends Component {
 				        		      Kota
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" id="from_places" placeholder="Kota" name="address" onChange={this.handleChange} />
+				        		      <Form.Control type="text" id="from_places" placeholder="Kota" name="address" onChange={this.handleChange} required />
 				        		      <input id="origin" name="address" onChange={this.handleChange} required="" type="hidden" />
 				        		    </Col>
 				        		  </Form.Group>
@@ -133,7 +134,7 @@ export default class Profile extends Component {
 				        		      Alamat Detail 
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" placeholder="Alamat" name="detail_address" value={this.state.detail_address} onChange={this.handleChange} />
+				        		      <Form.Control type="text" placeholder="Alamat" name="detail_address" value={this.state.detail_address} onChange={this.handleChange} required />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">

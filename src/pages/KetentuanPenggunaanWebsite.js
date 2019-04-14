@@ -13,9 +13,11 @@ class KetentuanPenggunaanWebsite extends Component {
       <section>
             <div className="container">
                   <div className="WordSection1">
-                          <p className="MsoNormal" style={{marginBottom: '.0001pt', lineHeight: 'normal'}}><b><span style={{fontSize: '12.0pt'}}>Syarat dan Ketentuan Penggunaan
-                                Website Klikfood.id</span></b></p>
-                          <p className="MsoNormal" style={{marginBottom: '.0001pt', lineHeight: 'normal'}}>(Terms Of Use)</p>
+                          <p className="MsoNormal"><b><span style={{fontSize: '16.0pt', lineHeight: '106%'}}>&nbsp;</span></b></p>
+                          <h2 className="title text-center">Syarat dan Ketentuan Penggunaan
+                                Website Klikfood.id</h2>
+
+                          <p className="text-center">(Terms Of Use)</p>
                           <p className="MsoNormal">&nbsp;</p>
                           <p className="MsoNormal"><b>1. Pembukaan</b></p>
                           <p className="MsoNormal" style={{textIndent: '36.0pt'}}>1.1. Syarat dan Ketentuan ini

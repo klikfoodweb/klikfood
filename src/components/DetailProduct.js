@@ -4,7 +4,7 @@ import axios from 'axios';
 import FooterTop from './FooterTop';
 import FooterBottom from './FooterBottom';
 import {Link} from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const formatter = new Intl.NumberFormat('id-ID', {
   style: 'currency',
@@ -140,7 +140,6 @@ class DetailProduct extends Component {
 		return (
 			<div>
 				<section>
-				<ToastContainer />
 			          <div className="container">
 						<Breadcrumb>
 						  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -233,7 +232,7 @@ class DetailProduct extends Component {
 		                                	(this.state.modePenjualan.value === 1) ?
 		                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" />Lihat</Link>
 		                                	: 
-		                                	<a href="#" accesskey={product.berat_kemasan} onClick={this.handleAddToCartProductCategory} id={product._id + "/" + product.foto_1} title={product.name} lang={product.harga_jual} className="btn btn-default add-to-cart"><i accesskey={product.berat_kemasan} className="fa fa-shopping-cart" id={product._id + "/" + product.foto_1} title={product.name} lang={product.harga_jual} />Add to cart</a>	
+		                                	<a href="#" accesskey={product.berat_kemasan} onClick={this.handleAddToCartProductCategory} id={product._id + "/" + product.foto_1} title={product.name} lang={product.harga_jual} className="btn btn-default add-to-cart"><i accesskey={product.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={product._id + "/" + product.foto_1} title={product.name} lang={product.harga_jual} />Beli</a>	
 		                                }
 		                              </div>
 		                            </div>

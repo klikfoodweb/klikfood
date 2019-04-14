@@ -141,7 +141,7 @@ class Home extends Component {
 			      <div className="price-range">{/*Jadi Mitra*/}
 			        
 		      		<React.Fragment>
-		        		<center><Link to="/register-mitra"><button type="button" className="btn get" style={{backgroundColor: '#16e02e', padding: '20px', borderRadius: '50%'}}><b>JADI MITRA KAMI</b></button></Link></center><br />
+		        		<center><a href="/register-mitra"><button type="button" className="btn get" style={{backgroundColor: '#16e02e', padding: '20px', borderRadius: '50%'}}><b><h4>JADI MITRA</h4></b></button></a></center><br />
 		      		</React.Fragment>
 		      	
 			      </div>
@@ -152,7 +152,7 @@ class Home extends Component {
 			      <div className="price-range">{/*Jadi Rekan*/}
 			        
 			        <React.Fragment>
-		        		<center><Link to="/register-pemasok"><button type="button" className="btn get" style={{backgroundColor: '#16e02e', padding: '20px', borderRadius: '50%'}}><b>JADI PEMASOK</b></button></Link></center><br />
+		        		<center><a href="/register-pemasok"><button type="button" className="btn get" style={{backgroundColor: '#16e02e', padding: '20px', borderRadius: '50%'}}><b><h4>JADI PEMASOK</h4></b></button></a></center><br />
 		      		</React.Fragment>
 
 			      </div>
@@ -190,7 +190,7 @@ class Home extends Component {
 				                                	(this.state.modePenjualan.value === 1) ?
 				                                	<Link to="/search-mitra" className="btn btn-default add-to-cart"><i className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} />Lihat</Link>
 				                                	: 
-				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
+				                                	<a href="#" accesskey={item.berat_kemasan} onClick={this.handleAddToCart} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} className="btn btn-default add-to-cart"><i accesskey={item.berat_kemasan} className="fa fa-shopping-cart" style={{color: 'rgb(22, 224, 46)'}} id={item._id + "/" + item.foto_1} title={item.name} lang={item.harga_jual} />Beli</a>	
 				                                }
 				                              </div>
 				                            </div>

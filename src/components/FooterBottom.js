@@ -32,9 +32,9 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN MITRA</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="/register-mitra">Daftar Jadi Mitra</Link></li>
+				              <li><a href="/register-mitra">Daftar Jadi Mitra</a></li>
 				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
-				              <li><Link to="downloadapp.html">Dowload Aplikasi</Link></li>
+				              <li><a href="https://play.google.com/store/apps/details?id=com.klikfood&hl=in" target="_blank">Download Aplikasi</a></li>
 				              <li><Link to="/login">Ikut Sayembara</Link></li>
 				              <li><Link to="/faqs-mitra">FAQs</Link></li>
 				              <li><Link to="/login">Login</Link></li>
@@ -46,9 +46,9 @@ class FooterBottom extends Component {
 				          <div className="single-widget">
 				            <h2>JOIN PEMASOK</h2>
 				            <ul className="nav nav-pills nav-stacked">
-				              <li><Link to="/register-pemasok">Daftar Jadi Pemasok </Link></li>
+				              <li><a href="/register-pemasok">Daftar Jadi Pemasok </a></li>
 				              <li><Link to="konfirmasi.html">Konfirmasi</Link></li>
-				              <li><Link to="downloadapp.html">Download Aplikasi</Link></li>
+				              <li><a href="https://play.google.com/store/apps/details?id=com.klikfood&hl=in" target="_blank">Download Aplikasi</a></li>
 				              <li><Link to="faqs.html">FAQs</Link></li>
 				              <li><Link to="/login">Login</Link></li>
 				            </ul>
@@ -62,7 +62,7 @@ class FooterBottom extends Component {
 				              <li><Link to="/ketentuan-penggunaan-website">Kebijakan Layanan</Link></li>
 				              <li><Link to="retur.html">Kebijakan Retur Produk</Link></li>
 				              <li><Link to="aturan-sayembara.html">Cara Mengikuti Sayembara</Link></li>
-				              <li><Link to="point.html">tentang Point</Link></li>
+				              <li><Link to="point.html">Tentang Point</Link></li>
 				              <li><Link to="rewards.html">Tentang Rewards</Link></li>
 				              <li><Link to="/privacy">Kebijakan Privacy</Link></li>
 				              <li><Link to="/disclaimer">Disclaimer</Link></li>
@@ -77,9 +77,6 @@ class FooterBottom extends Component {
 				              <li><Link to="/tentang-perusahaan">Informasi Perusahaan</Link></li>
 				              <li><Link to="/budaya-kerja">Budaya Perusahaan</Link></li>
 				              <li><Link to="/visi-misi">Visi &amp; Misi</Link></li>
-				              <li><Link to="lokasi-mitra.html">Mitra &amp; Lokasi</Link></li>
-				              <li><Link to="investor.html">Hubungan Investor</Link></li>
-				              <li><Link to="haki.html">Hak Cipta</Link></li>
 				            </ul>
 				          </div>
 				        </div>{/*Footer--/End--Tentang-Kami*/}
@@ -101,7 +98,14 @@ class FooterBottom extends Component {
 				              </ul>
 				            </div>
 				          </div>
-				          <img src={ window.location.origin + "/thaiaddict.jpg" } className="img-responsive" style={{height: '80px'}}/>
+				          <div className="row">
+					          <div className="col-xs-6">
+					          	<img src={ window.location.origin + "/thaiaddict.jpg" } className="img-responsive" style={{height: '80px'}}/>
+					          </div>
+					          <div className="col-xs-6">
+					          	<a href="https://play.google.com/store/apps/details?id=com.klikfood&hl=in" target="_blank"><img src={ window.location.origin + "/google-play-icon.png" } className="img-responsive" style={{height: '40px'}}/></a>
+				          	  </div>
+				          </div>
 				        </div>{/*Footer--/End--Sayembara*/}
 				      </div>
 				    </div>

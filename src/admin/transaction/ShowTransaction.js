@@ -81,7 +81,7 @@ class ShowTransaction extends Component {
 			})
 	      	toast.success("Sukses Upload Bukti !");
 	      	setTimeout(() => {
-	      		window.location.href='/admin/transactions/pembelian';
+	      		window.location.href='/admin/transactions/' +this.props.match.params.id;
 	      	}, 3000)
 	      }).catch(err => {
 	      	this.setState({
@@ -113,9 +113,17 @@ class ShowTransaction extends Component {
 				        <br />
 				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
-				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
-				        <br />
-				        <img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        <label>Status =  </label>
+				        {
+				        	(typeof this.state.transaksi.bayar !== 'undefined') ?
+				        		<React.Fragment>
+				        		<b>Sudah Dibayar</b>
+				        		<br/>
+				        		<img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        		</React.Fragment>
+				        	:
+				        		<b>Belum Dibayar</b>
+				        }
 				        <br />
 				        <label>Detail Produk Yang Dipesan</label>
 				        {
@@ -138,7 +146,13 @@ class ShowTransaction extends Component {
 				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Jual</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
-				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> { formatter.format(this.state.transaksi.jumlah_keseluruhan) } </i> </h3>
+				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
+				        	{ 
+				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+				        		: null
+				        	} 
+				        </i> </h3>
 				        <pre>{this.state.pembayaran}</pre>
 				        <label>Upload Bukti Pembayaran</label>
 			        	<form onSubmit={this.handleSubmit}>

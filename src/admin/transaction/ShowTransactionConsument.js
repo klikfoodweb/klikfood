@@ -69,7 +69,17 @@ class ShowTransactionConsument extends Component {
 				        <br />
 				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
-				        <label>Status Bayar = </label> { this.state.transaksi.bayar }
+				        <label>Status Bayar = </label> 
+				        {
+				        	(typeof this.state.transaksi.bayar !== 'undefined') ?
+				        		<React.Fragment>
+				        		<b>Sudah Dibayar</b>
+				        		<br/>
+				        		<img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        		</React.Fragment>
+				        	:
+				        		<b>Belum Dibayar</b>
+				        }
 				        <br />
 				        <img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
 				        <br />
