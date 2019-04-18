@@ -57,6 +57,8 @@ class ShowTransactionCentral extends Component {
 				        <br />
 				        <label>Harga Keseluruhan = </label> Rp. { this.state.transaksi.jumlah_keseluruhan }
 				        <br />
+				        <label>Nama Pemesan = </label> { this.state.transaksi.user_name }
+				        <br />
 				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
 				        <label>Bukti Bayar = </label>
@@ -106,7 +108,15 @@ class ShowTransactionCentral extends Component {
 							  	console.log(error)
 							  	toast.error("Something Went Wrong :(");
 							  })
-						} } className="btn btn-warning">Verifikasi Pembayaran</button>
+						} } className="btn btn-warning">
+						{
+							(sessionStorage.role === 'CFO') ?
+								<div>Verifikasi Pembayaran</div>
+							: (sessionStorage.role === 'COO') ?
+								<div>Kirim Barang</div>
+								: null
+						}
+						</button>
 					
 				      </div>
 				    </div>

@@ -63,6 +63,7 @@ class ProductUpdate extends Component {
 	}
 
 	handleChange = (event) => {
+		console.log(event.target)
 		this.setState({ 
 			[event.target.name]: event.target.value
 		})
@@ -235,7 +236,7 @@ class ProductUpdate extends Component {
 			        		              label={subkategori.name}
 			        		              name="kategori_id"
 			        		              id="formHorizontalRadios1"
-			        		              value={subkategori.kategori_id}
+			        		              value={subkategori._id}
 			        		              onClick={this.handleChange}
 			        		            />
 			        		            )}

@@ -100,7 +100,7 @@ class RegisterMitra extends Component {
 		bodyFormData.set('password', this.state.registPassword);
 		bodyFormData.set('birthplace', this.state.registTempat);
 		bodyFormData.set('dateofbirth', this.state.registTanggalLahir);
-		bodyFormData.set('address', document.getElementById('from_places').value);
+		bodyFormData.set('address', this.state.registAddress);
 		bodyFormData.set('detail_address', this.state.registDetailAddress);
 		bodyFormData.set('alamat_lain', this.state.registAnotherAddress);
 		bodyFormData.set('no_tlp', this.state.registHp);
@@ -150,8 +150,21 @@ class RegisterMitra extends Component {
 			                
 			                <form onSubmit={this.handleRegister} id="distance_form">
 			                  <input type="text" name="registName" placeholder="Nama" value={this.state.registName} onChange={this.handleChange} required />
-							  <input className="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
-							  <input id="origin" name="registAddress" onChange={this.handleChange} required="" type="hidden" />
+							 {/* <input className="form-control" id="from_places" placeholder="Kota" name="registAddress" onChange={this.handleChange} /> 
+							  <input id="origin" name="registAddress" onChange={this.handleChange} required="" type="hidden" />*/}
+							  <select name="registAddress" onChange={this.handleChange} className="form-control" required>
+								<option>Pilih Kota:</option>
+								<option value="Jakarta Selatan, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Selatan</option>
+								<option value="Jakarta Utara, Kota Jakarta Utara, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Utara</option>
+								<option value="Jakarta Pusat, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Pusat</option>
+								<option value="Jakarta Barat, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Barat</option>
+								<option value="Jakarta Timur, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Timur</option>
+								<option value="Bogor, Jawa Barat, Indonesia">Bogor</option>
+								<option value="Depok, Kota Depok, Jawa Barat, Indonesia">Depok</option>
+								<option value="Tangerang, Kota Tangerang, Banten, Indonesia">Tangerang</option>
+								<option value="Bekasi, Kota Bekasi, Jawa Barat, Indonesia">Bekasi</option>
+							  </select>
+							  <br />
 			                  <input type="text" name="registDetailAddress" placeholder="Alamat Detail ( Jalan / RT / RW / Kode Pos )" value={this.state.registDetailAddress} onChange={this.handleChange} required />
 			                  <input type="text" name="registUsername" placeholder="Username" value={this.state.registUsername} onChange={this.handleChange} required />
 			                  <input type="email" name="registEmail" placeholder="Alamat Email" value={this.state.registEmail} onChange={this.handleChange} required />

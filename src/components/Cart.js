@@ -319,7 +319,7 @@ class Cart extends Component {
 		                      <p className="cart_total_price">{ formatter.format(cart[1] * cart[3]) }</p>
 		                    </td>
 		                    <td className="cart_delete">
-		                      <a className="cart_quantity_delete" style={{ backgroundColor: 'black' }} id={cart[0]} onClick={() => this.handleDeleteCart(index) } href><i className="fa fa-times" id={index} /></a>
+		                      <a className="cart_quantity_delete" style={{ backgroundColor: 'black' }} id={cart[0]} onClick={() => this.handleDeleteCart(index) } href><i className="fa fa-trash-o" id={index} /></a>
 		                    </td>
 		                  </tr>
 		                ) }

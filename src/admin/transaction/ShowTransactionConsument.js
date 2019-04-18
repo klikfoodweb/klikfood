@@ -67,6 +67,8 @@ class ShowTransactionConsument extends Component {
 				        <br />
 				        <label>Harga Keseluruhan = </label> Rp. { this.state.transaksi.jumlah_keseluruhan }
 				        <br />
+				        <label>Nama Pemesan = </label> { this.state.transaksi.user_name }
+				        <br />
 				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
 				        <label>Status Bayar = </label> 

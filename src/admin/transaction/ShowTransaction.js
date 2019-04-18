@@ -56,6 +56,10 @@ class ShowTransaction extends Component {
 	    return (<div>{index+1}</div>) 
 	}
 
+	hargaJual = (cell, row) => {
+		return <div>{formatter.format(row.harga_jual)}</div>
+	}
+
 	handleChangeBukti = (e) => {
 		this.setState({bukti:e.target.files[0]})
 	}
@@ -109,7 +113,9 @@ class ShowTransaction extends Component {
 				      	<React.Fragment>
 				      	<label>ID Transaksi = </label>  { this.state.transaksi._id }
 				        <br />
-				        <label>Harga Keseluruhan = </label> Rp. { this.state.transaksi.jumlah_keseluruhan }
+				        <label>Harga Keseluruhan = </label> { formatter.format(this.state.transaksi.jumlah_keseluruhan) }
+				        <br />
+				        <label>Nama Pemesan = </label> { this.state.transaksi.user_name }
 				        <br />
 				        <label>Kota Tujuan = </label> { this.state.transaksi.detail_address } { this.state.transaksi.address }
 				        <br />
@@ -141,9 +147,9 @@ class ShowTransaction extends Component {
 	                  		  <TableHeaderColumn dataField='id' isKey={ true } hidden>User ID</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField="any" dataFormat={this.indexN} width='80'>No</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='name' dataSort={true}>Name</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Berat Kemasan</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='berat_kemasan' dataSort={true}>Jumlah (Kg/Gram/Pack)</TableHeaderColumn>
 				        	  <TableHeaderColumn dataField='expire' dataSort={true}>Kadaluarsa</TableHeaderColumn>
-				        	  <TableHeaderColumn dataField='harga_supplyer' dataSort={true}>Harga Jual</TableHeaderColumn>
+				        	  <TableHeaderColumn dataField='harga_jual' dataSort={true} dataFormat={this.hargaJual}>Harga Jual</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
 				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 

@@ -31,7 +31,8 @@ class DetailProduct extends Component {
 			foto_1: null,
 			foto_2: null,
 			foto_3: null,
-			modePenjualan: ''
+			modePenjualan: '',
+			keranjangTotalHarga: 0
 		}
 
 		window.scrollTo(0,0);
@@ -41,6 +42,11 @@ class DetailProduct extends Component {
 		if(localStorage.getItem('cart') !== null)
 	    	this.setState({
 	    		carts: JSON.parse(localStorage.getItem('cart'))
+	    	})
+
+	    if(localStorage.getItem('keranjangTotalHarga') !== null)
+	    	this.setState({
+	    		keranjangTotalHarga: localStorage.getItem('keranjangTotalHarga')
 	    	})
 
 	    axios.get(`https://api.klikfood.id/config/mode`)
@@ -105,8 +111,14 @@ class DetailProduct extends Component {
 		this.state.carts.push([this.state.name, this.state.harga_jual, this.state.id+"/"+this.state.foto_1, 1, this.state.berat_kemasan]);
 	    
 	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-	    console.log(JSON.stringify(this.state.carts));
-	    console.log(JSON.parse(localStorage.getItem('cart')));
+
+	    const sebelumTotalHarga = Number(this.state.keranjangTotalHarga) + Number(this.state.harga_jual);
+		
+	    this.setState({
+	    	keranjangTotalHarga: sebelumTotalHarga
+	    })
+
+		localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
 		toast.success("Berhasil Dimasukkan Keranjang !");
 	}
 
@@ -131,8 +143,14 @@ class DetailProduct extends Component {
 		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
 	    
 	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-	    console.log(JSON.stringify(this.state.carts));
-	    console.log(JSON.parse(localStorage.getItem('cart')));
+
+	    const sebelumTotalHarga = Number(this.state.keranjangTotalHarga) + Number(e.target.lang);
+		
+	    this.setState({
+	    	keranjangTotalHarga: sebelumTotalHarga
+	    })
+
+		localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
 		toast.success("Berhasil Dimasukkan Keranjang !");
 	}
 
@@ -243,6 +261,30 @@ class DetailProduct extends Component {
 						)}
 					  </div>
 				</section>
+				<div style={{
+	                position: 'fixed',
+	                left: 0,
+	                bottom: 0,
+	                width: '100%',
+	                height: '50px',
+	                backgroundColor: '#16e02e',
+	                color: 'white',
+	                zIndex: '99999999'
+	            }}>
+	            <div className="row">
+	                <div className="container">
+	                  <div className="col-md-4 col-xs-3">
+	                    <h2 className="fa fa-shopping-cart" style={{marginTop: '11px'}}> <span style={{fontSize: '2rem'}}>Total Keranjang</span></h2>
+	                  </div>
+	                  <div className="col-md-7 col-xs-6">
+	                    <h2 style={{marginTop: '10px', color: '#f44336', fontSize: '3rem'}}>{ formatter.format(this.state.keranjangTotalHarga) }</h2>
+	                  </div>
+	                  <div className="col-md-1 col-xs-3">
+	                    <a href="/cart" className="btn btn-success" style={{marginTop: '10px'}}> Lanjut</a>
+	                  </div>
+	                </div>
+	            </div>
+	            </div>
 				<FooterTop />
 				<FooterBottom />
 			</div>

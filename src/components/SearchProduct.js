@@ -25,7 +25,8 @@ class SearchProduct extends Component {
 	 		carts: [],
 	 		products: [],
 	 		loader: true,
-	 		modePenjualan: ''
+	 		modePenjualan: '',
+			keranjangTotalHarga: 0
 	    };
 
 	    this.onChangePage = this.onChangePage.bind(this);
@@ -36,6 +37,18 @@ class SearchProduct extends Component {
 	onChangePage(pageOfItems) {
 	    // update state with new page of items
 	    this.setState({ pageOfItems: pageOfItems });
+	}
+
+	componentWillMount() {
+		if(localStorage.getItem('cart') !== null)
+	    	this.setState({
+	    		carts: JSON.parse(localStorage.getItem('cart'))
+	    	})
+
+	      if(localStorage.getItem('keranjangTotalHarga') !== null)
+	    	this.setState({
+	    		keranjangTotalHarga: localStorage.getItem('keranjangTotalHarga')
+	    	})
 	}
 
 	componentDidMount() {
@@ -84,10 +97,17 @@ class SearchProduct extends Component {
     	e.preventDefault();
 		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
 	    
+	    const sebelumTotalHarga = Number(this.state.keranjangTotalHarga) + Number(e.target.lang);
+		
+	    this.setState({
+	    	keranjangTotalHarga: sebelumTotalHarga
+	    })
+	    
+	    localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
+
 	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-	    console.log(JSON.stringify(this.state.carts));
-	    console.log(JSON.parse(localStorage.getItem('cart')));
-		toast.success("Berhasil Dimasukkan Keranjang !");
+	    
+	    toast.success("Berhasil Dimasukkan Keranjang !");
 	}
 	
 	render() {
@@ -194,6 +214,30 @@ class SearchProduct extends Component {
 		            </div>
 		          </div>
 		        </section>
+		        <div style={{
+	                position: 'fixed',
+	                left: 0,
+	                bottom: 0,
+	                width: '100%',
+	                height: '50px',
+	                backgroundColor: '#16e02e',
+	                color: 'white',
+	                zIndex: '99999999'
+	            }}>
+	            <div className="row">
+	                <div className="container">
+	                  <div className="col-md-4 col-xs-3">
+	                    <h2 className="fa fa-shopping-cart" style={{marginTop: '11px'}}> <span style={{fontSize: '2rem'}}>Total Keranjang</span></h2>
+	                  </div>
+	                  <div className="col-md-7 col-xs-6">
+	                    <h2 style={{marginTop: '10px', color: '#f44336', fontSize: '3rem'}}>{ formatter.format(this.state.keranjangTotalHarga) }</h2>
+	                  </div>
+	                  <div className="col-md-1 col-xs-3">
+	                    <a href="/cart" className="btn btn-success" style={{marginTop: '10px'}}> Lanjut</a>
+	                  </div>
+	                </div>
+	            </div>
+	            </div>
 		        <footer id="footer">
 			      	<FooterTop />
 			      	<FooterBottom />

@@ -24,7 +24,8 @@ class Home extends Component {
 			productsByCategory: [],
 			carts: [],
 			modePenjualan: '',
-			emailSubscribe: ''
+			emailSubscribe: '',
+			keranjangTotalHarga: 0
 		}
 		this.handleChange = this.handleChange.bind(this);
 	}
@@ -73,6 +74,11 @@ class Home extends Component {
 	    	this.setState({
 	    		carts: JSON.parse(localStorage.getItem('cart'))
 	    	})
+
+	      if(localStorage.getItem('keranjangTotalHarga') !== null)
+	    	this.setState({
+	    		keranjangTotalHarga: localStorage.getItem('keranjangTotalHarga')
+	    	})
 	}
 
 	componentDidMount() {
@@ -107,6 +113,7 @@ class Home extends Component {
 		this.setState({ 
 			[event.target.name]: event.target.value
 		})
+		console.log(localStorage)
 	}
 
 	handleSubscribe = (e) => {
@@ -125,10 +132,17 @@ class Home extends Component {
 	handleAddToCart = (e) => {
     	e.preventDefault();
 		this.state.carts.push([e.target.title, e.target.lang, e.target.id, 1, e.target.accessKey]);
+
+		const sebelumTotalHarga = Number(this.state.keranjangTotalHarga) + Number(e.target.lang);
+		
+	    this.setState({
+	    	keranjangTotalHarga: sebelumTotalHarga
+	    })
 	    
 	    localStorage.setItem('cart', JSON.stringify(this.state.carts));
-	    console.log(JSON.stringify(this.state.carts));
-	    console.log(JSON.parse(localStorage.getItem('cart')));
+	    // console.log(JSON.stringify(this.state.carts));
+	    // console.log(JSON.parse(localStorage.getItem('cart')));
+		localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
 		toast.success("Berhasil Dimasukkan Keranjang !");
 	}
 
@@ -169,7 +183,7 @@ class Home extends Component {
 	                <div className="recommended_items">{/*recommended_items*/}
 	                  <h2 className="title text-center">Produk Promo</h2>
 	                  {/*data-ride="carousel"*/}
-	                  <div id="promo-item-carousel" className="carousel slide">
+	                  <div id="promo-item-carousel" className="carousel slide" style={{backgroundColor: '#F0F0E9', paddingTop: '10px'}}>
 	                    <div className="carousel-inner">
 	                      
 	                      <div className="item active">
@@ -240,7 +254,7 @@ class Home extends Component {
 	                    </a>			
 	                  </div>
 	                </div>{/*/recommended_items*/}
-
+	                <br />
 	                <div className="recommended_items">{/*new_items*/}
 	                  <h2 className="title text-center">Produk Terbaru</h2>
 	                  <div id="new-item-carousel" className="carousel slide">
@@ -487,6 +501,32 @@ class Home extends Component {
 	            </div></center>
 	        </div><p />		
 	        {/*/End_Info_Gratis_Section--#4*/}
+
+	        <div style={{
+                position: 'fixed',
+                left: 0,
+                bottom: 0,
+                width: '100%',
+                height: '50px',
+                backgroundColor: '#16e02e',
+                color: 'white',
+                zIndex: '99999999'
+            }}>
+            <div className="row">
+                <div className="container">
+                  <div className="col-md-4 col-xs-3">
+                    <h2 className="fa fa-shopping-cart" style={{marginTop: '11px'}}> <span style={{fontSize: '2rem'}}>Total Keranjang</span></h2>
+                  </div>
+                  <div className="col-md-7 col-xs-6">
+                    <h2 style={{marginTop: '10px', color: '#f44336', fontSize: '3rem'}}>{ formatter.format(this.state.keranjangTotalHarga) }</h2>
+                  </div>
+                  <div className="col-md-1 col-xs-3">
+                    <a href="/cart" className="btn btn-success" style={{marginTop: '10px'}}> Lanjut</a>
+                  </div>
+                </div>
+            </div>
+            </div>
+
 	        <footer id="footer">
 	        	<FooterTop />
 	        	<FooterBottom />

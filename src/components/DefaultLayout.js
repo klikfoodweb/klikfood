@@ -126,11 +126,12 @@ class DefaultLayout extends Component {
                 <Route path="/:mitra" name="CatalogMitra" component={CatalogMitra} />
 
             </Switch>
+
             <a href="https://api.whatsapp.com/send?phone=6281298904263&text=Bisa Bantu Saya?" style={{
                 position:'fixed',
                 width:'60px',
                 height:'60px',
-                bottom:'40px',
+                bottom:'70px',
                 right:'40px',
                 backgroundColor:'#25d366',
                 color:'#FFF',

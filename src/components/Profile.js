@@ -24,7 +24,9 @@ export default class Profile extends Component {
 			updating: false,
 			header: null
 		}
+	}
 
+	componentWillMount() {
 		axios.defaults.headers = {  
 			'Authorization': sessionStorage.api_token 
 		}
@@ -32,7 +34,7 @@ export default class Profile extends Component {
 		axios.get(`https://api.klikfood.id/index.php/myaccount`)
 	      .then(response => {
 	      	console.log(response.data.data);
-	      	document.getElementById("from_places").defaultValue = response.data.data.address;
+	      	// document.getElementById("from_places").defaultValue = response.data.data.address;
 	      	this.setState({
 	      		name: response.data.data.name,
 				email: response.data.data.email,
@@ -63,7 +65,7 @@ export default class Profile extends Component {
 			name: this.state.name,
 			email: this.state.email,
 			password: this.state.password,
-			address: document.getElementById('from_places').value,
+			address: this.state.address,
 			detail_address: this.state.detail_address,
 			no_tlp: this.state.no_tlp,
 			username: this.state.username,
@@ -125,8 +127,21 @@ export default class Profile extends Component {
 				        		      Kota
 				        		    </Form.Label>
 				        		    <Col sm={10}>
-				        		      <Form.Control type="text" id="from_places" placeholder="Kota" name="address" onChange={this.handleChange} required />
-				        		      <input id="origin" name="address" onChange={this.handleChange} required="" type="hidden" />
+				        		      {/*<Form.Control type="text" id="from_places" placeholder="Kota" name="address" onChange={this.handleChange} required />
+				        		      <input id="origin" name="address" onChange={this.handleChange} required="" type="hidden" />*/}
+				        		      <select name="address" onChange={this.handleChange} className="form-control" required>
+										<option>Pilih Kota:</option>
+										<option value="Jakarta Selatan, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Selatan</option>
+										<option value="Jakarta Utara, Kota Jakarta Utara, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Utara</option>
+										<option value="Jakarta Pusat, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Pusat</option>
+										<option value="Jakarta Barat, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Barat</option>
+										<option value="Jakarta Timur, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta, Indonesia">Jakarta Timur</option>
+										<option value="Bogor, Jawa Barat, Indonesia">Bogor</option>
+										<option value="Depok, Kota Depok, Jawa Barat, Indonesia">Depok</option>
+										<option value="Tangerang, Kota Tangerang, Banten, Indonesia">Tangerang</option>
+										<option value="Bekasi, Kota Bekasi, Jawa Barat, Indonesia">Bekasi</option>
+									  </select>
+									  <br />
 				        		    </Col>
 				        		  </Form.Group>
 				        		  <Form.Group as={Row} controlId="formHorizontalName">
