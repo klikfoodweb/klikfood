@@ -27,8 +27,6 @@ class Cart extends Component {
 	 		submitting: false,
 	 		errorOngkir: true
 	    };
-
-		this.handleDeleteCart = this.handleDeleteCart.bind(this);
 	}
 
 	componentWillMount() {
@@ -107,19 +105,25 @@ class Cart extends Component {
 	      // })
 	}
 
-	handleDeleteCart = i => {
+	handleDeleteCart = (i, price, quantity) => {
 		// this.setState( state => {
+
 		const carts = this.state.carts.filter((item, j) => i !== j);
 		
+		const sebelumTotalHarga = Number(localStorage.getItem('keranjangTotalHarga')) - Number(price) * Number(quantity);
+		
+	    localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
+
 		// 	return {
 		// 		carts,
 		// 	}
 		// });
 		localStorage.setItem('cart', JSON.stringify(carts));
 		this.setState({
-			carts: JSON.parse(localStorage.getItem('cart'))
+			carts: JSON.parse(localStorage.getItem('cart')),
+			jumlahHarga: sebelumTotalHarga
 		})
-		window.location.href='/cart';
+		// window.location.href='/cart';
 	}
 
 	handleChange = (event) => {
@@ -249,13 +253,18 @@ class Cart extends Component {
 		                        <a className="cart_quantity_up" lang={cart[4]} onClick={e => {
 		                        	const newJumlah = this.state.carts.slice();
 		                        	let jumlahBeratSekarang = this.state.jumlahBerat;
+		                        	
+		                        	const sebelumTotalHarga = Number(localStorage.getItem('keranjangTotalHarga')) + Number(cart[1]);
+									
+	    							localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
+		                        	
 		                        	newJumlah[index][3] += 1;
 		                        	newJumlah[index][4] = Number(newJumlah[index][4]) + this.state.beratPerProduk[index];
 		                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) + this.state.beratPerProduk[index];
 		                        	this.setState({
 		                        		carts: newJumlah,
-		                        		jumlahBerat: jumlahBeratSekarang
-		                        		
+		                        		jumlahBerat: jumlahBeratSekarang,
+		                        		jumlahHarga: sebelumTotalHarga
 		                        	});
 
 		    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
@@ -284,12 +293,18 @@ class Cart extends Component {
 		                        	const newJumlah = this.state.carts.slice();
 		                        	if(newJumlah[index][3] > 1){
 			                        	let jumlahBeratSekarang = this.state.jumlahBerat;
+
+			                        	const sebelumTotalHarga = Number(localStorage.getItem('keranjangTotalHarga')) - Number(cart[1]);
+									
+	    								localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
+		                        	
 			                        	newJumlah[index][3] -= 1;
 			                        	newJumlah[index][4] = Number(newJumlah[index][4]) - this.state.beratPerProduk[index];
 			                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) - this.state.beratPerProduk[index];
 			                        	this.setState({
 			                        		carts: newJumlah,
-			                        		jumlahBerat: jumlahBeratSekarang
+			                        		jumlahBerat: jumlahBeratSekarang,
+			                        		jumlahHarga: sebelumTotalHarga
 			                        	});
 
 			    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
@@ -319,7 +334,7 @@ class Cart extends Component {
 		                      <p className="cart_total_price">{ formatter.format(cart[1] * cart[3]) }</p>
 		                    </td>
 		                    <td className="cart_delete">
-		                      <a className="cart_quantity_delete" style={{ backgroundColor: 'black' }} id={cart[0]} onClick={() => this.handleDeleteCart(index) } href><i className="fa fa-trash-o" id={index} /></a>
+		                      <a className="cart_quantity_delete" style={{ backgroundColor: 'black' }} id={cart[0]} onClick={ e => this.handleDeleteCart(index, cart[1], cart[3]) } href><i className="fa fa-trash-o" id={index} /></a>
 		                    </td>
 		                  </tr>
 		                ) }
@@ -387,7 +402,7 @@ class Cart extends Component {
 		                  {
 		                  	(sessionStorage.length === 0) ?
 		                  		<React.Fragment>
-		                  			<center><h3>Silahkan <Link to="/login">Login</Link> Terlebih Dahulu</h3></center>
+		                  			<center><h3>Silahkan <a href="/login">Login</a> Terlebih Dahulu</h3></center>
 		                  		</React.Fragment>
 		                  	:
 		                  		<React.Fragment>
