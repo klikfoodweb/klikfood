@@ -55,30 +55,28 @@ class Banner extends Component {
 							        (i === 0) ? 
 				          			<React.Fragment>
 							            <div className="item active">
-							              <div className="col-sm-6">
-							                {/*<img src="images/home/pricing.png" className="pricing" alt />*/}
+							              {/*<div className="col-sm-6">
 							                <h1><span>{slider.judul}</span></h1>
 							                <h2>{slider.subjudul}</h2>
 							                <p>{slider.keterangan} </p>
 							                <center><Link to="/search-mitra"><button type="button" className="btn btn-default get">Beli Sekarang</button></Link></center><br />
-							              </div>
-							              <div className="col-sm-6">
-							                <Link to="/search-mitra"><img src={"https://api.klikfood.id/uploads/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt /></Link>
+							              </div>*/}
+							              <div className="col-sm-12">
+							                <img style={{width: '100vw', height: 'auto'}} src={"https://api.klikfood.id/uploads/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt />
 							              </div>
 							            </div>
 						        	</React.Fragment>
 						        	: 
 						        	<React.Fragment>
 						        		<div className="item">
-							              <div className="col-sm-6">
-							                {/*<img src="images/home/pricing.png" className="pricing" alt />*/}
+							              {/*<div className="col-sm-6">
 							                <h1><span>{slider.judul}</span></h1>
 							                <h2>{slider.subjudul}</h2>
 							                <p>{slider.keterangan} </p>
 							                <center><Link to="/search-mitra"><button type="button" className="btn btn-default get">Beli Sekarang</button></Link></center><br />
-							              </div>
-							              <div className="col-sm-6">
-							                <Link to="/search-mitra"><img src={"https://api.klikfood.id/uploads/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt /></Link>
+							              </div>*/}
+							              <div className="col-sm-12">
+							                <img style={{width: '100vw', height: 'auto'}} src={"https://api.klikfood.id/uploads/slider/"+slider._id+"/"+slider.image} className="girl img-responsive" alt />
 							              </div>
 							            </div>
 						       		</React.Fragment>

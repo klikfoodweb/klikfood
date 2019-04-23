@@ -250,45 +250,6 @@ class Cart extends Component {
 		                    </td>
 		                    <td className="cart_quantity">
 		                      <div className="cart_quantity_button">
-		                        <a className="cart_quantity_up" lang={cart[4]} onClick={e => {
-		                        	const newJumlah = this.state.carts.slice();
-		                        	let jumlahBeratSekarang = this.state.jumlahBerat;
-		                        	
-		                        	const sebelumTotalHarga = Number(localStorage.getItem('keranjangTotalHarga')) + Number(cart[1]);
-									
-	    							localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
-		                        	
-		                        	newJumlah[index][3] += 1;
-		                        	newJumlah[index][4] = Number(newJumlah[index][4]) + this.state.beratPerProduk[index];
-		                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) + this.state.beratPerProduk[index];
-		                        	this.setState({
-		                        		carts: newJumlah,
-		                        		jumlahBerat: jumlahBeratSekarang,
-		                        		jumlahHarga: sebelumTotalHarga
-		                        	});
-
-		    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
-
-									{/*const cekOngkir = new FormData();
-									cekOngkir.set('tujuan', sessionStorage.kota);
-									cekOngkir.set('berat', this.state.jumlahBerat);
-
-									axios.defaults.headers = {  
-										'Authorization': sessionStorage.api_token 
-									}
-									
-									axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
-								      .then(res => {
-								      	console.log(res.data.data);
-								      	this.setState({
-								      		listOngkir: res.data.data,
-								      		loadOngkir: false
-								      	})
-								      }).catch(err => {
-								  			loadOngkir: false
-								      });*/}
-		                        } } href> + </a>
-		                        <input className="cart_quantity_input" type="text" value={cart[3]} name="quantity" autoComplete="off" size={2} />
 		                        <a className="cart_quantity_down" onClick={e => {
 		                        	const newJumlah = this.state.carts.slice();
 		                        	if(newJumlah[index][3] > 1){
@@ -328,6 +289,45 @@ class Cart extends Component {
 									      });*/} 
 		                        	}
 		                        } }  href> - </a>
+		                        <input className="cart_quantity_input" type="text" value={cart[3]} name="quantity" autoComplete="off" size={2} />
+		                        <a className="cart_quantity_up" lang={cart[4]} onClick={e => {
+		                        	const newJumlah = this.state.carts.slice();
+		                        	let jumlahBeratSekarang = this.state.jumlahBerat;
+		                        	
+		                        	const sebelumTotalHarga = Number(localStorage.getItem('keranjangTotalHarga')) + Number(cart[1]);
+									
+	    							localStorage.setItem('keranjangTotalHarga', sebelumTotalHarga);
+		                        	
+		                        	newJumlah[index][3] += 1;
+		                        	newJumlah[index][4] = Number(newJumlah[index][4]) + this.state.beratPerProduk[index];
+		                        	jumlahBeratSekarang = Number(jumlahBeratSekarang) + this.state.beratPerProduk[index];
+		                        	this.setState({
+		                        		carts: newJumlah,
+		                        		jumlahBerat: jumlahBeratSekarang,
+		                        		jumlahHarga: sebelumTotalHarga
+		                        	});
+
+		    						localStorage.setItem('cart', JSON.stringify(this.state.carts));
+
+									{/*const cekOngkir = new FormData();
+									cekOngkir.set('tujuan', sessionStorage.kota);
+									cekOngkir.set('berat', this.state.jumlahBerat);
+
+									axios.defaults.headers = {  
+										'Authorization': sessionStorage.api_token 
+									}
+									
+									axios.post(`https://api.klikfood.id/index.php/ongkir/harga`, cekOngkir)
+								      .then(res => {
+								      	console.log(res.data.data);
+								      	this.setState({
+								      		listOngkir: res.data.data,
+								      		loadOngkir: false
+								      	})
+								      }).catch(err => {
+								  			loadOngkir: false
+								      });*/}
+		                        } } href> + </a>
 		                      </div>
 		                    </td>
 		                    <td className="cart_total">
@@ -399,21 +399,21 @@ class Cart extends Component {
 		              </div>*/}
 		              <div className="col-sm-12">
 		                <div className="total_area">
+      					  <ul>
+		                    <li>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></li>
+		                    <li>Biaya Pengiriman <span>{ formatter.format(this.state.jumlahOngkir) }</span></li>
+		                    <li>Total <span>{ formatter.format(Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir)) }</span></li>
+		                  </ul>
 		                  {
 		                  	(sessionStorage.length === 0) ?
 		                  		<React.Fragment>
-		                  			<center><h3>Silahkan <a href="/login">Login</a> Terlebih Dahulu</h3></center>
+		                  			<center><h3>Untuk Melakukan Pembayaran Silahkan <a href="/login">Login</a> Terlebih Dahulu</h3></center>
 		                  		</React.Fragment>
 		                  	:
 		                  		<React.Fragment>
 		                  		{
 		                  			(!this.state.errorOngkir) ? 
 		                  				<React.Fragment>
-		                  					  <ul>
-							                    <li>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></li>
-							                    <li>Biaya Pengiriman <span>{ formatter.format(this.state.jumlahOngkir) }</span></li>
-							                    <li>Total <span>{ formatter.format(Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir)) }</span></li>
-							                  </ul>
 							                  {this.state.submitting ?
 												<div>
 													<b>Sedang Memesan...</b>
