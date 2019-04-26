@@ -30,6 +30,7 @@ class ShowTransaction extends Component {
 	}
 
 	componentWillMount() {
+		jumlahProdukNya = 0;
 		axios.get(`https://api.klikfood.id/index.php/transaksi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data.transaksi);

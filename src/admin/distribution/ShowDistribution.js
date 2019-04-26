@@ -20,6 +20,7 @@ class ShowDistribution extends Component {
 	}
 
 	componentWillMount() {
+		jumlahProdukNya = 0;
 		axios.get(`https://api.klikfood.id/index.php/distribusi/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
 		  	console.log(response.data.data);
