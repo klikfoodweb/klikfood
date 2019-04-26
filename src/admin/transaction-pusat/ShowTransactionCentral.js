@@ -22,7 +22,6 @@ class ShowTransactionCentral extends Component {
 	componentWillMount() {
 		axios.get(`https://api.klikfood.id/index.php/transaksipusat/show/`+this.props.match.params.id, { 'headers': { 'Authorization': sessionStorage.api_token } })
 		  .then((response) => {
-		  	console.log(response.data.data.transaksi);
 		  	this.setState({
 		  		products: response.data.data.produk,
 		  		transaksi: response.data.data.transaksi,

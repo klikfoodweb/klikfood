@@ -11,7 +11,8 @@ let jumlahProdukNya = 0;
 
 const formatter = new Intl.NumberFormat('id-ID', {
   style: 'currency',
-  currency: 'IDR'
+  currency: 'IDR',
+  minimumFractionDigits: 0
 })
 
 class ShowTransaction extends Component {
@@ -22,6 +23,7 @@ class ShowTransaction extends Component {
 			transaksi: [],
 			details: [],
 			pembayaran: '',
+			payment_type: '',
 			bukti: null,
 			submitting: false
 		}
@@ -34,7 +36,8 @@ class ShowTransaction extends Component {
 		  	this.setState({
 		  		products: response.data.data.produk,
 		  		transaksi: response.data.data.transaksi,
-		  		details: response.data.data.transaksi.detail
+		  		details: response.data.data.transaksi.detail,
+		  		payment_type: response.data.data.transaksi.tipe_bayar
 		  	})
 		  }).catch((error) => {
 		  	console.log(error);
@@ -152,26 +155,54 @@ class ShowTransaction extends Component {
 				        	  <TableHeaderColumn dataField='harga_jual' dataSort={true} dataFormat={this.hargaJual}>Harga Jual</TableHeaderColumn>
 		                  	</BootstrapTable>  
 				        </div>
-				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
-				        	{ 
-				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
-				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
-				        		: null
-				        	} 
-				        </i> </h3>
-				        <pre>{this.state.pembayaran}</pre>
-				        <label>Upload Bukti Pembayaran</label>
-			        	<form onSubmit={this.handleSubmit}>
-			        		<input type="file" name="bukti" onChange={this.handleChangeBukti} />
-			        		<br />
-			        		{this.state.submitting ?
-							<div>
-								<b><center>Sedang Upload...</center></b>
-							</div>
-							:
-								<button type="submit" className="btn btn-success">Kirim</button>
-							}
-			        	</form>
+				        {
+				        	(this.state.payment_type === 'CC') ?
+				        		<React.Fragment>
+				        			<h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
+	        				        	{ 
+	        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+	        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+	        				        		: null
+	        				        	} 
+	        				        </i> </h3>
+				        			Disini Deskripsi Pembayaran CC
+				        		</React.Fragment>
+				        	: (this.state.payment_type === 'VA') ?
+				        		<React.Fragment>
+				        			<h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
+	        				        	{ 
+	        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+	        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+	        				        		: null
+	        				        	} 
+	        				        </i> </h3>
+				        			Disini Deskripsi Pembayaran VA
+				        		</React.Fragment>
+				        	: (this.state.payment_type === 'Bank') ?
+				        		<React.Fragment>
+	        				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
+	        				        	{ 
+	        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+	        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+	        				        		: null
+	        				        	} 
+	        				        </i> </h3>
+	        				        <pre>{this.state.pembayaran}</pre>
+	        				        <label>Upload Bukti Pembayaran</label>
+	        			        	<form onSubmit={this.handleSubmit}>
+	        			        		<input type="file" name="bukti" onChange={this.handleChangeBukti} />
+	        			        		<br />
+	        			        		{this.state.submitting ?
+	        							<div>
+	        								<b><center>Sedang Upload...</center></b>
+	        							</div>
+	        							:
+	        								<button type="submit" className="btn btn-success">Kirim</button>
+	        							}
+	        			        	</form>			
+				        		</React.Fragment>
+				        	: null
+				        }
 			        
 				      </div>
 				    </div>

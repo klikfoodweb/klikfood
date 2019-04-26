@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 
 const formatter = new Intl.NumberFormat('id-ID', {
   style: 'currency',
-  currency: 'IDR'
+  currency: 'IDR',
+  minimumFractionDigits: 0
 })
 
 class DetailProduct extends Component {

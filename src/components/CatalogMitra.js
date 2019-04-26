@@ -11,7 +11,8 @@ import ContentLoader from "react-content-loader";
 
 const formatter = new Intl.NumberFormat('id-ID', {
   style: 'currency',
-  currency: 'IDR'
+  currency: 'IDR',
+  minimumFractionDigits: 0
 })
 
 class CatalogMitra extends Component {

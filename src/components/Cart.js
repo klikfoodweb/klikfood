@@ -7,7 +7,8 @@ import axios from 'axios';
 
 const formatter = new Intl.NumberFormat('id-ID', {
   style: 'currency',
-  currency: 'IDR'
+  currency: 'IDR',
+  minimumFractionDigits: 0
 })
 
 class Cart extends Component {
@@ -23,9 +24,10 @@ class Cart extends Component {
 			beratPerProduk: [],
 			jumlahOngkir: '',
 	 		modePenjualan: '',
+	 		payment_type: '',
 	 		loadOngkir: false,
 	 		submitting: false,
-	 		errorOngkir: true
+	 		errorOngkir: 0
 	    };
 	}
 
@@ -49,7 +51,11 @@ class Cart extends Component {
 			  	if(response.data.data.harga !== 0){
 				  	this.setState({
 				  		jumlahOngkir: response.data.data.harga,
-				  		errorOngkir: false
+				  		errorOngkir: 2
+				  	})
+			  	}else{
+			  		this.setState({
+				  		errorOngkir: 1
 				  	})
 			  	}
 			  }).catch((error) => {
@@ -132,6 +138,12 @@ class Cart extends Component {
 		})
 	}
 
+	handleChangePaymentType = (event) => {
+		this.setState({ 
+			[event.target.name]: event.target.value
+		})
+	}
+
 	handleSubmitOrder = (e) => {
 		if (sessionStorage.length === 0) {
 			{toast.warning("Login Terlebih Dahulu !")}
@@ -150,7 +162,8 @@ class Cart extends Component {
 			})
 			console.log(finalCart);
 			var obj = {
-			    'produk' : finalCart
+			    'produk' : finalCart,
+			    'type' : this.state.payment_type
 			};
 			console.log(obj);
 			
@@ -158,7 +171,7 @@ class Cart extends Component {
 				'Authorization': sessionStorage.api_token 
 			}
 			if(this.state.modePenjualan.value === 1) {
-				axios.post(`https://api.klikfood.id/index.php/transaksi/store`, obj)
+				axios.post(`https://api.klikfood.id/transaksi/store`, obj)
 			      .then(res => {
 			      	this.setState({
 			      		submitting: true
@@ -177,7 +190,7 @@ class Cart extends Component {
 			      	toast.error("Tidak Bisa Diorder :( ");
 			      });
 			}else{
-				axios.post(`https://api.klikfood.id/index.php/transaksipusat/store`, obj)
+				axios.post(`https://api.klikfood.id/transaksipusat/store`, obj)
 			      .then(res => {
 			      	this.setState({
 			      		submitting: true
@@ -400,10 +413,18 @@ class Cart extends Component {
 		              <div className="col-sm-12">
 		                <div className="total_area">
       					  <ul>
-		                    <li>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></li>
-		                    <li>Biaya Pengiriman <span>{ formatter.format(this.state.jumlahOngkir) }</span></li>
-		                    <li>Total <span>{ formatter.format(Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir)) }</span></li>
+		                    <li><h4>Keranjang Sub Total <span>{ formatter.format(this.state.jumlahHarga) }</span></h4></li>
+		                    <li><h4>Biaya Pengiriman <span>{ formatter.format(this.state.jumlahOngkir) }</span></h4></li>
+		                    <li><h4>Total <span>{ formatter.format(Number(this.state.jumlahHarga) + Number(this.state.jumlahOngkir)) }</span></h4></li>
 		                  </ul>
+		                </div>
+		              </div>
+
+						<div className="heading container">
+							<h3>Metode Pembayaran</h3>
+						</div>
+		              <div className="col-sm-12">
+		                <div className="total_area">
 		                  {
 		                  	(sessionStorage.length === 0) ?
 		                  		<React.Fragment>
@@ -412,8 +433,17 @@ class Cart extends Component {
 		                  	:
 		                  		<React.Fragment>
 		                  		{
-		                  			(!this.state.errorOngkir) ? 
+		                  			(this.state.errorOngkir === 2) ? 
 		                  				<React.Fragment>
+		                  				<div className="container">
+		                  					<input type="radio" name="payment_type" onClick={this.handleChangePaymentType} style={{position: 'relative', float: 'left'}} value="VA"/><h4 style={{float: 'left'}}> Virtual Account</h4>
+			        		            	<br/><br/>
+		                  					<input type="radio" name="payment_type" onClick={this.handleChangePaymentType} style={{position: 'relative', float: 'left'}} value="CC"/><h4 style={{float: 'left'}}> Credit Card</h4>
+			        		            	<br/><br/>
+		                  					<input type="radio" name="payment_type" onClick={this.handleChangePaymentType} style={{position: 'relative', float: 'left'}} value="Bank"/><h4 style={{float: 'left'}}> Transfer Bank</h4>
+			        		            </div>
+			        		            	<br/>
+							            	<br/>
 							                  {this.state.submitting ?
 												<div>
 													<b>Sedang Memesan...</b>
@@ -422,11 +452,17 @@ class Cart extends Component {
 					                  		  		<button className="btn btn-default update" onClick={this.handleSubmitOrder} href>Pesan Sekarang !</button>
 												}
 		                  				</React.Fragment>
-		                  			:
+		                  			: (this.state.errorOngkir === 1) ?
 		                  				<React.Fragment>
 		                  					<center>
 		                  						<h3>Maaf, Kota Anda Diluar Jangkauan Pengiriman Kami.</h3>
 		                  						<p>Silahkan Ganti Kota Pengiriman di <a href="/profile">Halaman Profil Anda</a></p>
+		                  					</center>
+		                  				</React.Fragment>
+		                  			:
+		                  				<React.Fragment>
+		                  					<center>
+		                  						<h3>Sedang Kalkulasi Ongkir...</h3>
 		                  					</center>
 		                  				</React.Fragment>
 		                  		}

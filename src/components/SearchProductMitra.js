@@ -12,7 +12,8 @@ import { Jumbotron, Breadcrumb } from 'react-bootstrap';
 
 const formatter = new Intl.NumberFormat('id-ID', {
   style: 'currency',
-  currency: 'IDR'
+  currency: 'IDR',
+  minimumFractionDigits: 0
 })
 
 class SearchProductMitra extends Component {
