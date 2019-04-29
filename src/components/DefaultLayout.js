@@ -36,6 +36,9 @@ import EmailNotVerified from './EmailNotVerified';
 import RegisterMitra from './RegisterMitra';
 import RegisterPemasok from './RegisterPemasok';
 
+import Thanks from './Thanks';
+import CCDetail from './CCDetail';
+
 import {geolocated} from 'react-geolocated';
 
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -91,9 +94,8 @@ class DefaultLayout extends Component {
             <main>
             <Switch>
             	<Route path="/" exact component={Home} />
-            	<Route path="/login" name="Login" exact component={Login} />
-            	<Route path="/cart" name="Cart" component={Cart} />
-            	<Route path="/contact" name="Contact" component={Contact} />
+                <Route path="/login" name="Login" exact component={Login} />
+                <Route path="/contact" name="Contact" component={Contact} />
                 <Route path="/search-mitra" name="SearchMitra" component={SearchMitra} />
                 <Route path="/support" name="Support" component={Support} />
                 <Route path="/profile" name="Profile" component={Profile} />
@@ -101,7 +103,7 @@ class DefaultLayout extends Component {
                 <Route path="/tentang-perusahaan" name="TentangPerusahaan" component={TentangPerusahaan} />
                 <Route path="/privacy" name="Privacy" component={Privacy} />
                 <Route path="/faqs-mitra" name="FaqsMitra" component={FaqsMitra} />
-            	<Route path="/budaya-kerja" name="BudayaKerja" component={BudayaKerja} />
+                <Route path="/budaya-kerja" name="BudayaKerja" component={BudayaKerja} />
                 <Route path="/mitra-pemasok" name="MitraSupplyer" component={MitraSupplyer} />
                 <Route path="/disclaimer" name="Disclaimer" component={Disclaimer} />
                 <Route path="/formulir-mitra" name="FormulirMitra" component={FormulirMitra} />
@@ -114,6 +116,10 @@ class DefaultLayout extends Component {
                 <Route path="/register-mitra" name="RegisterMitra" component={RegisterMitra} />
                 <Route path="/register-pemasok" name="RegisterPemasok" component={RegisterPemasok} />
                 
+                <Route path="/cart/thanks" name="Thanks" component={Thanks} />
+                <Route path="/cart/cc-detail" name="CCDetail" component={CCDetail} />
+                <Route path="/cart" name="Cart" component={Cart} />
+
                 <Route path="/product/:id" name="DetailProduct" component={DetailProduct} />
 
                 <Route path="/search/:kategori" name="SearchByKategori" component={SearchByKategori} />

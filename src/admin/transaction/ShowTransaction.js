@@ -125,14 +125,42 @@ class ShowTransaction extends Component {
 				        <br />
 				        <label>Status =  </label>
 				        {
-				        	(typeof this.state.transaksi.bayar !== 'undefined') ?
+				        	(this.state.payment_type === 'TF') ?
 				        		<React.Fragment>
-				        		<b>Sudah Dibayar</b>
-				        		<br/>
-				        		<img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+				        		{
+				        			(typeof this.state.transaksi.bayar !== 'undefined') ?
+						        		<React.Fragment>
+						        		<b>Sudah Dibayar</b>
+						        		<br/>
+						        		<img src={"https://api.klikfood.id/uploads/buktitf/"+this.props.match.params.id+"/"+this.state.transaksi.bayar} style={{maxHeight: '150px'}} alt />
+						        		</React.Fragment>
+						        	:
+						        		<b>Belum Dibayar</b>
+				        		}
 				        		</React.Fragment>
-				        	:
-				        		<b>Belum Dibayar</b>
+				        	: (this.state.payment_type === 'VA') ?
+				        		<React.Fragment>
+				        		{
+				        			(typeof this.state.transaksi.bayar !== 'undefined') ?
+						        		<React.Fragment>
+						        			<b>Sudah Dibayar</b>
+						        		</React.Fragment>
+						        	:
+						        		<b>Belum Dibayar</b>
+				        		}
+				        		</React.Fragment>
+				        	: (this.state.payment_type === 'CC') ?
+				        		<React.Fragment>
+				        		{
+				        			(typeof this.state.transaksi.bayar !== 'undefined') ?
+						        		<React.Fragment>
+						        			<b>Sudah Dibayar</b>
+						        		</React.Fragment>
+						        	:
+						        		<b>Belum Dibayar</b>
+				        		}
+				        		</React.Fragment>
+				        	: null
 				        }
 				        <br />
 				        <label>Detail Produk Yang Dipesan</label>
@@ -159,48 +187,69 @@ class ShowTransaction extends Component {
 				        {
 				        	(this.state.payment_type === 'CC') ?
 				        		<React.Fragment>
-				        			<h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
-	        				        	{ 
-	        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
-	        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
-	        				        		: null
-	        				        	} 
-	        				        </i> </h3>
-				        			Disini Deskripsi Pembayaran CC
+				        			{
+	        				        	(typeof this.state.transaksi.bayar === 'undefined') ?
+				        				<React.Fragment>		
+						        			<h3> Silahkan Transfer Sejumlah 
+						        				<br />
+						        					<i style={{color: 'red'}}> 
+					        				        	{ 
+					        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+					        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+					        				        		: null
+					        				        	} 
+			        				        		</i>
+			        				        </h3>
+			        				        <a href={"/admin/transactions/"+this.props.match.params.id+"/payment-method-cc"} className="btn btn-success">Lihat Metode Pembayaran</a>
+			        				    </React.Fragment>
+	        				        	: null
+	        				        }
 				        		</React.Fragment>
 				        	: (this.state.payment_type === 'VA') ?
 				        		<React.Fragment>
-				        			<h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
-	        				        	{ 
-	        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
-	        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
-	        				        		: null
-	        				        	} 
-	        				        </i> </h3>
-				        			Disini Deskripsi Pembayaran VA
+				        		{
+	        				        (typeof this.state.transaksi.bayar === 'undefined') ?
+					        		<React.Fragment>			
+					        			<h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
+		        				        	{ 
+		        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+		        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+		        				        		: null
+		        				        	} 
+		        				        </i> </h3>
+					        			<a href={"/admin/transactions/"+this.props.match.params.id+"/payment-method"} className="btn btn-success">Lihat Metode Pembayaran</a>
+					        		</React.Fragment>
+					        			: null
+					        	}
 				        		</React.Fragment>
-				        	: (this.state.payment_type === 'Bank') ?
+				        	: (this.state.payment_type === 'TF') ?
 				        		<React.Fragment>
-	        				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
-	        				        	{ 
-	        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
-	        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
-	        				        		: null
-	        				        	} 
-	        				        </i> </h3>
-	        				        <pre>{this.state.pembayaran}</pre>
-	        				        <label>Upload Bukti Pembayaran</label>
-	        			        	<form onSubmit={this.handleSubmit}>
-	        			        		<input type="file" name="bukti" onChange={this.handleChangeBukti} />
-	        			        		<br />
-	        			        		{this.state.submitting ?
-	        							<div>
-	        								<b><center>Sedang Upload...</center></b>
-	        							</div>
-	        							:
-	        								<button type="submit" className="btn btn-success">Kirim</button>
-	        							}
-	        			        	</form>			
+	        				        {
+	        				        	(typeof this.state.transaksi.bayar === 'undefined') ?
+				        					<React.Fragment>
+			        				        <h3> Silahkan Transfer Sejumlah <br /><i style={{color: 'red'}}> 
+			        				        	{ 
+			        				        		(typeof this.state.transaksi.jumlah_keseluruhan !== 'undefined') ?
+			        				        			formatter.format(this.state.transaksi.jumlah_keseluruhan) 
+			        				        		: null
+			        				        	} 
+			        				        </i> </h3>
+			        				        <pre>{this.state.pembayaran}</pre>
+			        				        <label>Upload Bukti Pembayaran</label>
+			        			        	<form onSubmit={this.handleSubmit}>
+			        			        		<input type="file" name="bukti" onChange={this.handleChangeBukti} />
+			        			        		<br />
+			        			        		{this.state.submitting ?
+			        							<div>
+			        								<b><center>Sedang Upload...</center></b>
+			        							</div>
+			        							:
+			        								<button type="submit" className="btn btn-success">Kirim</button>
+			        							}
+			        			        	</form>			
+				        					</React.Fragment>
+				        				: null
+				        			}
 				        		</React.Fragment>
 				        	: null
 				        }

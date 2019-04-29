@@ -179,9 +179,21 @@ class Cart extends Component {
 			      	console.log(res.data.data);
 			      	toast.success(res.data.messages);
 			      	localStorage.clear();
-			      	setTimeout(() => {
-			      		window.location.href='/admin/transactions/'+res.data.data._id;
-			      	}, 3000)
+			      	
+			      	if(this.state.payment_type === 'CC') {
+		      			setTimeout(() => {
+			      			window.location.href='/cart/cc-detail?id='+res.data.data._id;
+			      		}, 2000)	
+			      	}else if(this.state.payment_type === 'VA'){
+			      		setTimeout(() => {
+			      			window.location.href='/cart/thanks?id='+res.data.data._id;
+			      		}, 3000)
+			      	}else{
+			      		setTimeout(() => {
+			      			window.location.href='/admin/transactions/'+res.data.data._id;
+			      		}, 3000)
+			      	}
+
 			      }).catch(err => {
 			      	this.setState({
 			      		submitting: false
@@ -198,9 +210,21 @@ class Cart extends Component {
 			      	console.log(res.data);
 			      	localStorage.clear();
 			      	toast.success(res.data.messages);
-			      	setTimeout(() => {
-			      		window.location.href='/admin/transactions/'+res.data.data._id;
-			      	}, 3000)
+
+			      	if(this.state.payment_type === 'CC') {
+		      			setTimeout(() => {
+			      			window.location.href='/cart/cc-detail?id='+res.data.data._id;
+			      		}, 2000)
+			      	}else if(this.state.payment_type === 'VA'){
+			      		setTimeout(() => {
+			      			window.location.href='/cart/thanks?id='+res.data.data._id;
+			      		}, 3000)
+			      	}else{
+			      		setTimeout(() => {
+			      			window.location.href='/admin/transactions/'+res.data.data._id;
+			      		}, 3000)
+			      	}
+
 			      }).catch(err => {
 			      	this.setState({
 			      		submitting: false
@@ -219,12 +243,7 @@ class Cart extends Component {
 				<Redirect to={'/'}/>
 			)
 	    }
-		// if (sessionStorage.length === 0) {
-		// 	{toast.success("Login Terlebih Dahulu !")}
-		// 	return (
-		// 		<Redirect to={'/login'}/>
-		// 	)
-	 //    }
+
 		return (
 			<div>
 			<ToastContainer />
@@ -440,7 +459,7 @@ class Cart extends Component {
 			        		            	<br/><br/>
 		                  					<input type="radio" name="payment_type" onClick={this.handleChangePaymentType} style={{position: 'relative', float: 'left'}} value="CC"/><h4 style={{float: 'left'}}> Credit Card</h4>
 			        		            	<br/><br/>
-		                  					<input type="radio" name="payment_type" onClick={this.handleChangePaymentType} style={{position: 'relative', float: 'left'}} value="Bank"/><h4 style={{float: 'left'}}> Transfer Bank</h4>
+		                  					<input type="radio" name="payment_type" onClick={this.handleChangePaymentType} style={{position: 'relative', float: 'left'}} value="TF"/><h4 style={{float: 'left'}}> Transfer Bank</h4>
 			        		            </div>
 			        		            	<br/>
 							            	<br/>

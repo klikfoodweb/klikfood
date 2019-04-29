@@ -58,6 +58,8 @@ import MitraPenjualan from './transaction/MitraPenjualan';
 import KonsumenPembelian from './transaction/KonsumenPembelian';
 import ShowTransaction from './transaction/ShowTransaction';
 import ShowTransactionConsument from './transaction/ShowTransactionConsument';
+import PaymentMethod from './transaction/PaymentMethod';
+import CCPaymentMethod from './transaction/CCPaymentMethod';
 
 import TransactionCentral from './transaction-pusat/TransactionCentral';
 import ShowTransactionCentral from './transaction-pusat/ShowTransactionCentral';
@@ -263,6 +265,8 @@ class AdminLayout extends Component {
 	            	<Route path="/admin/transactions/verification" component={TransactionVerif} />
 	            	<Route path="/admin/transactions/penjualan" component={MitraPenjualan} />        	
 	            	<Route path="/admin/transactions/pembelian" component={KonsumenPembelian} />
+	            	<Route path="/admin/transactions/:id/payment-method" component={PaymentMethod} />
+	            	<Route path="/admin/transactions/:id/payment-method-cc" component={CCPaymentMethod} />     
 	            	<Route path="/admin/transactions/:id" component={ShowTransaction} />     
 	            	
 	            	<Route path="/admin/pilih-paket" component={PilihPaket} />
